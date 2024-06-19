@@ -1,3 +1,4 @@
+import { Authorities } from "@/constants/authorities";
 import { NAVBAR } from "@/constants/home";
 import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
@@ -5,13 +6,13 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 
 function Navbar() {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     console.log("curreeeeeeeeeent user in navbaaaar:");
     console.log(currentUser);
   }, [currentUser]);
-  
+
   return (
     <header>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +23,6 @@ function Navbar() {
               <Image src="/images/logo.png" alt="Logo" width={50} height={50} />
             </Link>
           </div>
-          {/* Navigation Links */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link
@@ -37,22 +37,27 @@ function Navbar() {
               >
                 {NAVBAR.ABOUT}
               </Link>
-              <Link
-                  href="/products/add"
-                  className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  {NAVBAR.PRODUCTS}
-                </Link>
-              <Link
-                  href="/category-type/add"
-                  className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  {NAVBAR.CATEGORY}
-                </Link>
+              {currentUser && currentUser.role === Authorities.ADMIN && (
+                <>
+                  <Link
+                    href="/products/add"
+                    className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    {NAVBAR.PRODUCTS}
+                  </Link>
+                  <Link
+                    href="/category-type/add"
+                    className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    {NAVBAR.CATEGORY}
+                  </Link>
+                </>
+              )}
               {currentUser ? (
                 <Link
-                  href="/auth/login"
+                  href="#"
                   className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                  onClick={logout}
                 >
                   {NAVBAR.LOGOUT}
                 </Link>

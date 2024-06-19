@@ -20,7 +20,6 @@ export default function AddProduct() {
         onFinish={onFinish}
         form={formRef}
       >
-
         <ProductFields  handleChangeSelectGender={handleChangeSelectGender} />
       </Form>
     </div>

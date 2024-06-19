@@ -6,17 +6,19 @@ import { useUserRegisterStore } from "@/context/RegisterUserContext";
 import { useRouter } from "next/router";
 import { IRegisterForm } from "@/types/register";
 import { UserType } from "@/types/users";
+import useRegisterFacade from "@/hooks/auth/useRegisterFacade";
 
 function Register() {
-  const router = useRouter();
-  const { storeUser } = useUserRegisterStore();
-  const { setUserDataForEmail } = useSendEmail();
+  const { sendEmailAndRedirect } = useRegisterFacade();
+  // const router = useRouter();
+  // const { storeUser } = useUserRegisterStore();
+  // const { setUserDataForEmail } = useSendEmail();
 
-  const sendEmailAndRedirect = (user: UserType) => {
-    storeUser(user);
-    setUserDataForEmail(user);
-    router.push("/auth/generate-code");
-  };
+  // const sendEmailAndRedirect = (user: UserType) => {
+  //   storeUser(user);
+  //   setUserDataForEmail(user);
+  //   router.push("/auth/generate-code");
+  // };
 
   const onFinish = (values: IRegisterForm) => {
     const user: UserType = {

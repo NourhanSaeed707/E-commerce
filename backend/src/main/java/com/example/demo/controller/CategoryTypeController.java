@@ -5,6 +5,7 @@ import com.example.demo.model.ProductsDTO;
 import com.example.demo.service.CategoryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -18,28 +19,34 @@ public class CategoryTypeController {
     private CategoryTypeService categoryTypeService;
 
     @GetMapping("/get-all")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<CategoryTypeDTO>> getAll() {
         List<CategoryTypeDTO> categoryTypes = categoryTypeService.getAll();
         return ResponseEntity.ok(categoryTypes);
     }
 
     @GetMapping("/get/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CategoryTypeDTO> getById(@PathVariable Long id) throws Exception {
         CategoryTypeDTO categoryTypeDTO = categoryTypeService.getById(id);
         return ResponseEntity.ok(categoryTypeDTO);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<CategoryType> save(CategoryTypeDTO categoryTypeDTO) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CategoryType> save(@RequestBody CategoryTypeDTO categoryTypeDTO) {
+        System.out.print("category type body: " + categoryTypeDTO);
         return  categoryTypeService.save(categoryTypeDTO);
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CategoryType> update(@PathVariable Long id, @RequestBody CategoryTypeDTO categoryTypeDTO) throws Exception {
         return categoryTypeService.update(id, categoryTypeDTO);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> delete(@PathVariable Long id) throws Exception {
         return categoryTypeService.delete(id);
     }
