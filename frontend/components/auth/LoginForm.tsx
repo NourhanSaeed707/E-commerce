@@ -11,7 +11,7 @@ import { LoginUser } from "@/types/users";
 
 function LoginForm() {
   const router = useRouter();
-  const { login, isSubmitting } = useAuth();
+  const { login } = useAuth();
 
   const onFinish = (values: LoginUser) => {
     login(values);
