@@ -1,2 +1,7 @@
-package com.example.demo.Exception;public class CategoryTypeException {
+package com.example.demo.Exception.CategoryTypes;
+
+public class CategoryTypeException extends RuntimeException{
+    public CategoryTypeException(String message) {
+        super(message);
+    }
 }

@@ -37,6 +37,18 @@ function Navbar() {
               >
                 {NAVBAR.ABOUT}
               </Link>
+              <Link
+                  href="/products/add"
+                  className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  {NAVBAR.PRODUCTS}
+                </Link>
+              <Link
+                  href="/category-type/add"
+                  className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  {NAVBAR.CATEGORY}
+                </Link>
               {currentUser ? (
                 <Link
                   href="/auth/login"

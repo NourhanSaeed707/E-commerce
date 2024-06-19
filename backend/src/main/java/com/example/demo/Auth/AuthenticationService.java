@@ -39,7 +39,7 @@ public class AuthenticationService {
                 .httpOnly(true)
                 .secure(true)
                 .path("/")
-                .maxAge(600)
+                .maxAge(86400)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return AuthenticationResponse.builder().token(jwtToken).build();
@@ -104,7 +104,7 @@ public class AuthenticationService {
                     .httpOnly(true)
                     .secure(false) // Set to true in production
                     .path("/")
-                    .maxAge(600) // 10 minutes
+                    .maxAge(86400) // 10 minutes
                     .build();
 
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());

@@ -14,12 +14,14 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "products")
-public class ProductEntity {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Date createdAt;
+
+    private Date lastModifiedAt;
 
     private String createdBy;
 

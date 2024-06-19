@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 type countDownProps = {
     timeLeft: number;
-    setTimeLeft:(timeLeft: number) => void;
+    setTimeLeft:(timeLeft: any) => void;
 }
 export default function CountdownTimer({timeLeft, setTimeLeft}: countDownProps) {
 //   const [timeLeft, setTimeLeft] = useState(120); // 120 seconds for 2 minutes

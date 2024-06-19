@@ -25,4 +25,5 @@ export const Buttons = {
   REGISTER: "Continue",
   CANCEL: "Cancel",
   Signin: "Sign in",
+  ADD:"Add"
 };

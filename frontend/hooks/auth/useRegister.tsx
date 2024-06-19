@@ -7,18 +7,18 @@ import { getCookie, setCookie } from "typescript-cookie";
 
 export default function useRegister() {
   const apiUrl = "/api/v2/auth/register";
-  const [userData, setUserData] = useState<UserType | null>(null);
-  const [storeResposne, setStoreResponse] = useState<AxiosResponse | null>(
+  const [userDataRegister, setUserDataRegister] = useState<UserType | null>(null);
+  const [storeRegisterResposne, setStoreRegisterResponse] = useState<AxiosResponse | null>(
     null
   );
-  const [error, setError] = useState<string | null>(null);
-  const [isSubmiitting, setIsSubmitting] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [errorRegister, setErrorRegister] = useState<string | null>(null);
+  const [isSubmiittingRegister, setIsSubmittingResgiter] = useState<boolean>(false);
+  const [loadingRegister, setLoadingRegister] = useState<boolean>(false);
 
   const callAPI = useCallback(async (newUser: UserType) => {
-    setLoading(true);
-    setIsSubmitting(true);
-    setError(null);
+    setLoadingRegister(true);
+    setIsSubmittingResgiter(true);
+    setErrorRegister(null);
     await client
       .post(apiUrl, newUser, {
         headers: {
@@ -33,30 +33,30 @@ export default function useRegister() {
             expires: 1,
             secure: true,
           });
-          setStoreResponse(res);
+          setStoreRegisterResponse(res);
         }
       })
       .catch((err) => {
-        setError(err);
+        setErrorRegister(err);
       })
       .finally(() => {
-        setIsSubmitting(false);
-        setLoading(false);
+        setIsSubmittingResgiter(false);
+        setLoadingRegister(false);
       });
   }, []);
 
   useEffect(() => {
-    if (userData) {
-      callAPI(userData);
+    if (userDataRegister) {
+      callAPI(userDataRegister);
     }
-  }, [userData, callAPI]);
+  }, [userDataRegister, callAPI]);
 
   return {
-    setUserData,
-    userData,
-    storeResposne,
-    error,
-    isSubmiitting,
-    loading,
+    setUserDataRegister,
+    userDataRegister,
+    storeRegisterResposne,
+    errorRegister,
+    isSubmiittingRegister,
+    loadingRegister,
   };
 }

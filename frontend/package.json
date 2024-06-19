@@ -7,19 +7,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install",
+    "check-types": "tsc --pretty --noEmit",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "prettier:fix": "prettier --fix --ignore-path *.json .",
+    "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
     "@babel/runtime": "^7.24.6",
     "antd": "^5.17.3",
     "axios": "^1.7.1",
     "cookies-next": "^4.2.1",
-    "next": "^14.2.3",
+    "next": "^14.2.4",
+    "next-transpile-modules": "^10.0.1",
+    "nextjs-cors": "^2.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-flagkit": "^2.0.4",
     "react-phone-input-2": "^2.15.1",
     "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
     "swr": "^2.2.5",
     "typescript-cookie": "^1.0.6",
     "world-countries": "^5.0.0"
@@ -28,10 +36,19 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.12",
     "eslint": "^8",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
+    "postcss-import": "^15.0.0",
+    "prettier": "2.7.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": "^22.2.0",
+    "npm": "^10.7.0"
   }
 }

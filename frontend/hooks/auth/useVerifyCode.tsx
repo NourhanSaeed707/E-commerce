@@ -8,7 +8,7 @@ export default function useVerifyCode() {
   const apiUrl = "/api/email/verify";
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [storeResponse, setStoreResponse] = useState<AxiosResponse | null>(
+  const [storeVerifyResponse, setVerifyStoreResponse] = useState<AxiosResponse | null>(
     null
   );
   const [userData, setUserData] = useState<UserType | null>(null);
@@ -30,7 +30,8 @@ export default function useVerifyCode() {
         },
       })
       .then((res) => {
-        setStoreResponse(res);
+        console.log("resss veriffyyy: ", res);
+        setVerifyStoreResponse(res);
       })
       .catch((err) => {
         setError(err);
@@ -55,7 +56,7 @@ export default function useVerifyCode() {
   return {
     loading,
     error,
-    storeResponse,
+    storeVerifyResponse,
     setUserData,
     setGeneratedCode,
     setVerifyModel

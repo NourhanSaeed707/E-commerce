@@ -1,4 +1,4 @@
-// components/GenerateCode.tsx
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useUserRegisterStore } from "@/context/RegisterUserContext";
@@ -8,14 +8,25 @@ import useVerifyCode from "@/hooks/auth/useVerifyCode";
 import { IVerifyCodeModel } from "@/types/register";
 import useSendEmail from "@/hooks/auth/useSendEmail";
 import CountdownTimer from "../countdown/CountdownTimer";
+import { useAuth } from "@/context/AuthContext";
+import { LoginUser } from "@/types/users";
+import useRegister from "@/hooks/auth/useRegister";
 
 const GenerateCode = () => {
   const { storeUser, userRegisterVal } = useUserRegisterStore();
   const { setUserDataForEmail } = useSendEmail();
-  const { setVerifyModel } = useVerifyCode();
+  const { setVerifyModel, storeVerifyResponse } = useVerifyCode();
   const [timeLeft, setTimeLeft] = useState<number>(120); // 120 seconds for 2 minutes
   const [disableResend, setDisableResend] = useState<boolean>(true);
   const router = useRouter();
+  const { login } = useAuth();
+  const {
+    setUserDataRegister,
+    loadingRegister,
+    storeRegisterResposne,
+    errorRegister,
+    isSubmiittingRegister
+  } = useRegister();
 
   const onFinish = (values: any) => {
     const verifyCodeModelVal: IVerifyCodeModel = {
@@ -30,6 +41,25 @@ const GenerateCode = () => {
       setDisableResend(false);
     }
   }, [timeLeft]);
+
+  useEffect(() => {
+    if (
+      storeVerifyResponse?.data === "generated code is right" &&
+      storeVerifyResponse.status === 200
+    ) {
+      setUserDataRegister(userRegisterVal);
+    }
+  }, [setUserDataRegister, storeVerifyResponse, userRegisterVal]);
+
+  useEffect(() => {
+    if (!loadingRegister && !errorRegister && storeRegisterResposne && !isSubmiittingRegister) {
+      const userLogin: LoginUser = {
+        email: userRegisterVal ? userRegisterVal.email : "",
+        password: userRegisterVal ? userRegisterVal.password : "",
+      };
+      login(userLogin);
+    }
+  }, [errorRegister, isSubmiittingRegister, loadingRegister, login, storeRegisterResposne, userRegisterVal]);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
@@ -57,6 +87,7 @@ const GenerateCode = () => {
               onClick={() => {
                 setUserDataForEmail(userRegisterVal);
                 setTimeLeft(120);
+                setDisableResend(true);
               }}
             >
               {Generated_Code.RESEND_CODE}
