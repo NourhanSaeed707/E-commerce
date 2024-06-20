@@ -24,11 +24,9 @@ export default function useSendEmail() {
         },
       })
       .then((res) => {
-        console.log("reeeeeees in send email: ", res);
         setStoreResponse(res);
       })
       .catch((err) => {
-        console.log("erroooooor in send email: ", err);
         setError(err);
       })
       .finally(() => {

@@ -17,20 +17,14 @@ export default function useVerifyCode() {
 
   const callApi = useCallback(async (verifyModel: IVerifyCodeModel) => {
     setLoading(true);
-    console.log("insiiiiiiiiide verify hook: ", verifyModel);
     await client
       .post(apiUrl, verifyModel, {
-        // body: {
-        //   email: user.email,
-        //   code: code,
-        // },
         headers: {
           "Content-type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
       })
       .then((res) => {
-        console.log("resss veriffyyy: ", res);
         setVerifyStoreResponse(res);
       })
       .catch((err) => {
@@ -42,13 +36,7 @@ export default function useVerifyCode() {
   }, []);
 
   useEffect(() => {
-    console.log("usssssssseeeeeeeeeffect");
-    // if (userData && generatedCode) {
-    //   callApi(userData, generatedCode);
-    // }
     if (verifyModel) {
-      console.log("veriiiiiiify model:");
-      console.log(verifyModel)
       callApi(verifyModel);
     }
   }, [callApi, generatedCode, userData, verifyModel]);

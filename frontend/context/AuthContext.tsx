@@ -51,7 +51,6 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
             }
           });
         if (data) {
-          console.log("geeeeeeeeeet data of user: ", data);
           setCurrentUser(data);
         }
         return data;

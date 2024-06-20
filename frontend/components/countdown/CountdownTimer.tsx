@@ -1,12 +1,11 @@
 import { Generated_Code } from "@/constants/auth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 type countDownProps = {
     timeLeft: number;
     setTimeLeft:(timeLeft: any) => void;
 }
 export default function CountdownTimer({timeLeft, setTimeLeft}: countDownProps) {
-//   const [timeLeft, setTimeLeft] = useState(120); // 120 seconds for 2 minutes
   useEffect(() => {
     if (timeLeft === 0) return;
 
@@ -24,10 +23,6 @@ export default function CountdownTimer({timeLeft, setTimeLeft}: countDownProps) 
     const seconds = time % 60;
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
-
-  useEffect(() => {
-    console.log("timeee: ", timeLeft);
-  }, [timeLeft]);
 
   return (
     <div>

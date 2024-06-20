@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 import  ProductFields  from "./ProductFields";
 import { Form } from "antd";
-
 
 export default function AddProduct() {
   const [ formRef ] = Form.useForm();

@@ -8,11 +8,6 @@ import React, { useEffect } from "react";
 function Navbar() {
   const { currentUser, logout } = useAuth();
 
-  useEffect(() => {
-    console.log("curreeeeeeeeeent user in navbaaaar:");
-    console.log(currentUser);
-  }, [currentUser]);
-
   return (
     <header>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,7 +41,7 @@ function Navbar() {
                     {NAVBAR.PRODUCTS}
                   </Link>
                   <Link
-                    href="/category-type/add"
+                    href="/category-type/get-all"
                     className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
                   >
                     {NAVBAR.CATEGORY}

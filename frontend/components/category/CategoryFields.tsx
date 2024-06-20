@@ -3,6 +3,7 @@ import { CategoryType } from "@/constants/category";
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function CategoryFields() {
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function CategoryFields() {
           {Buttons.CANCEL}
         </Button>
       </Form.Item>
+      <ToastContainer />
     </div>
   );
 }

@@ -5,3 +5,9 @@ export type CategoryType =  {
    lasteModifiedAt?: Date;
    createdBy?: String;
 }
+
+export interface CategoryTypeTableProps {
+   categoryTypes: CategoryType[];
+   loadingCategoryType: boolean;
+   errorCategoryType: string | null;
+ }

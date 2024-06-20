@@ -1,38 +1,29 @@
-import client from "@/client/client";
+import { AddCategoryType } from "@/services/category-type/addService";
 import { CategoryType } from "@/types/category";
 import { AxiosResponse } from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { getCookie } from "typescript-cookie";
 
 export default function useAddCategoryType() {
-  const apiUrl = "/api/category-type/save";
   const [categoryType, setCategoryType] = useState<CategoryType | null>(null);
-  const [loadingCategoryType, setLoadingCategoryType] = useState<boolean>(false);
+  const [loadingCategoryType, setLoadingCategoryType] =
+    useState<boolean>(false);
   const [categoryTypeResposne, setCategoryTypeResponse] =
     useState<AxiosResponse | null>(null);
   const [errorCategoryType, setErrorCategoryType] = useState<string | null>(
     null
   );
 
-  const callAPI = useCallback(async (categoryType) => {
+  const callAPI = useCallback(async (categoryType: CategoryType) => {
     setErrorCategoryType(null);
     setLoadingCategoryType(true);
-    const token = getCookie("token");
-    await client
-      .post(apiUrl, categoryType, {
-        headers: {
-          "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setCategoryTypeResponse(res);
-      })
-      .catch((err) => setErrorCategoryType(err))
-      .finally(() => {
-        setLoadingCategoryType(false);
-      });
+    try {
+      const response = await AddCategoryType(categoryType);
+      setCategoryTypeResponse(response);
+    } catch (error) {
+      setErrorCategoryType(error);
+    } finally {
+      setLoadingCategoryType(false);
+    }
   }, []);
 
   useEffect(() => {
