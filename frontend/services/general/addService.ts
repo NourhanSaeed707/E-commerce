@@ -2,7 +2,7 @@ import client from "@/client/client";
 import { AddServices } from "@/types/services";
 import { AxiosResponse } from "axios";
 
-export const AddCategoryType = async ({
+export const AddService = async ({
   apiUrl,
   token,
   body,

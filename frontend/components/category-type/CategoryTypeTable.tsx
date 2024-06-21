@@ -7,10 +7,10 @@ import moment from "moment";
 import { DataTypeTable } from "@/types/category";
 
 export default function CategoryTypeTable({
-  categoryTypes,
-  loadingCategoryType,
-  errorCategoryType,
-  setCategoryTypeIdDelete
+  entities,
+  loading,
+  errors,
+  setEntityIdDelete,
 }) {
   const router = useRouter();
 
@@ -46,7 +46,7 @@ export default function CategoryTypeTable({
           <Button
             type="primary"
             danger
-            onClick={() => setCategoryTypeIdDelete(record.id)}
+            onClick={() => setEntityIdDelete(record.id)}
           >
             {BUTTONS.DELETE}
           </Button>
@@ -56,8 +56,8 @@ export default function CategoryTypeTable({
   ];
 
   const data: DataTypeTable[] =
-    categoryTypes &&
-    categoryTypes.map((category: any) => ({
+    entities &&
+    entities.map((category: any) => ({
       key: category.id,
       id: category.id,
       name: category.name,
@@ -66,7 +66,7 @@ export default function CategoryTypeTable({
 
   return (
     <div>
-      {loadingCategoryType ? (
+      {loading ? (
         <Spin />
       ) : (
         <Table columns={columns} dataSource={data} />

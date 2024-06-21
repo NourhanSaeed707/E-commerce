@@ -1,41 +1,35 @@
 import { useRouter } from "next/router";
-import useGetOneCategoryType from "./useGetOneCatgeoryType";
 import { useEffect } from "react";
-import { Form } from "antd";
-import useEditCategoryType from "./useEditCategoryType";
 import { CategoryType, editFacadeProps } from "@/types/category";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useGetOneEntity from "../general-crud/useGetOneEntity";
+import useEditEntity from "../general-crud/useEditEntity";
 
 export default function useEditFacade({ id, formRef }: editFacadeProps) {
   const router = useRouter();
-  const { catgeoryType, loading } = useGetOneCategoryType(Number(id));
-  const {
-    setCategoryTypeId,
-    setUpdatedCategoryType,
-    loadingCategoryType,
-    errorCategoryType,
-    categoryTypeResposne,
-  } = useEditCategoryType();
+  const apiGetOneUrl =  "/api/category-type/get";
+  const apiEditUrl =  "/api/category-type/edit";
+  const {entity} = useGetOneEntity(apiGetOneUrl, Number(id));
+  const {setEntityId, setUpdatedEntity, loading: loadingEdit, error: errorEdit, response: responseEdit} = useEditEntity(apiEditUrl)
 
   useEffect(() => {
-    if (catgeoryType) {
+    if (entity) {
       formRef.setFieldsValue({
-        name: catgeoryType.name,
+        name: entity.name,
       });
     }
-  }, [catgeoryType, formRef]);
+  }, [entity, formRef]);
 
   const editCategoryType = (updatedValues: CategoryType) => {
-    setCategoryTypeId(id);
-    setUpdatedCategoryType(updatedValues);
+    setEntityId(id);
+    setUpdatedEntity(updatedValues);
   };
 
   useEffect(() => {
-    if (!loadingCategoryType && !errorCategoryType && categoryTypeResposne) {
+    if (!loadingEdit && !errorEdit && responseEdit) {
       router.push("/category-type/get-all");
     }
-  }, [categoryTypeResposne, errorCategoryType, loadingCategoryType, router]);
+  }, [errorEdit, loadingEdit, responseEdit, router]);
 
   return {
     editCategoryType,

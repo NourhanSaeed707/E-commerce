@@ -1,48 +1,37 @@
-import useGetAllCategoryType from "@/hooks/category-type/useGetAllCategoryType";
 import React, { useEffect } from "react";
 import CategoryTypeTable from "./CategoryTypeTable";
 import { CategoryTypeTableProps } from "@/types/category";
 import { Button } from "antd";
 import { useRouter } from "next/router";
 import { BUTTONS } from "@/constants/category";
-import useDeleteCategoryType from "@/hooks/category-type/useDeleteCategoryType";
 import { mutate } from "swr";
+import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
+import useDeleteEntity from "@/hooks/general-crud/useDeleteEntity";
 
 export default function ListCategoryType() {
   const router = useRouter();
-  const { categoryTypes, errorCategoryType, loadingCategoryType, fetcher } =
-    useGetAllCategoryType();
-
-  const {
-    setCategoryTypeIdDelete,
-    categoryTypeIdDelete,
-    categoryTypeResposneDelete,
-    loadingCategoryTypeDelete,
-    errorCategoryTypeDelete,
-  } = useDeleteCategoryType();
+  const apiGetAllUrl = "/api/category-type/get-all";
+  const apiDeleteUrl = "/api/category-type/delete";
+  const {entities, errors, loading} = useGetAllEntity(apiGetAllUrl);
+  const {setEntityId: setEntityIdDelete, entityId: deleteId, loading: loadingDelete, response: responseDelete, error: errorDelete } = useDeleteEntity(apiDeleteUrl);
 
   const props: CategoryTypeTableProps = {
-    categoryTypes,
-    loadingCategoryType,
-    errorCategoryType,
-    setCategoryTypeIdDelete,
+    entities,
+    loading,
+    errors,
+    setEntityIdDelete,
   };
 
   useEffect(() => {
     if (
-      !loadingCategoryTypeDelete &&
-      !errorCategoryTypeDelete &&
-      categoryTypeResposneDelete &&
-      categoryTypeIdDelete
+      !loadingDelete &&
+      !errorDelete &&
+      responseDelete &&
+      deleteId
     ) {
       mutate("/api/category-type/get-all");
     }
-  }, [
-    categoryTypeIdDelete,
-    categoryTypeResposneDelete,
-    errorCategoryTypeDelete,
-    loadingCategoryTypeDelete,
-  ]);
+  }, [deleteId, errorDelete, loadingDelete, responseDelete]);
 
   return (
     <div>

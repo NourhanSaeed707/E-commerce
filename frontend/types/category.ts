@@ -7,10 +7,10 @@ export type CategoryType =  {
 }
 
 export type CategoryTypeTableProps = {
-   categoryTypes: CategoryType[];
-   loadingCategoryType: boolean;
-   errorCategoryType: string | null;
-   setCategoryTypeIdDelete: (categoryId) => void;
+   entities: CategoryType[];
+   loading: boolean;
+   errors: string | null;
+   setEntityIdDelete: (id) => void;
 }
 
 export type DataTypeTable = {

@@ -1,4 +1,4 @@
-import { AddCategoryType } from "@/services/general/addService";
+import {  AddService } from "@/services/general/addService";
 import { CategoryType } from "@/types/category";
 import { AddServices } from "@/types/services";
 import { AxiosResponse } from "axios";
@@ -26,7 +26,7 @@ export default function useAddCategoryType() {
       body
     }
     try {
-      const response = await AddCategoryType({...props});
+      const response = await AddService({...props});
       setCategoryTypeResponse(response);
     } catch (error) {
       setErrorCategoryType(error);
