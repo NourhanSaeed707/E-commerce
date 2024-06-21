@@ -1,10 +1,9 @@
-import client from "@/client/client";
+import { EditService } from "@/services/category-type/editService";
+import { CategoryType } from "@/types/category";
 import { AxiosResponse } from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { getCookie } from "typescript-cookie";
 
 export default function useEditCategoryType() {
-  const apiUrl = "/api/category-type/edit";
   const [categoryTypeId, setCategoryTypeId] = useState<Number | null>(null);
   const [loadingCategoryType, setLoadingCategoryType] =
     useState<boolean>(false);
@@ -13,36 +12,33 @@ export default function useEditCategoryType() {
   const [errorCategoryType, setErrorCategoryType] = useState<string | null>(
     null
   );
+  const [updatedCategoryType, setUpdatedCategoryType] =
+    useState<CategoryType | null>(null);
 
-  const callAPI = useCallback(async (id: Number) => {
+  const callAPI = useCallback(async (id: Number, updatedCategoryType) => {
     setLoadingCategoryType(true);
     setErrorCategoryType(null);
-    const token = getCookie("token");
-    await client
-      .put(`${apiUrl}/${id}`, {
-        headers: {
-          "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`, // notice the Bearer before your token
-        },
-      })
-      .then((res) => setCategoryTypeResponse(res))
-      .catch((err) => setErrorCategoryType(err))
-      .finally(() => {
-        setLoadingCategoryType(false);
-      });
+    try {
+      const response = await EditService(id, updatedCategoryType);
+      setCategoryTypeResponse(response);
+    } catch (error) {
+      setErrorCategoryType(error);
+    } finally {
+      setLoadingCategoryType(false);
+    }
   }, []);
 
   useEffect(() => {
-    if (categoryTypeId) {
-      callAPI(categoryTypeId);
+    if (categoryTypeId && updatedCategoryType) {
+      callAPI(categoryTypeId, updatedCategoryType);
     }
-  }, [callAPI, categoryTypeId]);
+  }, [callAPI, categoryTypeId, updatedCategoryType]);
 
   return {
     loadingCategoryType,
     errorCategoryType,
     categoryTypeResposne,
     setCategoryTypeId,
+    setUpdatedCategoryType
   };
 }

@@ -1,35 +1,25 @@
-import client from "@/client/client";
-import { useState } from "react";
+import { GetOneService } from "@/services/category-type/getOneService";
+import { CategoryType } from "@/types/category";
 import useSWR from "swr";
-import { getCookie } from "typescript-cookie";
 
 export default function useGetOneCategoryType(id: Number) {
   const apiUrl = "/api/category-type/get";
-  const [laoding, setLoading] = useState<boolean>();
-  const [error, setError] = useState<boolean>(false);
 
-  const { data: catgeoryType } = useSWR(apiUrl, async () => {
-    setLoading(true);
-    const token = getCookie("token");
-    const { data } = await client.get(`${apiUrl}/${id}`, {
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: `Bearer ${token}`, // notice the Bearer before your token
-      },
-    });
-    if (data) {
-      setLoading(false);
-      setError(false);
-    } else {
-      setError(true);
-    }
+  const getOne = async () => {
+    const data = await GetOneService(id);
     return data;
+  }
+
+  const {data, error} = useSWR<CategoryType> (`${apiUrl}/${id}`, getOne, {
+    dedupingInterval: 1000
   });
 
+  const loading = !data && !error;
+  const errorCategoryType = error ? error.message : null;
+
   return {
-    laoding,
-    error,
-    catgeoryType,
+    loading,
+    errorCategoryType,
+    catgeoryType: data || null,
   };
 }

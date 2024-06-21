@@ -10,4 +10,13 @@ export interface CategoryTypeTableProps {
    categoryTypes: CategoryType[];
    loadingCategoryType: boolean;
    errorCategoryType: string | null;
- }
+}
+
+export interface CategoryTypeEditProps  {
+   edit: boolean
+}
+
+export type editFacadeProps = {
+   id: Number,
+   formRef: any
+}

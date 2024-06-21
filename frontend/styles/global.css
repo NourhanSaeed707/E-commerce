@@ -4,7 +4,7 @@
 @import "./login.css";
 
 :root {
-    --lightGrey: #f3f4f6
+    --lightGrey: #f3f4f6;
 }
 body {
     background-color: var(--lightGrey);

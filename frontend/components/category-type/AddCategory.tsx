@@ -1,13 +1,14 @@
 import { Form } from "antd";
 import React, { useEffect } from "react";
 import CategoryFields from "./CategoryFields";
-import { CategoryType } from "@/types/category";
+import { CategoryType, CategoryTypeEditProps } from "@/types/category";
 import useAddCategoryType from "@/hooks/category-type/useAddCategoryType";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
 export default function AddCategory() {
+  const props : CategoryTypeEditProps = {
+    edit: false,
+  };
   const [formRef] = Form.useForm();
   const router = useRouter();
   const {
@@ -26,14 +27,13 @@ export default function AddCategory() {
 
   useEffect(() => {
     if (!loadingCategoryType && !errorCategoryType && categoryTypeResposne) {
-      toast.success("Category type added successfully");
       router.push("/category-type/get-all");
     }
   }, [categoryTypeResposne, errorCategoryType, loadingCategoryType, router]);
 
   return (
     <Form name="add_product_form" onFinish={onFinish} form={formRef}>
-      <CategoryFields />
+      <CategoryFields {...props} />
     </Form>
   );
 }

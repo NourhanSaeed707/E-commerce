@@ -5,11 +5,13 @@ import { useRouter } from "next/router";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 
-export default function CategoryFields() {
+export default function CategoryFields({ edit }) {
   const router = useRouter();
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-semibold mb-5">{CategoryType.CATEGORY_TYPE}</h1>
+      <h1 className="text-2xl font-semibold mb-5">
+        {CategoryType.CATEGORY_TYPE}
+      </h1>
       <Form.Item
         name="name"
         rules={[
@@ -19,12 +21,19 @@ export default function CategoryFields() {
           },
         ]}
       >
-        <Input placeholder={CategoryType.TYPE}/>
+        <Input placeholder={CategoryType.TYPE} />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="w-full">
-          {Buttons.ADD}
-        </Button>
+        {edit === true ? (
+          <Button type="primary" htmlType="submit" className="w-full">
+            {Buttons.EDIT}
+          </Button>
+        ) : (
+          <Button type="primary" htmlType="submit" className="w-full">
+            {Buttons.ADD}
+          </Button>
+        )}
+
         <Button
           type="default"
           className="mt-3 w-full"
@@ -33,7 +42,6 @@ export default function CategoryFields() {
           {Buttons.CANCEL}
         </Button>
       </Form.Item>
-      <ToastContainer />
     </div>
   );
 }

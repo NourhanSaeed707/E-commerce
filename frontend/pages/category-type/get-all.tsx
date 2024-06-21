@@ -1,4 +1,4 @@
-import ListCategoryType from '@/components/category/ListCategoryType'
+import ListCategoryType from '@/components/category-type/ListCategoryType'
 import React from 'react'
 
 export default function GetAll() {
