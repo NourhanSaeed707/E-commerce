@@ -22,7 +22,6 @@ public class CategoryTypeController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<CategoryTypeDTO>> getAll() {
         List<CategoryTypeDTO> categoryTypes = categoryTypeService.getAll();
-        System.out.println("categoooory type get all: " + categoryTypes);
         return ResponseEntity.ok(categoryTypes);
     }
 
