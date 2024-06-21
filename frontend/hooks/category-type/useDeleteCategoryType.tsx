@@ -1,47 +1,40 @@
-import client from "@/client/client";
+import { DeleteService } from "@/services/category-type/deleteService";
 import { AxiosResponse } from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { getCookie } from "typescript-cookie";
 
 export default function useDeleteCategoryType() {
-  const apiUrl = "/api/category-type/delete";
-  const [categoryTypeId, setCategoryTypeId] = useState<Number | null>(null);
-  const [loadingCategoryType, setLoadingCategoryType] =
+  const [categoryTypeIdDelete, setCategoryTypeIdDelete] = useState<Number | null>(null);
+  const [loadingCategoryTypeDelete, setLoadingCategoryType] =
     useState<boolean>(false);
-  const [categoryTypeResposne, setCategoryTypeResponse] =
+  const [categoryTypeResposneDelete, setCategoryTypeResponse] =
     useState<AxiosResponse | null>(null);
-  const [errorCategoryType, setErrorCategoryType] = useState<string | null>(
+  const [errorCategoryTypeDelete, setErrorCategoryType] = useState<string | null>(
     null
   );
 
   const callAPI = useCallback(async (id: Number) => {
     setLoadingCategoryType(true);
-    const token = getCookie("token");
-    await client
-      .delete(`${apiUrl}/${id}`, {
-        headers: {
-          "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`, // notice the Bearer before your token
-        },
-      })
-      .then((res) => setCategoryTypeResponse(res))
-      .catch((err) => setErrorCategoryType(err))
-      .finally(() => {
-        setLoadingCategoryType(false);
-      });
+    try {
+      const response = await DeleteService(id);
+      setCategoryTypeResponse(response);
+    } catch (error) {
+      setErrorCategoryType(error);
+    } finally {
+      setLoadingCategoryType(false);
+    }
   }, []);
 
   useEffect(() => {
-    if (categoryTypeId) {
-      callAPI(categoryTypeId);
+    if (categoryTypeIdDelete) {
+      callAPI(categoryTypeIdDelete);
     }
-  }, [callAPI, categoryTypeId]);
+  }, [callAPI, categoryTypeIdDelete]);
 
   return {
-    loadingCategoryType,
-    categoryTypeResposne,
-    errorCategoryType,
-    setCategoryTypeId,
+    loadingCategoryTypeDelete,
+    categoryTypeResposneDelete,
+    errorCategoryTypeDelete,
+    setCategoryTypeIdDelete,
+    categoryTypeIdDelete
   };
 }

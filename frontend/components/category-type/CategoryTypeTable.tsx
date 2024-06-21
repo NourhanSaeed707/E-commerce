@@ -3,22 +3,18 @@ import { Button, Space, Spin, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
-import moment from "moment"; 
-
-interface DataType {
-  key: string;
-  id: number;
-  name: string;
-  createdAt: number;
-}
+import moment from "moment";
+import { DataTypeTable } from "@/types/category";
 
 export default function CategoryTypeTable({
   categoryTypes,
   loadingCategoryType,
   errorCategoryType,
+  setCategoryTypeIdDelete
 }) {
   const router = useRouter();
-  const columns: TableProps<DataType>["columns"] = [
+
+  const columns: TableProps<DataTypeTable>["columns"] = [
     {
       title: "id",
       dataIndex: "id",
@@ -49,8 +45,8 @@ export default function CategoryTypeTable({
           </Button>
           <Button
             type="primary"
-            className="bg-red-500 border-red-500 hover:bg-red-400 hover:border-red-400 ml-2"
-            onClick={() => router.push("")}
+            danger
+            onClick={() => setCategoryTypeIdDelete(record.id)}
           >
             {BUTTONS.DELETE}
           </Button>
@@ -59,7 +55,7 @@ export default function CategoryTypeTable({
     },
   ];
 
-  const data: DataType[] =
+  const data: DataTypeTable[] =
     categoryTypes &&
     categoryTypes.map((category: any) => ({
       key: category.id,

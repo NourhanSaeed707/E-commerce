@@ -6,13 +6,21 @@ export type CategoryType =  {
    createdBy?: String;
 }
 
-export interface CategoryTypeTableProps {
+export type CategoryTypeTableProps = {
    categoryTypes: CategoryType[];
    loadingCategoryType: boolean;
    errorCategoryType: string | null;
+   setCategoryTypeIdDelete: (categoryId) => void;
 }
 
-export interface CategoryTypeEditProps  {
+export type DataTypeTable = {
+   key: string;
+   id: number;
+   name: string;
+   createdAt: number;
+ }
+
+export type CategoryTypeEditProps = {
    edit: boolean
 }
 

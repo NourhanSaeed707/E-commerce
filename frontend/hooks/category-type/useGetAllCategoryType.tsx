@@ -21,5 +21,6 @@ export default function useGetAllCategoryType() {
     categoryTypes: data || null,
     loadingCategoryType,
     errorCategoryType,
+    fetcher
   };
 }
