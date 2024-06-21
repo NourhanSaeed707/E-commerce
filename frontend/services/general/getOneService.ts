@@ -1,13 +1,12 @@
 import client from "@/client/client";
 import { CategoryType } from "@/types/category";
-import { getCookie } from "typescript-cookie";
+import { DeleteAndGetOneServices } from "@/types/services";
 
-export const GetOneService = async (
-  id: Number
-): Promise<CategoryType | null> => {
-  const apiUrl = "/api/category-type/get";
-  const token = getCookie("token");
-
+export const GetOneService = async ({
+  apiUrl,
+  token,
+  id,
+}: DeleteAndGetOneServices): Promise<CategoryType | null> => {
   const { data } = await client.get(`${apiUrl}/${id}`, {
     headers: {
       "Content-type": "application/json",

@@ -1,10 +1,7 @@
 import client from "@/client/client";
-import { CategoryType } from "@/types/category";
-import { getCookie } from "typescript-cookie";
+import { GetAllServices } from "@/types/services";
 
-export const GetAllService = async (): Promise<CategoryType[] | []> => {
-  const apiUrl = "/api/category-type/get-all";
-  const token = getCookie("token");
+export const GetAllService = async ({apiUrl, token}: GetAllServices): Promise<any[] | []> => {
   const { data } = await client.get(apiUrl, {
     headers: {
       "Content-type": "application/json",

@@ -64,7 +64,6 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
 
   const login = useCallback(
     async (values: LoginUser) => {
-      console.log("values: ", values);
       setIsSubmitting(true);
       await client
         .post("/api/v2/auth/authenticate", {

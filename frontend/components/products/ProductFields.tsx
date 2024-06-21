@@ -1,9 +1,11 @@
 import { Buttons } from "@/constants/product";
 import { AddProductRequired } from "@/constants/product";
+import useAddFacade from "@/hooks/products/useAddFacade";
+import { CategoryType } from "@/types/category";
 import { Gender } from "@/types/gender";
 import { Button, Form, Input, Select } from "antd";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 
 type ProductFieldsProps = {
   handleChangeSelectGender: (values: any) => void;
@@ -14,6 +16,11 @@ export default function ProductFields({
   handleChangeSelectGender,
 }: ProductFieldsProps) {
   const router = useRouter();
+  const { categoryTypes } = useAddFacade();
+
+  useEffect(() => {
+    console.log("categoooooory type: ", categoryTypes);
+  }, [categoryTypes]);
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
       <Form.Item
@@ -88,8 +95,8 @@ export default function ProductFields({
       </Form.Item>
 
       <Form.Item
-        name="category"
-        label="Category"
+        name="categoryType"
+        label="Category Type"
         rules={[
           {
             required: true,
@@ -101,12 +108,13 @@ export default function ProductFields({
           defaultValue=""
           style={{ width: 120 }}
           onChange={handleChangeSelectGender}
-          options={[
-            { value: "", label: "" },
-            { value: "FEMALE", label: "Female" },
-            { value: "MALE", label: "Male" },
-            { value: "BOTH", label: "Both" },
-          ]}
+          options={
+            categoryTypes &&
+            categoryTypes.map((category: CategoryType) => ({
+              value: category.name,
+              label: category.name,
+            }))
+          }
         />
       </Form.Item>
       <Form.Item

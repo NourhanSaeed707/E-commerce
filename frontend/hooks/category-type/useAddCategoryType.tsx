@@ -1,9 +1,13 @@
-import { AddCategoryType } from "@/services/category-type/addService";
+import { AddCategoryType } from "@/services/general/addService";
 import { CategoryType } from "@/types/category";
+import { AddServices } from "@/types/services";
 import { AxiosResponse } from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { getCookie } from "typescript-cookie";
 
 export default function useAddCategoryType() {
+  const apiUrl = "/api/category-type/save";
+  const token = getCookie("token");
   const [categoryType, setCategoryType] = useState<CategoryType | null>(null);
   const [loadingCategoryType, setLoadingCategoryType] =
     useState<boolean>(false);
@@ -13,11 +17,16 @@ export default function useAddCategoryType() {
     null
   );
 
-  const callAPI = useCallback(async (categoryType: CategoryType) => {
+  const callAPI = useCallback(async (body: CategoryType) => {
     setErrorCategoryType(null);
     setLoadingCategoryType(true);
+    const props: AddServices = {
+      apiUrl,
+      token,
+      body
+    }
     try {
-      const response = await AddCategoryType(categoryType);
+      const response = await AddCategoryType({...props});
       setCategoryTypeResponse(response);
     } catch (error) {
       setErrorCategoryType(error);
