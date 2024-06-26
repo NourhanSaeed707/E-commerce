@@ -1,8 +1,6 @@
 package com.example.demo.service;
 import com.example.demo.entity.CategoryType;
-import com.example.demo.entity.Product;
 import com.example.demo.model.CategoryTypeDTO;
-import com.example.demo.model.ProductsDTO;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
 

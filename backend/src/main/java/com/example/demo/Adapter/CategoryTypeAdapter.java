@@ -19,8 +19,8 @@ public class CategoryTypeAdapter {
         return categoryTypeDTO;
     }
 
-    public static List<CategoryTypeDTO> convertListEntityToDTO(List<CategoryType> products) {
-        return products.stream().map(
+    public static List<CategoryTypeDTO> convertListEntityToDTO(List<CategoryType> categoryTypes) {
+        return categoryTypes.stream().map(
                         categoryType -> new CategoryTypeDTO(categoryType.getId(), categoryType.getName(),
                                 categoryType.getCreatedAt(), categoryType.getCreatedBy(), categoryType.getLastModifiedAt(),
                                 categoryType.getCategories()
