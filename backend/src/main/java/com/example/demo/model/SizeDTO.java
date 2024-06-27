@@ -15,5 +15,5 @@ public class SizeDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
-    private Set<CategorySize> categorySizes;
+    private Set<CategorySizeDTO> categorySizes;
 }

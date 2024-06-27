@@ -1,9 +1,5 @@
 package com.example.demo.model;
-
-import com.example.demo.entity.Category;
-import com.example.demo.entity.Color;
-import com.example.demo.entity.Gender;
-import com.example.demo.entity.Size;
+import com.example.demo.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +17,10 @@ public class ProductsDTO {
     private double price;
     private Integer stock;
     private Gender gender;
-    private Category category;
-    private Size size;
-    private Color color;
+    private CategoryDTO category;
+    private CategoryTypeDTO categoryType;
+    private SizeDTO size;
+    private ColorDTO color;
+
 
 }

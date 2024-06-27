@@ -21,10 +21,12 @@ public class CategorySizeAdapter {
 
     public static List<CategorySizeDTO> convertListEntityToDTO(List<CategorySize> categorySizes) {
         return categorySizes.stream().map(
-                        categorySize -> new CategorySizeDTO(categorySize.getId(), categorySize.getCategory(),
-                                categorySize.getSize(), categorySize.getCreatedAt(), categorySize.getLastModifiedAt(),
-                                categorySize.getCreatedBy()
-                        ))
+                        categorySize -> {
+                            CategorySizeDTO categorySizeDTO = toDTO(categorySize);
+                            return new CategorySizeDTO(categorySizeDTO.getId(), categorySizeDTO.getCategory(),
+                                    categorySizeDTO.getSize(), categorySizeDTO.getCreatedAt(), categorySizeDTO.getLastModifiedAt(),
+                                    categorySizeDTO.getCreatedBy());
+                        })
                 .collect(Collectors.toList());
     }
 }

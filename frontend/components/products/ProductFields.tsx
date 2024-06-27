@@ -111,7 +111,7 @@ export default function ProductFields({
           options={
             categoryTypes &&
             categoryTypes.map((category: CategoryType) => ({
-              value: category.name,
+              value: category.id,
               label: category.name,
             }))
           }

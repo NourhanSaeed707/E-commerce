@@ -33,11 +33,11 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
-    public ResponseEntity<Size> save(SizeDTO sizeDTO) {
+    public ResponseEntity<SizeDTO> save(SizeDTO sizeDTO) {
         Size size = SizeAdapter.toEntity(sizeDTO);
         size.setCreatedAt(Date.valueOf(LocalDate.now()));
         sizeRepository.save(size);
-        return ResponseEntity.ok(size);
+        return ResponseEntity.ok(sizeDTO);
     }
 
     @Override
@@ -46,6 +46,7 @@ public class SizeServiceImpl implements SizeService {
         size.setSize(sizeDTO.getSize());
         return size;
     }
+
 
     @Override
     public ResponseEntity<Size> update(Long id, SizeDTO sizeDTO) throws Exception {

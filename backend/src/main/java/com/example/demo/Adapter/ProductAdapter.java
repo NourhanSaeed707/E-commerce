@@ -14,16 +14,19 @@ public class ProductAdapter {
     }
 
     public static ProductsDTO toDTO(Product product) {
-        ProductsDTO productsDTO = new ProductsDTO();
-        BeanUtils.copyProperties(product, productsDTO);
-        return productsDTO;
+        ProductsDTO productDTO = new ProductsDTO();
+        BeanUtils.copyProperties(product, productDTO);
+        return productDTO;
     }
 
     public static List<ProductsDTO> convertListEntityToDTO(List<Product> products) {
         return products.stream().map(
-                        prod -> new ProductsDTO(prod.getId(), prod.getName(), prod.getCreatedAt(),prod.getCreatedBy(),
-                                prod.getCodeNumber(),  prod.getPrice(), prod.getStock(), prod.getGender(),
-                                prod.getCategory(), prod.getSize(), prod.getColor()))
+                        prod -> {
+                            ProductsDTO productDTO = toDTO(prod);
+                            return new ProductsDTO(productDTO.getId(), productDTO.getName(), productDTO.getCreatedAt(),productDTO.getCreatedBy(),
+                                    productDTO.getCodeNumber(),  productDTO.getPrice(), productDTO.getStock(), productDTO.getGender(),
+                                    productDTO.getCategory(), productDTO.getCategoryType(), productDTO.getSize(), productDTO.getColor());
+                        })
                 .collect(Collectors.toList());
     }
 }

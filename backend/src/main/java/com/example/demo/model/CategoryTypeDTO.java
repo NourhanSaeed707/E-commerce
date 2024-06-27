@@ -16,5 +16,5 @@ public class CategoryTypeDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
-    private Set<Category> categories;
+    private Set<CategoryDTO> categories;
 }

@@ -35,11 +35,11 @@ public class CategoryTypeServiceImpl implements CategoryTypeService {
     }
 
     @Override
-    public ResponseEntity<CategoryType> save(CategoryTypeDTO categoryTypeDTO) {
+    public ResponseEntity<CategoryTypeDTO> save(CategoryTypeDTO categoryTypeDTO) {
         CategoryType categoryType = CategoryTypeAdapter.toEntity(categoryTypeDTO);
         categoryType.setCreatedAt(Date.valueOf(LocalDate.now()));
         categoryTypeRepository.save(categoryType);
-        return ResponseEntity.ok(categoryType);
+        return ResponseEntity.ok(categoryTypeDTO);
     }
 
     @Override

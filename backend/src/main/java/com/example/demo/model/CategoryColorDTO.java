@@ -11,9 +11,10 @@ import java.util.Date;
 @NoArgsConstructor
 public class CategoryColorDTO {
     private Long id;
-    private Category category;
-    private Color color;
+    private CategoryDTO category;
+    private ColorDTO color;
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
+
 }

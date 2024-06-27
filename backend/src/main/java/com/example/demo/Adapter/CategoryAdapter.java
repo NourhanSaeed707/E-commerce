@@ -20,10 +20,12 @@ public class CategoryAdapter {
 
     public static List<CategoryDTO> convertListEntityToDTO(List<Category> categories) {
         return categories.stream().map(
-                        category -> new CategoryDTO(category.getId(), category.getCategoryType(),
-                                category.getProducts(), category.getCreatedAt(), category.getLastModifiedAt(), category.getCreatedBy(),
-                                category.getCategorySizes(), category.getCategoryColors(),category.getImages()
-                        ))
+                        category -> {
+                            CategoryDTO categoryDTO = toDTO(category);
+                            return new CategoryDTO(categoryDTO.getId(), categoryDTO.getCategoryType(),
+                                    categoryDTO.getProducts(), categoryDTO.getCreatedAt(), categoryDTO.getLastModifiedAt(), categoryDTO.getCreatedBy(),
+                                    categoryDTO.getCategorySizes(), categoryDTO.getCategoryColors(),categoryDTO.getImages());
+                        })
                 .collect(Collectors.toList());
     }
 }

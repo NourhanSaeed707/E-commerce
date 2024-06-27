@@ -4,6 +4,8 @@ import com.example.demo.Exception.CategoryColor.CategoryColorNotFoundException;
 import com.example.demo.entity.CategoryColor;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CategoryColorDTO;
+import com.example.demo.model.CategoryDTO;
+import com.example.demo.model.ColorDTO;
 import com.example.demo.repository.CategoryColorRepository;
 import com.example.demo.service.CategoryColorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +35,29 @@ public class CategoryColorServiceImpl implements CategoryColorService {
     }
 
     @Override
-    public ResponseEntity<CategoryColor> save(CategoryColorDTO categoryColorDTO) {
+    public ResponseEntity<CategoryColorDTO> save(CategoryColorDTO categoryColorDTO) {
         CategoryColor categoryColor = CategoryColorAdapter.toEntity(categoryColorDTO);
         categoryColor.setCreatedAt(Date.valueOf(LocalDate.now()));
         categoryColorRepository.save(categoryColor);
-        return ResponseEntity.ok(categoryColor);
+        return ResponseEntity.ok(categoryColorDTO);
     }
 
     @Override
     public CategoryColor setCategoryColorFields(CategoryColor categoryColor, CategoryColorDTO categoryColorDTO) {
         categoryColor.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        categoryColor.setColor(categoryColorDTO.getColor());
-        categoryColor.setCategory(categoryColorDTO.getCategory());
-        categoryColor.setCategory(categoryColorDTO.getCategory());
+        CategoryColor categoryColorEntity = CategoryColorAdapter.toEntity(categoryColorDTO);
+        categoryColor.setColor(categoryColorEntity.getColor());
+        categoryColor.setCategory(categoryColorEntity.getCategory());
+        categoryColor.setCategory(categoryColorEntity.getCategory());
         return categoryColor;
+    }
+
+    @Override
+    public void savedCategoryColor(CategoryDTO categoryDTO, ColorDTO colorDTO) {
+        CategoryColorDTO categoryColorDTO = new CategoryColorDTO();
+        categoryColorDTO.setCategory(categoryDTO);
+        categoryColorDTO.setColor(colorDTO);
+        save(categoryColorDTO);
     }
 
     @Override
@@ -67,8 +78,8 @@ public class CategoryColorServiceImpl implements CategoryColorService {
 
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
-        CategoryColorDTO categorColorFoundDTO = this.getById(id);
-        CategoryColor categoryColor = CategoryColorAdapter.toEntity(categorColorFoundDTO);
+        CategoryColorDTO categoryColorFoundDTO = this.getById(id);
+        CategoryColor categoryColor = CategoryColorAdapter.toEntity(categoryColorFoundDTO);
         categoryColorRepository.delete(categoryColor);
         return checkByIdExists(id, "deleted");
     }

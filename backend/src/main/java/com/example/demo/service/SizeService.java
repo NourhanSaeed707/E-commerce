@@ -8,7 +8,7 @@ import java.util.*;
 public interface SizeService {
     List<SizeDTO> getAll();
     SizeDTO getById(Long id) throws Exception ;
-    ResponseEntity<Size> save(SizeDTO sizeDTO);
+    ResponseEntity<SizeDTO> save(SizeDTO sizeDTO);
     Size setSizeFields(Size size, SizeDTO sizeDTO);
     ResponseEntity<Size> update (Long id, SizeDTO sizeDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);

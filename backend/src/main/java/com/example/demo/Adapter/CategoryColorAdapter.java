@@ -20,10 +20,12 @@ public class CategoryColorAdapter {
 
     public static List<CategoryColorDTO> convertListEntityToDTO(List<CategoryColor> categoryColors) {
         return categoryColors.stream().map(
-                        categoryColor -> new CategoryColorDTO(categoryColor.getId(), categoryColor.getCategory(),
-                                categoryColor.getColor(), categoryColor.getCreatedAt(), categoryColor.getLastModifiedAt(),
-                                categoryColor.getCreatedBy()
-                        ))
+                        categoryColor -> {
+                            CategoryColorDTO categoryColorDTO = toDTO(categoryColor);
+                            return new CategoryColorDTO(categoryColorDTO.getId(), categoryColorDTO.getCategory(),
+                                    categoryColorDTO.getColor(), categoryColorDTO.getCreatedAt(), categoryColorDTO.getLastModifiedAt(),
+                                    categoryColorDTO.getCreatedBy());
+                        })
                 .collect(Collectors.toList());
     }
 

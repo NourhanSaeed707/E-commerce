@@ -7,7 +7,7 @@ import java.util.*;
 public interface CategoryTypeService {
     List<CategoryTypeDTO> getAll();
     CategoryTypeDTO getById(Long id) throws Exception ;
-    ResponseEntity<CategoryType> save(CategoryTypeDTO categoryTypeDTO);
+    ResponseEntity<CategoryTypeDTO> save(CategoryTypeDTO categoryTypeDTO);
     CategoryType setCategoryTypeFields(CategoryType categoryType, CategoryTypeDTO categoryTypeDTO);
     ResponseEntity<CategoryType> update (Long id, CategoryTypeDTO categoryTypeDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);

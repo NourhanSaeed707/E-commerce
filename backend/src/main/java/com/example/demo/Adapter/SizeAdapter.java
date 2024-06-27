@@ -21,9 +21,11 @@ public class SizeAdapter {
 
     public static List<SizeDTO> convertListEntityToDTO(List<Size> sizes) {
         return sizes.stream().map(
-                        size -> new SizeDTO(size.getId(), size.getSize(),
-                                size.getCreatedAt(), size.getLastModifiedAt(), size.getCreatedBy(),size.getCategorySizes()
-                               ))
+                        size -> {
+                            SizeDTO sizeDTO = toDTO(size);
+                            return new SizeDTO(sizeDTO.getId(), sizeDTO.getSize(),
+                                    sizeDTO.getCreatedAt(), sizeDTO.getLastModifiedAt(), sizeDTO.getCreatedBy(),sizeDTO.getCategorySizes());
+                        })
                 .collect(Collectors.toList());
     }
 }

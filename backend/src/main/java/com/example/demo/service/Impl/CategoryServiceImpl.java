@@ -4,6 +4,7 @@ import com.example.demo.Exception.Catagory.CategoryNotFoundException;
 import com.example.demo.entity.Category;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CategoryDTO;
+import com.example.demo.model.CategoryTypeDTO;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +36,29 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ResponseEntity<Category> save(CategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryDTO> save(CategoryDTO categoryDTO) {
         Category category = CategoryAdapter.toEntity(categoryDTO);
         category.setCreatedAt(Date.valueOf(LocalDate.now()));
         categoryRepository.save(category);
-        return ResponseEntity.ok(category);
+        return ResponseEntity.ok(categoryDTO);
+    }
+
+    @Override
+    public CategoryDTO returnSavedCategory(CategoryTypeDTO categoryTypeDTO) {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setCategoryType(categoryTypeDTO);
+        return save(categoryDTO).getBody();
     }
 
     @Override
     public Category setCategoryFields(Category category, CategoryDTO categoryDTO) {
         category.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        category.setCategoryType(categoryDTO.getCategoryType());
-        category.setCategorySizes(categoryDTO.getCategorySizes());
-        category.setCategoryColors(categoryDTO.getCategoryColors());
-        category.setProducts(categoryDTO.getProducts());
-        category.setImages(categoryDTO.getImages());
+        Category categoryEntity = CategoryAdapter.toEntity(categoryDTO);
+        category.setCategoryType(categoryEntity.getCategoryType());
+        category.setCategorySizes(categoryEntity.getCategorySizes());
+        category.setCategoryColors(categoryEntity.getCategoryColors());
+        category.setProducts(categoryEntity.getProducts());
+        category.setImages(categoryEntity.getImages());
         return category;
     }
 
