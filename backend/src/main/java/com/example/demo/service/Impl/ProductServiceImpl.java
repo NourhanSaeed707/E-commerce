@@ -1,12 +1,8 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Adapter.CategoryAdapter;
 import com.example.demo.Adapter.ProductAdapter;
-import com.example.demo.Adapter.SizeAdapter;
 import com.example.demo.Exception.Products.ProductNotFoundException;
-import com.example.demo.entity.Category;
-import com.example.demo.entity.Color;
 import com.example.demo.entity.Product;
-import com.example.demo.entity.Size;
+import com.example.demo.facade.ProductFacade;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.ProductRepository;
@@ -24,16 +20,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private SizeService sizeService;
-    @Autowired
-    private CategorySizeService categorySizeService;
-    @Autowired
-    private ColorService colorService;
-    @Autowired
-    private CategoryColorService categoryColorService;
-
+    private ProductFacade productFacade;
 
     @Override
     public List<ProductsDTO> getAll () {
@@ -50,18 +37,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<ProductsDTO> save(ProductsDTO productDTO) {
-        // Save category
-        CategoryDTO savedCategory = categoryService.returnSavedCategory(productDTO.getCategoryType());
-        // Save Size
-        SizeDTO savedSize = sizeService.save(productDTO.getSize()).getBody();
-        // Save category size
-        categorySizeService.savedCategorySize(savedCategory, savedSize);
-        // Save color
-        ColorDTO savedColor = colorService.save(productDTO.getColor()).getBody();
-        // Save category color
-        categoryColorService.savedCategoryColor(savedCategory, savedColor);
-        productDTO.setCategory(savedCategory);
-        Product product = ProductAdapter.toEntity(productDTO);
+        ProductsDTO productFacadeDTO = productFacade.saveProductRelations(productDTO);
+        Product product = ProductAdapter.toEntity(productFacadeDTO);
         product.setCreatedAt(Date.valueOf(LocalDate.now()));
         productRepository.save(product);
         return ResponseEntity.ok(productDTO);
