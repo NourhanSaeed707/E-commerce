@@ -2,7 +2,6 @@ package com.example.demo.Adapter;
 import com.example.demo.entity.Product;
 import com.example.demo.model.ProductsDTO;
 import org.springframework.beans.BeanUtils;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +21,9 @@ public class ProductAdapter {
 
     public static List<ProductsDTO> convertListEntityToDTO(List<Product> products) {
         return products.stream().map(
-                        prod -> new ProductsDTO(prod.getId(), prod.getName(), prod.getCodeNumber(),
-                                prod.getCreatedAt(), prod.getCreatedBy(), prod.getSize(), prod.getStock(), prod.getGender(),
-                                prod.getPrice(), prod.getColor(), prod.getCategory()))
+                        prod -> new ProductsDTO(prod.getId(), prod.getName(), prod.getCreatedAt(),prod.getCreatedBy(),
+                                prod.getCodeNumber(),  prod.getPrice(), prod.getStock(), prod.getGender(),
+                                prod.getCategory(), prod.getSize(), prod.getColor()))
                 .collect(Collectors.toList());
     }
 }

@@ -1,11 +1,7 @@
 package com.example.demo.Adapter;
-
 import com.example.demo.entity.Category;
-import com.example.demo.entity.CategoryType;
 import com.example.demo.model.CategoryDTO;
-import com.example.demo.model.CategoryTypeDTO;
 import org.springframework.beans.BeanUtils;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +21,8 @@ public class CategoryAdapter {
     public static List<CategoryDTO> convertListEntityToDTO(List<Category> categories) {
         return categories.stream().map(
                         category -> new CategoryDTO(category.getId(), category.getCategoryType(),
-                                category.getCreatedAt(), category.getCreatedBy(), category.getLastModifiedAt(),
-                                category.getProducts(), category.getCategorySizes(), category.getCategoryColors(),category.getImages()
+                                category.getProducts(), category.getCreatedAt(), category.getLastModifiedAt(), category.getCreatedBy(),
+                                category.getCategorySizes(), category.getCategoryColors(),category.getImages()
                         ))
                 .collect(Collectors.toList());
     }

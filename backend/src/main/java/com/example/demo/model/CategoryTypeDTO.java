@@ -17,17 +17,4 @@ public class CategoryTypeDTO {
     private Date lastModifiedAt;
     private String createdBy;
     private Set<Category> categories;
-
-//    public CategoryTypeDTO(Long id, String name, Date createdAt, String createdBy, Date lastModifiedAt, Set<Category> categories) {
-//       this.id = id;
-//       this.name = name;
-//       this.createdAt = createdAt;
-//       this.createdBy = createdBy;
-//       this.lastModifiedAt = lastModifiedAt;
-//       this.categories = categories;
-//    }
-//
-//    public CategoryTypeDTO() {
-//
-//    }
 }

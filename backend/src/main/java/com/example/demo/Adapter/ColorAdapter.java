@@ -21,7 +21,7 @@ public class ColorAdapter {
     public static List<ColorDTO> convertListEntityToDTO(List<Color> colors) {
         return colors.stream().map(
                         color -> new ColorDTO(color.getId(), color.getColor(),
-                                color.getCreatedAt(), color.getCreatedBy(), color.getLastModifiedAt(),
+                                color.getCreatedAt(), color.getLastModifiedAt(), color.getCreatedBy(),
                                color.getCategoryColors()
                         ))
                 .collect(Collectors.toList());

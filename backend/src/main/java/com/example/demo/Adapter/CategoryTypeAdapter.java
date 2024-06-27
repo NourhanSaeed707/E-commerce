@@ -22,7 +22,7 @@ public class CategoryTypeAdapter {
     public static List<CategoryTypeDTO> convertListEntityToDTO(List<CategoryType> categoryTypes) {
         return categoryTypes.stream().map(
                         categoryType -> new CategoryTypeDTO(categoryType.getId(), categoryType.getName(),
-                                categoryType.getCreatedAt(), categoryType.getCreatedBy(), categoryType.getLastModifiedAt(),
+                                categoryType.getCreatedAt(), categoryType.getLastModifiedAt(), categoryType.getCreatedBy(),
                                 categoryType.getCategories()
                                 ))
                 .collect(Collectors.toList());

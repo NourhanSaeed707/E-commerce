@@ -1,8 +1,5 @@
 package com.example.demo.Adapter;
-
-import com.example.demo.entity.Product;
 import com.example.demo.entity.Size;
-import com.example.demo.model.ProductsDTO;
 import com.example.demo.model.SizeDTO;
 import org.springframework.beans.BeanUtils;
 import java.util.List;
@@ -25,7 +22,7 @@ public class SizeAdapter {
     public static List<SizeDTO> convertListEntityToDTO(List<Size> sizes) {
         return sizes.stream().map(
                         size -> new SizeDTO(size.getId(), size.getSize(),
-                                size.getCreatedAt(), size.getCreatedBy(),size.getCategorySizes(), size.getLastModifiedAt()
+                                size.getCreatedAt(), size.getLastModifiedAt(), size.getCreatedBy(),size.getCategorySizes()
                                ))
                 .collect(Collectors.toList());
     }

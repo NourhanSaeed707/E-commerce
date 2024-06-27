@@ -1,8 +1,6 @@
 package com.example.demo.Adapter;
 import com.example.demo.entity.CategorySize;
-import com.example.demo.entity.CategoryType;
 import com.example.demo.model.CategorySizeDTO;
-import com.example.demo.model.CategoryTypeDTO;
 import org.springframework.beans.BeanUtils;
 import java.util.List;
 import java.util.stream.Collectors;
