@@ -7,6 +7,7 @@ import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.CategoryTypeDTO;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.service.CategoryService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,17 +16,22 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<CategoryDTO> getAll() {
         List<Category> categories = categoryRepository.findAll();
-        return CategoryAdapter.convertListEntityToDTO(categories);
+        return categories.stream().map(category -> modelMapper.map(category, CategoryDTO.class))
+                .collect(Collectors.toList());
+//        return CategoryAdapter.convertListEntityToDTO(categories);
     }
 
     @Override
@@ -37,23 +43,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<CategoryDTO> save(CategoryDTO categoryDTO) {
-        Category category = CategoryAdapter.toEntity(categoryDTO);
+        System.out.println("categoooorydtoooo before entity: " + categoryDTO);
+        Category category = modelMapper.map(categoryDTO, Category.class);
         category.setCreatedAt(Date.valueOf(LocalDate.now()));
+        System.out.println("categoooory after entity: " + category);
         categoryRepository.save(category);
         return ResponseEntity.ok(categoryDTO);
     }
 
     @Override
     public CategoryDTO returnSavedCategory(CategoryTypeDTO categoryTypeDTO) {
+        System.out.println("reeeeeeeeeturn saved caaategooory service");
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setCategoryType(categoryTypeDTO);
+        System.out.println("categooory type: " + categoryDTO);
         return save(categoryDTO).getBody();
     }
 
     @Override
     public Category setCategoryFields(Category category, CategoryDTO categoryDTO) {
         category.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        Category categoryEntity = CategoryAdapter.toEntity(categoryDTO);
+//        Category categoryEntity = CategoryAdapter.toEntity(categoryDTO);
+        Category categoryEntity = modelMapper.map(categoryDTO, Category.class);
         category.setCategoryType(categoryEntity.getCategoryType());
         category.setCategorySizes(categoryEntity.getCategorySizes());
         category.setCategoryColors(categoryEntity.getCategoryColors());
@@ -65,7 +76,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<Category> update(Long id, CategoryDTO categoryDTO) throws Exception {
         CategoryDTO categoryFoundDTO = getById(id);
-        Category category = CategoryAdapter.toEntity(categoryFoundDTO);
+//        Category category = CategoryAdapter.toEntity(categoryFoundDTO);
+        Category category = modelMapper.map(categoryFoundDTO, Category.class);
         category = setCategoryFields(category, categoryDTO);
         return ResponseEntity.ok(categoryRepository.save(category));
     }
@@ -81,7 +93,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
         CategoryDTO categoryFoundDTO = this.getById(id);
-        Category category = CategoryAdapter.toEntity(categoryFoundDTO);
+//        Category category = CategoryAdapter.toEntity(categoryFoundDTO);
+        Category category = modelMapper.map(categoryFoundDTO, Category.class);
         categoryRepository.delete(category);
         return checkByIdExists(id, "deleted");
     }

@@ -6,11 +6,15 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.modelmapper.ModelMapper;
 
 @SpringBootApplication
 @EnableCaching
 public class EcommerceApplication {
-
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 	public static void main(String[] args) {
 
 		SpringApplication.run(EcommerceApplication.class, args);

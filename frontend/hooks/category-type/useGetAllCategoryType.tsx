@@ -1,3 +1,4 @@
+import FetchToken from "@/helper/token";
 import { GetAllService } from "@/services/general/getAllService";
 import { CategoryType } from "@/types/category";
 import { GetAllServices } from "@/types/services";
@@ -6,13 +7,21 @@ import { getCookie } from "typescript-cookie";
 
 export default function useGetAllCategoryType() {
   const apiUrl = "/api/category-type/get-all";
-  const token = getCookie("token");
-  const props: GetAllServices = {
-    apiUrl,
-    token
-  }
+
+  // const fetchToken = async () => {
+  //   const response = await fetch("/api/get-token");
+  //   const data = await response.json();
+  //   return data.token;
+  // };
+
   const fetcher = async () => {
-    const data = await GetAllService({...props});
+    const { accessToken } = await FetchToken();
+    console.log("tokeeeen category type: ", accessToken);
+    const props: GetAllServices = {
+      apiUrl,
+      token: accessToken.token,
+    };
+    const data = await GetAllService({ ...props });
     return data;
   };
 
@@ -27,6 +36,6 @@ export default function useGetAllCategoryType() {
     categoryTypes: data || null,
     loadingCategoryType,
     errorCategoryType,
-    fetcher
+    fetcher,
   };
 }

@@ -1,4 +1,5 @@
 package com.example.demo.entity;
+import com.example.demo.model.CategoryTypeDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;

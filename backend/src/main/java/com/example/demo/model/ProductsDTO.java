@@ -16,7 +16,7 @@ public class ProductsDTO {
     private String codeNumber;
     private double price;
     private Integer stock;
-    private Gender gender;
+    private String gender;
     private CategoryDTO category;
     private CategoryTypeDTO categoryType;
     private SizeDTO size;

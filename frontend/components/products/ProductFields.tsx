@@ -1,20 +1,19 @@
+import { Validation } from "@/constants/error";
 import { Buttons } from "@/constants/product";
 import { AddProductRequired } from "@/constants/product";
 import useAddFacade from "@/hooks/products/useAddFacade";
 import { CategoryType } from "@/types/category";
 import { Gender } from "@/types/gender";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 type ProductFieldsProps = {
-  handleChangeSelectGender: (values: any) => void;
+  // handleChangeSelectGender: (values: any) => void;
   // formRef: any;
 };
 
-export default function ProductFields({
-  handleChangeSelectGender,
-}: ProductFieldsProps) {
+export default function ProductFields({edit}) {
   const router = useRouter();
   const { categoryTypes } = useAddFacade();
 
@@ -30,6 +29,15 @@ export default function ProductFields({
           {
             required: true,
             message: `${AddProductRequired.NAME_REQUIRED}`,
+          },
+          {
+            validator: (_, value) => {
+              const onlyLetters = /^[A-Za-z]+$/;
+              if (onlyLetters.test(value)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error(`${Validation.ONLY_STRING}`));
+            },
           },
         ]}
       >
@@ -55,9 +63,13 @@ export default function ProductFields({
             required: true,
             message: `${AddProductRequired.PRICE_REQUIRED}`,
           },
+          {
+            type: "number",
+            message: `${Validation.ONLY_NUMBERS}`,
+          },
         ]}
       >
-        <Input />
+        <InputNumber min={1} />
       </Form.Item>
       <Form.Item
         name="stock"
@@ -67,9 +79,13 @@ export default function ProductFields({
             required: true,
             message: `${AddProductRequired.STOCK_REQUIRED}`,
           },
+          {
+            type: "number",
+            message: `${Validation.ONLY_NUMBERS}`,
+          },
         ]}
       >
-        <Input />
+        <InputNumber min={0} />
       </Form.Item>
 
       <Form.Item
@@ -85,7 +101,7 @@ export default function ProductFields({
         <Select
           defaultValue=""
           style={{ width: 120 }}
-          onChange={handleChangeSelectGender}
+          // onChange={handleChangeSelectGender}
           options={[
             { value: Gender.Women, label: Gender.Women },
             { value: Gender.Male, label: Gender.Male },
@@ -107,7 +123,7 @@ export default function ProductFields({
         <Select
           defaultValue=""
           style={{ width: 120 }}
-          onChange={handleChangeSelectGender}
+          // onChange={handleChangeSelectGender}
           options={
             categoryTypes &&
             categoryTypes.map((category: CategoryType) => ({
@@ -125,9 +141,13 @@ export default function ProductFields({
             required: true,
             message: `${AddProductRequired.SIZE_RQUIRED}`,
           },
+          // {
+          //   type: "number",
+          //   message: `${Validation.ONLY_NUMBERS}`,
+          // },
         ]}
       >
-        <Input />
+        <Input  />
       </Form.Item>
       <Form.Item
         name="color"
@@ -136,6 +156,15 @@ export default function ProductFields({
           {
             required: true,
             message: `${AddProductRequired.COLOR_RQUIRED}`,
+          },
+          {
+            validator: (_, value) => {
+              const onlyLetters = /^[A-Za-z]+$/;
+              if (onlyLetters.test(value)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error(`${Validation.ONLY_STRING}`));
+            },
           },
         ]}
       >

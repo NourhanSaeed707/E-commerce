@@ -11,3 +11,8 @@ export const registerValid = {
     PASSWORD_VALID: "Password must be at least 8 characters",
     CONFIRM_PASSWORD_VALID: "The two passwords do not match!"
 }
+
+export const Validation = {
+    ONLY_STRING: "The input must be a characters",
+    ONLY_NUMBERS: "The input must be numbers only"
+}

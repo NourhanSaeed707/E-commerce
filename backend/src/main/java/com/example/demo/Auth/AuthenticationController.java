@@ -1,5 +1,4 @@
 package com.example.demo.Auth;
-
 import com.example.demo.entity.UserEntity;
 import com.example.demo.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 
 @CrossOrigin

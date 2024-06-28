@@ -1,9 +1,27 @@
+import { Product } from './product';
 export type CategoryType =  {
    id?: Number;
-   name: String;
+   name?: String;
    createdAt?: Date;
    lasteModifiedAt?: Date;
    createdBy?: String;
+}
+
+export type Category = {
+   id?: Number;
+   categoryType: CategoryType,
+   product: Product,
+   createdAt?: Date,
+   lastModifiedAt?: Date,
+   createdBy?: String,
+   images: Image[],
+}
+
+export type Image = {
+   id: Number,
+   createdAt?: Date,
+   lastModifiedAt?: Date,
+   imageUrl: string,
 }
 
 export type CategoryTypeTableProps = {

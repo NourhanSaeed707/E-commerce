@@ -7,7 +7,7 @@ import java.util.*;
 public interface ProductService {
     List<ProductsDTO> getAll();
     ProductsDTO getById(Long id) throws Exception ;
-    ResponseEntity<ProductsDTO> save(ProductsDTO productDTO);
+    ResponseEntity<ProductsDTO> save(ProductsDTO productDTO) throws Exception;
     Product setProductFields(Product product, ProductsDTO productsDTO);
     ResponseEntity<Product> update (Long id, ProductsDTO productsDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);

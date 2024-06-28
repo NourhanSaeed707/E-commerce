@@ -1,13 +1,11 @@
 package com.example.demo.controller;
 import com.example.demo.entity.CategoryType;
 import com.example.demo.model.CategoryTypeDTO;
-import com.example.demo.model.ProductsDTO;
 import com.example.demo.service.CategoryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @RestController

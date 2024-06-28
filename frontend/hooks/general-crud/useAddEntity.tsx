@@ -1,3 +1,4 @@
+import FetchToken from "@/helper/token";
 import { AddService } from "@/services/general/addService";
 import { AddServices } from "@/types/services";
 import { AxiosResponse } from "axios";
@@ -5,11 +6,13 @@ import { useCallback, useEffect, useState } from "react";
 import { getCookie } from "typescript-cookie";
 
 export default function useAddEntity<T>(apiUrl: string) {
-  const token = getCookie("token");
+  // const token = getCookie("token");
+  // const { token } = await FetchToken();
   const [entity, setEntity] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<AxiosResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [tokenState, setToken] = useState<string | null>(null);
 
   const callAPI = useCallback(
     async (body: T) => {
@@ -17,9 +20,10 @@ export default function useAddEntity<T>(apiUrl: string) {
       setLoading(true);
       const props: AddServices = {
         apiUrl,
-        token,
+        token: tokenState,
         body,
       };
+      console.log("proooooops: ", props);
 
       try {
         const response = await AddService(props);
@@ -30,14 +34,23 @@ export default function useAddEntity<T>(apiUrl: string) {
         setLoading(false);
       }
     },
-    [apiUrl, token]
+    [apiUrl, tokenState]
   );
 
   useEffect(() => {
-    if (entity) {
+    if (entity && tokenState) {
+      console.log("tokeeeeeeen inside add entity: ", tokenState);
       callAPI(entity);
     }
-  }, [callAPI, entity]);
+  }, [callAPI, entity, tokenState]);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const { accessToken } = await FetchToken();
+      setToken(accessToken.token);
+    };
+    fetchToken();
+  }, []);
 
   return {
     response,

@@ -7,13 +7,19 @@ export const AddService = async ({
   token,
   body,
 }: AddServices): Promise<AxiosResponse> => {
-  const response = await client.post(apiUrl, body, {
-    headers: {
-      "Content-type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response;
+  console.log("Token in AddService:", token);
+  
+  try {
+    const response = await client.post(apiUrl, body, {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("Response from server:", response);
+    return response;
+  } catch (error) {
+    console.error("Error in AddService:", error);
+    throw error; // Rethrow the error to handle it in the caller function
+  }
 };

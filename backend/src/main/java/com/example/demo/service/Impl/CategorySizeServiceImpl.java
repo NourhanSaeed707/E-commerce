@@ -12,35 +12,43 @@ import com.example.demo.model.CategorySizeDTO;
 import com.example.demo.model.SizeDTO;
 import com.example.demo.repository.CategorySizeRepository;
 import com.example.demo.service.CategorySizeService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CategorySizeServiceImpl implements CategorySizeService {
 
     @Autowired
     private CategorySizeRepository categorySizeRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<CategorySizeDTO> getAll() {
         List<CategorySize> categorySizes = categorySizeRepository.findAll();
-        return CategorySizeAdapter.convertListEntityToDTO(categorySizes);
+        return categorySizes.stream().map(categorySize -> modelMapper.map(categorySize, CategorySizeDTO.class))
+                .collect(Collectors.toList());
+//        return CategorySizeAdapter.convertListEntityToDTO(categorySizes);
     }
 
     @Override
     public CategorySizeDTO getById(Long id) throws Exception {
         Helper.validateId(id);
         CategorySize categorySize = categorySizeRepository.findById(id).orElseThrow( () ->  new CategorySizeNotFoundException(id));
-        return CategorySizeAdapter.toDTO(categorySize);
+        return modelMapper.map(categorySize, CategorySizeDTO.class);
+//        return CategorySizeAdapter.toDTO(categorySize);
     }
 
     @Override
     public ResponseEntity<CategorySizeDTO> save(CategorySizeDTO categorySizeDTO) {
-        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeDTO);
+//        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeDTO);
+        CategorySize categorySize = modelMapper.map(categorySizeDTO, CategorySize.class);
         categorySize.setCreatedAt(Date.valueOf(LocalDate.now()));
         categorySizeRepository.save(categorySize);
         return ResponseEntity.ok(categorySizeDTO);
@@ -57,7 +65,8 @@ public class CategorySizeServiceImpl implements CategorySizeService {
     @Override
     public CategorySize setCategorySizeFields(CategorySize categorySize, CategorySizeDTO categorySizeDTO) {
         categorySize.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        CategorySize categorySizeEntity = CategorySizeAdapter.toEntity(categorySizeDTO);
+//        CategorySize categorySizeEntity = CategorySizeAdapter.toEntity(categorySizeDTO);
+        CategorySize categorySizeEntity = modelMapper.map(categorySizeDTO, CategorySize.class);
         categorySize.setSize(categorySizeEntity.getSize());
         categorySize.setCategory(categorySizeEntity.getCategory());
         return categorySize;
@@ -66,7 +75,8 @@ public class CategorySizeServiceImpl implements CategorySizeService {
     @Override
     public ResponseEntity<CategorySize> update(Long id, CategorySizeDTO categorySizeDTO) throws Exception {
         CategorySizeDTO categorySizeFoundDTO = getById(id);
-        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeFoundDTO);
+//        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeFoundDTO);
+        CategorySize categorySize = modelMapper.map(categorySizeDTO, CategorySize.class);
         categorySize = setCategorySizeFields(categorySize, categorySizeDTO);
         return ResponseEntity.ok(categorySizeRepository.save(categorySize));
     }
@@ -82,7 +92,8 @@ public class CategorySizeServiceImpl implements CategorySizeService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
         CategorySizeDTO categorySizeFoundDTO = this.getById(id);
-        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeFoundDTO);
+//        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeFoundDTO);
+        CategorySize categorySize = modelMapper.map(categorySizeFoundDTO, CategorySize.class);
         categorySizeRepository.delete(categorySize);
         return checkByIdExists(id, "deleted");
     }
