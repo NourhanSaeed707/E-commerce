@@ -34,7 +34,7 @@ public class CategoryTypeController {
 
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<CategoryType> save(@RequestBody CategoryTypeDTO categoryTypeDTO) {
+    public ResponseEntity<CategoryTypeDTO> save(@RequestBody CategoryTypeDTO categoryTypeDTO) {
         System.out.print("category type body: " + categoryTypeDTO);
         return  categoryTypeService.save(categoryTypeDTO);
     }
