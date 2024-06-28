@@ -32,11 +32,7 @@ public class CodeServiceImpl implements CodeService {
 
     @Override
     public boolean verifyGeneratedCode(VerifyDTO verifyDTO) {
-        System.out.println("VERIIIFY: " + verifyDTO.email);
         Object cachedCode = redisTemplate.opsForValue().get(verifyDTO.email);
-        System.out.println("caaache code = " + cachedCode);
-//        ValueOperation s<String, Object> ops = redisTemplate.opsForValue();
-//        String cachedCode = (String) ops.get(key);
         return verifyDTO.code.equals(cachedCode);
     }
 }

@@ -1,5 +1,4 @@
 package com.example.demo.model;
-import com.example.demo.entity.CategoryColor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

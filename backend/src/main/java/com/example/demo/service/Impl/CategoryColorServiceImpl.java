@@ -46,8 +46,9 @@ public class CategoryColorServiceImpl implements CategoryColorService {
 //        CategoryColor categoryColor = CategoryColorAdapter.toEntity(categoryColorDTO);
         CategoryColor categoryColor = modelMapper.map(categoryColorDTO, CategoryColor.class);
         categoryColor.setCreatedAt(Date.valueOf(LocalDate.now()));
-        categoryColorRepository.save(categoryColor);
-        return ResponseEntity.ok(categoryColorDTO);
+        CategoryColor saved = categoryColorRepository.save(categoryColor);
+        return  ResponseEntity.ok(modelMapper.map(saved, CategoryColorDTO.class));
+//        return ResponseEntity.ok(categoryColorDTO);
     }
 
     @Override

@@ -14,6 +14,4 @@ public class CategorySizeDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
-
-
 }

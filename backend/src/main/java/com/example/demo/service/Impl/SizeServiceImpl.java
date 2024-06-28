@@ -44,8 +44,9 @@ public class SizeServiceImpl implements SizeService {
 //        Size size = SizeAdapter.toEntity(sizeDTO);
         Size size = modelMapper.map(sizeDTO, Size.class);
         size.setCreatedAt(Date.valueOf(LocalDate.now()));
-        sizeRepository.save(size);
-        return ResponseEntity.ok(sizeDTO);
+        Size saved = sizeRepository.save(size);
+        return ResponseEntity.ok(modelMapper.map(saved, SizeDTO.class));
+//        return ResponseEntity.ok(sizeDTO);
     }
 
     @Override

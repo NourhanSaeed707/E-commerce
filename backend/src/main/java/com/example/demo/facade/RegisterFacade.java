@@ -23,7 +23,6 @@ public class RegisterFacade {
     }
     public  boolean verifyRegisterUserCode(VerifyDTO verifyDTO) {
         boolean isCodeValid = codeService.verifyGeneratedCode(verifyDTO);
-        System.out.println("isCodeValid = " + isCodeValid);
         if(isCodeValid) {
             return true;
         }

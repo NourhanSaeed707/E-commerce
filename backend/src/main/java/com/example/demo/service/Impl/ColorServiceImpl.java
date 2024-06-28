@@ -42,10 +42,11 @@ public class ColorServiceImpl implements ColorService {
     @Override
     public ResponseEntity<ColorDTO> save(ColorDTO colorDTO) {
 //        Color color = ColorAdapter.toEntity(colorDTO);
-        Color color =modelMapper.map(colorDTO, Color.class);
+        Color color = modelMapper.map(colorDTO, Color.class);
         color.setCreatedAt(Date.valueOf(LocalDate.now()));
-        colorRepository.save(color);
-        return ResponseEntity.ok(colorDTO);
+        Color saved = colorRepository.save(color);
+        return ResponseEntity.ok(modelMapper.map(saved, ColorDTO.class));
+//        return ResponseEntity.ok(colorDTO);
     }
 
     @Override

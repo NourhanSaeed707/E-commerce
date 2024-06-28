@@ -48,8 +48,9 @@ public class ProductServiceImpl implements ProductService {
 //        Product product = ProductAdapter.toEntity(productFacadeDTO);
         Product product = modelMapper.map(productFacadeDTO, Product.class);
         product.setCreatedAt(Date.valueOf(LocalDate.now()));
-        productRepository.save(product);
-        return ResponseEntity.ok(productDTO);
+        Product saved = productRepository.save(product);
+        return ResponseEntity.ok(modelMapper.map(saved, ProductsDTO.class));
+//        return ResponseEntity.ok(productDTO);
     }
 
     @Override

@@ -32,7 +32,6 @@ public class ProductController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ProductsDTO> save(@RequestBody ProductsDTO productsDTO) throws Exception {
-        System.out.println("save product controller");
         return  productService.save(productsDTO);
     }
 

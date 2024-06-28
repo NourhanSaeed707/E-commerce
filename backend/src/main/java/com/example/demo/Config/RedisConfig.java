@@ -13,9 +13,6 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-
-
 @Configuration
 @EnableCaching
 public class RedisConfig {
@@ -38,21 +35,4 @@ public class RedisConfig {
                 .cacheDefaults(config)
                 .build();
     }
-
-//    @Bean
-//    public RedisConnectionFactory redisConnectionFactory() {
-//        return new JedisConnectionFactory();
-//    }
-//
-//    @Bean
-//    public RedisTemplate<String, Object> redisTemplate() {
-//        RedisTemplate<String, Object> template = new RedisTemplate<>();
-//        template.setConnectionFactory(redisConnectionFactory());
-//        template.setKeySerializer(new StringRedisSerializer());
-//        template.setValueSerializer(new StringRedisSerializer());
-//        return template;
-//    }
-
-
-
 }

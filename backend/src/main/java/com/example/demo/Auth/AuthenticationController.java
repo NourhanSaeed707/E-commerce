@@ -29,15 +29,9 @@ public class AuthenticationController {
     }
     @GetMapping("/user")
     public ResponseEntity<Optional<UserEntity>> getUserInfo() {
-//        System.out.println("first insiiide function of get user::");
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        UserEntity user = (UserEntity) authentication.getPrincipal();
-//        System.out.println(authentication.getPrincipal());
-//        return ResponseEntity.ok(user);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Optional<UserEntity> user = userRepository.findByEmail(userDetails.getUsername());
-        System.out.println("useeer: " + user);
         return ResponseEntity.ok(user);
 
     }

@@ -6,7 +6,6 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.UnsupportedEncodingException;
 
 @RestController
@@ -30,13 +29,10 @@ public class EmailController {
 
     @PostMapping("/verify")
     public ResponseEntity<String> verifyGeneratedCode(@RequestBody VerifyDTO verifyDTO) {
-        System.out.println("veriffyy dto : " + verifyDTO);
         try {
             boolean isValid = registerFacade.verifyRegisterUserCode(verifyDTO);
-            System.out.println("isVaaalid : " + isValid);
             if(isValid) {
                 return ResponseEntity.ok("generated code is right");
-
             }
             else{
                 return  ResponseEntity.status(400).body("generated code not right");

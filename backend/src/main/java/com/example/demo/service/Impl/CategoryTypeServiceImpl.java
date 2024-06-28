@@ -45,8 +45,9 @@ public class CategoryTypeServiceImpl implements CategoryTypeService {
 //        CategoryType categoryType = CategoryTypeAdapter.toEntity(categoryTypeDTO);
         CategoryType categoryType = modelMapper.map(categoryTypeDTO, CategoryType.class);
         categoryType.setCreatedAt(Date.valueOf(LocalDate.now()));
-        categoryTypeRepository.save(categoryType);
-        return ResponseEntity.ok(categoryTypeDTO);
+        CategoryType saved = categoryTypeRepository.save(categoryType);
+        return ResponseEntity.ok(modelMapper.map(saved, CategoryTypeDTO.class));
+//        return ResponseEntity.ok(categoryTypeDTO);
     }
 
     @Override

@@ -23,11 +23,8 @@ public class ProductFacade {
     private CategoryTypeService categoryTypeService;
 
     public ProductsDTO saveProductRelations(ProductsDTO productDTO) {
-        System.out.println("saaaved produucct relaaaaaaations" + productDTO);
-        System.out.println("product categooory type: " + productDTO.getCategoryType());
         // Save category
         CategoryDTO savedCategory = categoryService.returnSavedCategory(productDTO.getCategoryType());
-        System.out.println("saveeed categoooory: "+ savedCategory);
         // Save Size
         SizeDTO savedSize = sizeService.save(productDTO.getSize()).getBody();
         // Save category size
@@ -37,7 +34,8 @@ public class ProductFacade {
         // Save category color
         categoryColorService.savedCategoryColor(savedCategory, savedColor);
         productDTO.setCategory(savedCategory);
-
+        productDTO.setColor(savedColor);
+        productDTO.setSize(savedSize);
         return productDTO;
     }
 }

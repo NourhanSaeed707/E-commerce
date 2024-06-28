@@ -43,20 +43,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<CategoryDTO> save(CategoryDTO categoryDTO) {
-        System.out.println("categoooorydtoooo before entity: " + categoryDTO);
         Category category = modelMapper.map(categoryDTO, Category.class);
         category.setCreatedAt(Date.valueOf(LocalDate.now()));
-        System.out.println("categoooory after entity: " + category);
-        categoryRepository.save(category);
-        return ResponseEntity.ok(categoryDTO);
+        Category saved = categoryRepository.save(category);
+        return ResponseEntity.ok(modelMapper.map(saved, CategoryDTO.class));
+//        return ResponseEntity.ok(categoryDTO);
     }
 
     @Override
     public CategoryDTO returnSavedCategory(CategoryTypeDTO categoryTypeDTO) {
-        System.out.println("reeeeeeeeeturn saved caaategooory service");
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setCategoryType(categoryTypeDTO);
-        System.out.println("categooory type: " + categoryDTO);
         return save(categoryDTO).getBody();
     }
 
