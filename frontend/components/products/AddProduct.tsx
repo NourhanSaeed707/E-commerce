@@ -13,6 +13,7 @@ export default function AddProduct() {
   };
   const { setEntity, loading, error, response } = useAddEntity(apiUrl);
 
+  
   const [formRef] = Form.useForm();
   const router = useRouter();
 
