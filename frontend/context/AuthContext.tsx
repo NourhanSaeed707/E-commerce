@@ -163,9 +163,6 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
       const response = await axios.get("/api/get-user");
       const data = response.data;
 
-      console.log("dataaaa from auth context");
-      console.log(data);
-
       if (data) {
         setCurrentUser(data);
       }

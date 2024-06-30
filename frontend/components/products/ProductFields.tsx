@@ -6,20 +6,41 @@ import { CategoryType } from "@/types/category";
 import { Gender } from "@/types/gender";
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import ImageUpload from "../upload/ImageUpload";
+import { UploadImageProps } from "@/types/image";
 
 type ProductFieldsProps = {
   // handleChangeSelectGender: (values: any) => void;
   // formRef: any;
 };
 
-export default function ProductFields({edit}) {
+export default function ProductFields({ edit, imagesList, setImagesList }) {
+  // const [imagesList, setImagesList] = useState([]);
   const router = useRouter();
   const { categoryTypes } = useAddFacade();
 
-  useEffect(() => {
-    console.log("categoooooory type: ", categoryTypes);
-  }, [categoryTypes]);
+  // const handleAddImage = (newImageUrl: string) => {
+  //   const newImage = newImageUrl;
+  //   if (imagesList) {
+  //     setImagesList([...imagesList, newImage]);
+  //   } else {
+  //     setImagesList([newImage]);
+  //   }
+  // };
+  // const handleRemoveImage = (deleteImageUrl: string) => {
+  //   const newImagesList = imagesList.filter(
+  //     (image) => image.url !== deleteImageUrl
+  //   );
+  //   setImagesList([...newImagesList]);
+  // };
+
+  // const props: UploadImageProps = {
+  //   size: 16,
+  //   imagesList,
+  //   addImage: handleAddImage,
+  //   removeImage: handleRemoveImage,
+  // };
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
       <Form.Item
@@ -147,7 +168,7 @@ export default function ProductFields({edit}) {
           // },
         ]}
       >
-        <Input  />
+        <Input />
       </Form.Item>
       <Form.Item
         name="color"
@@ -169,6 +190,10 @@ export default function ProductFields({edit}) {
         ]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item name = "images" label="image">
+        {/* <ImageUpload  {...props}/> */}
+        <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" className="w-full">

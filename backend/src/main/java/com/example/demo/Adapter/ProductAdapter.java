@@ -25,7 +25,8 @@ public class ProductAdapter {
                             ProductsDTO productDTO = toDTO(prod);
                             return new ProductsDTO(productDTO.getId(), productDTO.getName(), productDTO.getCreatedAt(),productDTO.getCreatedBy(),
                                     productDTO.getCodeNumber(),  productDTO.getPrice(), productDTO.getStock(), productDTO.getGender(),
-                                    productDTO.getCategory(), productDTO.getCategoryType(), productDTO.getSize(), productDTO.getColor());
+                                    productDTO.getCategory(), productDTO.getCategoryType(), productDTO.getSize(), productDTO.getColor(),
+                                    productDTO.getImages());
                         })
                 .collect(Collectors.toList());
     }

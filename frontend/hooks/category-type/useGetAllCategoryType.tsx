@@ -16,7 +16,6 @@ export default function useGetAllCategoryType() {
 
   const fetcher = async () => {
     const { accessToken } = await FetchToken();
-    console.log("tokeeeen category type: ", accessToken);
     const props: GetAllServices = {
       apiUrl,
       token: accessToken.token,

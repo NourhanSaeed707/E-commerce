@@ -1,24 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProductFields from "./ProductFields";
 import { Form } from "antd";
 import { CategoryTypeEditProps } from "@/types/category";
 import useAddEntity from "@/hooks/general-crud/useAddEntity";
-import { Product } from "@/types/product";
+import { AddProductFieldsProps, Product } from "@/types/product";
 import { useRouter } from "next/router";
 
 export default function AddProduct() {
   const apiUrl = "/api/product/save";
-  const props: CategoryTypeEditProps = {
+  const [imagesList, setImagesList] = useState([]);
+  // const props: CategoryTypeEditProps = {
+  //   edit: false,
+  // };
+  const props: AddProductFieldsProps = {
     edit: false,
+    imagesList,
+    setImagesList,
   };
   const { setEntity, loading, error, response } = useAddEntity(apiUrl);
 
-  
   const [formRef] = Form.useForm();
   const router = useRouter();
 
+  useEffect(() => {
+    console.log("imaaaaaaages list in main add product component: ", imagesList);
+  }, [imagesList]);
+
   const onFinish = (values: any) => {
-    console.log("vaaaaaalues: ", values);
+    console.log("vaaaaaaalues: ", values);
     const product: Product = {
       name: values.name,
       codeNumber: values.codeNumber,
@@ -26,20 +35,15 @@ export default function AddProduct() {
       stock: values.stock,
       gender: values.gender,
       categoryType: {
-        id: values.categoryType
+        id: values.categoryType,
       },
       size: {
-        size: values.size
+        size: values.size,
       },
       color: {
-        color: values.color
+        color: values.color,
       },
-      // size: {
-      //   size: values.size
-      // },
-      // color: {
-      //   color: values.color
-      // },
+      images: imagesList,
     };
     setEntity(product);
   };

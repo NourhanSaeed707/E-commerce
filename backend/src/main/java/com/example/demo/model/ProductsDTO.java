@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +21,7 @@ public class ProductsDTO {
     private CategoryTypeDTO categoryType;
     private SizeDTO size;
     private ColorDTO color;
+    private Map images;
 
 
 }

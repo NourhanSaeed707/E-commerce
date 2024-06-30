@@ -16,5 +16,13 @@ export type Product = {
     category?: Category,
     categoryType: CategoryType,
     size: Size,
-    color: Color
+    color: Color,
+    images: any[],
+}
+
+export type AddProductFieldsProps = {
+    edit: boolean,
+    imagesList: any[],
+    setImagesList: (imagesList: any) => void;
+
 }

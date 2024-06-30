@@ -21,8 +21,11 @@ public class ProductFacade {
     private CategoryColorService categoryColorService;
     @Autowired
     private CategoryTypeService categoryTypeService;
+    @Autowired
+    private UploadService uploadService;
 
     public ProductsDTO saveProductRelations(ProductsDTO productDTO) {
+        System.out.println("proooooooduct facade: " + productDTO);
         // Save category
         CategoryDTO savedCategory = categoryService.returnSavedCategory(productDTO.getCategoryType());
         // Save Size
@@ -33,6 +36,8 @@ public class ProductFacade {
         ColorDTO savedColor = colorService.save(productDTO.getColor()).getBody();
         // Save category color
         categoryColorService.savedCategoryColor(savedCategory, savedColor);
+        //save image
+        uploadService.save(savedCategory, productDTO.getImages());
         productDTO.setCategory(savedCategory);
         productDTO.setColor(savedColor);
         productDTO.setSize(savedSize);
