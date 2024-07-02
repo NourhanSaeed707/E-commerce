@@ -16,31 +16,9 @@ type ProductFieldsProps = {
 };
 
 export default function ProductFields({ edit, imagesList, setImagesList }) {
-  // const [imagesList, setImagesList] = useState([]);
   const router = useRouter();
   const { categoryTypes } = useAddFacade();
 
-  // const handleAddImage = (newImageUrl: string) => {
-  //   const newImage = newImageUrl;
-  //   if (imagesList) {
-  //     setImagesList([...imagesList, newImage]);
-  //   } else {
-  //     setImagesList([newImage]);
-  //   }
-  // };
-  // const handleRemoveImage = (deleteImageUrl: string) => {
-  //   const newImagesList = imagesList.filter(
-  //     (image) => image.url !== deleteImageUrl
-  //   );
-  //   setImagesList([...newImagesList]);
-  // };
-
-  // const props: UploadImageProps = {
-  //   size: 16,
-  //   imagesList,
-  //   addImage: handleAddImage,
-  //   removeImage: handleRemoveImage,
-  // };
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
       <Form.Item

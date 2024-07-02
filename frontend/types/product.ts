@@ -29,6 +29,16 @@ export type AddProductFieldsProps = {
 export type ProductTableProps = {
   entities: Product[];
   loading: boolean;
-  error: string | null;
-  setEntityDeleteId: (id) => void;
+  errors: string | null;
+  setEntityIdDelete: (id) => void;
+};
+
+export type DataProductTypeTable = {
+  key: string;
+  id: number;
+  name: string;
+  createdAt: number;
+  price: number;
+  stock: number;
+  categoryType: CategoryType;
 };

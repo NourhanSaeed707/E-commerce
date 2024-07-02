@@ -1,5 +1,6 @@
 import { BUTTONS } from "@/constants/category";
 import { DataTypeTable } from "@/types/category";
+import { DataProductTypeTable, Product } from "@/types/product";
 import { Button, Space, Spin, Table, TableProps } from "antd";
 import moment from "moment";
 import { useRouter } from "next/router";
@@ -41,9 +42,9 @@ export default function ProductTable({
       key: "stock",
     },
     {
-      title: "category-type",
-      dataIndex: "category-type",
-      key: "category-type",
+      title: "categoryType",
+      dataIndex: "categoryType",
+      key: "categoryType",
     },
     {
       title: "Action",
@@ -53,7 +54,7 @@ export default function ProductTable({
           <Button
             type="primary"
             className="bg-yellow-500 border-yellow-500 hover:bg-yellow-400 hover:border-yellow-400"
-            onClick={() => router.push(`/category-type/edit/${record.id}`)}
+            onClick={() => router.push(`/products/edit/${record.id}`)}
           >
             {BUTTONS.EDIT}
           </Button>
@@ -69,15 +70,17 @@ export default function ProductTable({
     },
   ];
 
-  const data: DataTypeTable[] =
+  const data: DataProductTypeTable[] =
     entities &&
-    entities.map((product: any) => ({
+    entities.map((product: Product) => ({
       key: product.id,
       id: product.id,
       name: product.name,
       createdAt: moment(product.createdAt).format("DD-MM-YYYY"),
       price: product.price,
       stock: product.stock,
+      categoryType:
+        product && product.categoryType && product.categoryType.name,
     }));
 
   return (

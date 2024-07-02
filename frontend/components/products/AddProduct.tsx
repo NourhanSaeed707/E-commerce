@@ -54,7 +54,7 @@ export default function AddProduct() {
 
   useEffect(() => {
     if (!loading && !error && response) {
-      router.push("/category-type/get-all");
+      router.push("/products/all");
     }
   }, [error, loading, response, router]);
 
