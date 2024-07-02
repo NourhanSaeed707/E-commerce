@@ -3,7 +3,7 @@ import { NAVBAR } from "@/constants/home";
 import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 
 function Navbar() {
   const { currentUser, logout } = useAuth();
@@ -47,7 +47,7 @@ function Navbar() {
                     {NAVBAR.CATEGORY}
                   </Link>
                 </>
-              )}
+              )} 
               {currentUser ? (
                 <Link
                   href="#"

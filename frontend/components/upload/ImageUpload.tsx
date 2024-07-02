@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Upload, Button, message } from "antd";
+import { Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import axios from "axios";
 import FetchToken from "@/helper/token";
-import client from "@/client/client";
 import { uploadImage } from "@/services/uploader/uploadService";
 
 const { Dragger } = Upload;
@@ -14,16 +12,13 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      console.log("geett token in image hook");
       const { accessToken } = await FetchToken();
-      console.log(accessToken);
       setToken(accessToken.token);
     };
     fetchToken();
   }, []);
 
   const customRequest = async ({ file, onSuccess, onError }: any) => {
-    console.log("insiiiiide custom req");
     try {
       const imageUrl = await uploadImage(file, tokenState); // Call the service function to upload image
       onSuccess(null, file); // Call onSuccess with null (or undefined) as first argument
@@ -37,7 +32,6 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
 
   const onChange = (info: any) => {
     const { status } = info.file;
-    console.log("infooo file: ", info.file);
     if (status === "done") {
       message.success(`${info.file.name} file uploaded successfully.`);
     } else if (status === "error") {

@@ -9,16 +9,13 @@ export default function useUploadImage(addImage) {
 
   useEffect(() => {
     const fetchToken = async () => {
-      console.log("geett token in image hook");
       const { accessToken } = await FetchToken();
-      console.log(accessToken)
       setToken(accessToken.token);
     };
     fetchToken();
   }, []);
 
   const uploadImages = async (options: any) => {
-    console.log("toooooken from image hook: ", tokenState);
     const { onSuccess, onError, file, onProgress } = options;
     const imageURL = (
       await client.post(`${apiUrl}/${file.name}`, null, {
@@ -28,7 +25,6 @@ export default function useUploadImage(addImage) {
         },
       })
     ).data;
-    console.log("imaaaaage url: ", imageURL);
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", await imageURL);
     setLoading(true);

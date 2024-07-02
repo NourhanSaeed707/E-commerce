@@ -19,6 +19,8 @@
 // export default config;
 
 module.exports = {
+  swcMinify: true,
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -30,6 +32,8 @@ module.exports = {
     ],
   },
 }
+
+
 
  
 

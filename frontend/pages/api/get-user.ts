@@ -1,11 +1,9 @@
-import client from "../../client/client";
-import withSession from "../../sessionConfig.js";
+import client from "@/client/client";
+import withSession from "@/sessionConfig.js";
 
 export default withSession(async (req: any, res: any) => {
-  console.log("geeeeeeeeet user");
   const user = req.session.get("user");
   if (user && user.token) {
-    console.log("useeeeeeer token: ", user.token);
     try {
       const response = await client.get("/api/v2/auth/user", {
         headers: {
@@ -18,6 +16,6 @@ export default withSession(async (req: any, res: any) => {
       res.status(401).json({ message: "Invalid or expired token" });
     }
   } else {
-    res.status(401).json({ message: "No token found" });
+    res.status(401).json({ message: "No token found" , token: null});
   }
 });

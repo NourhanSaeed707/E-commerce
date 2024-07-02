@@ -1,10 +1,11 @@
-import ListProduct from '@/components/products/ListProduct'
-import React from 'react'
+import ListProduct from "@/components/products/ListProduct";
 
-export default function GetAll() {
+function GetAll() {
   return (
     <div>
-        <ListProduct/>
+      <ListProduct />
     </div>
-  )
+  );
 }
+
+export default GetAll;

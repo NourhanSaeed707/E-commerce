@@ -3,11 +3,8 @@ import { AddService } from "@/services/general/addService";
 import { AddServices } from "@/types/services";
 import { AxiosResponse } from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { getCookie } from "typescript-cookie";
 
 export default function useAddEntity<T>(apiUrl: string) {
-  // const token = getCookie("token");
-  // const { token } = await FetchToken();
   const [entity, setEntity] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<AxiosResponse | null>(null);
@@ -23,7 +20,6 @@ export default function useAddEntity<T>(apiUrl: string) {
         token: tokenState,
         body,
       };
-      console.log("proooooops: ", props);
 
       try {
         const response = await AddService(props);
@@ -39,7 +35,6 @@ export default function useAddEntity<T>(apiUrl: string) {
 
   useEffect(() => {
     if (entity && tokenState) {
-      console.log("tokeeeeeeen inside add entity: ", tokenState);
       callAPI(entity);
     }
   }, [callAPI, entity, tokenState]);

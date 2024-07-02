@@ -1,5 +1,5 @@
 import { ContentType } from '@/types/content';
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function MainContent({image, titleButton, title }: ContentType) {
     

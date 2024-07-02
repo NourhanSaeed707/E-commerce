@@ -6,14 +6,8 @@ import { CategoryType } from "@/types/category";
 import { Gender } from "@/types/gender";
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ImageUpload from "../upload/ImageUpload";
-import { UploadImageProps } from "@/types/image";
-
-type ProductFieldsProps = {
-  // handleChangeSelectGender: (values: any) => void;
-  // formRef: any;
-};
 
 export default function ProductFields({ edit, imagesList, setImagesList }) {
   const router = useRouter();
