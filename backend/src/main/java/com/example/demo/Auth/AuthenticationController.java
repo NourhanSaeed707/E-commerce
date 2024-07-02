@@ -25,13 +25,10 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate (@RequestBody AuthenticationRequest request, HttpServletResponse response) {
-        System.out.println("authenticaaaaaaate");
-
         return ResponseEntity.ok(authenticationService.authenticate(request,response));
     }
     @GetMapping("/user")
     public ResponseEntity<Optional<UserEntity>> getUserInfo() {
-        System.out.println("geeeeet user");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Optional<UserEntity> user = userRepository.findByEmail(userDetails.getUsername());

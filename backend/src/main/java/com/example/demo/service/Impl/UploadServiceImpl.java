@@ -28,17 +28,6 @@ public class UploadServiceImpl implements UploadService {
         return uploadResult;
     }
 
-//    @Override
-//    public Map<String, Object> save(Map<String, Object> uploadResult) {
-//        String imageUrl = (String) uploadResult.get("secure_url");
-//        Image image = new Image();
-//        image.setImageUrl(imageUrl);
-//        System.out.println("imaaaaaaage url: ");
-//        System.out.println(image.getImageUrl());
-//        imageRepository.save(image);
-//        return uploadResult;
-//    }
-
     @Override
     public List save(CategoryDTO categoryDTO, List<String> uploadResult) {
 //        String imageUrl = (String) uploadResult.get("secure_url");

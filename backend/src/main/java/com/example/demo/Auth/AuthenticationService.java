@@ -1,5 +1,4 @@
 package com.example.demo.Auth;
-
 import com.example.demo.Config.JwtService;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.UserEntity;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -45,50 +45,6 @@ public class AuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
-//    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.getEmail(),
-//                        request.getPassword()
-//                )
-//        );
-//        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-//        var jwtToken = jwtService.generateToken(user);
-//        return AuthenticationResponse.builder().token(jwtToken).build();
-//    }
-
-    // new
-//    public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletResponse response) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.getEmail(),
-//                        request.getPassword()
-//                )
-//        );
-//        System.out.println("authentiiicate");
-//        System.out.println(authentication);
-//        if (authentication.isAuthenticated()) {
-//            System.out.println("inside if condition in authenticate service function");
-//            var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-//            var accessToken = jwtService.generateToken(user);
-//            ResponseCookie cookie = ResponseCookie.from("accessToken", accessToken)
-//                    .httpOnly(true)
-//                    .secure(false)
-//                    .path("/")
-//                    .maxAge(600)
-//                    .build();
-//
-//            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-//            return AuthenticationResponse.builder().token(accessToken).build();
-//        }
-//
-//        else {
-////            throw new UsernameNotFoundException("invalid user request..!!");
-//            System.out.println("noooooo useeeer");
-//            return null;
-//        }
-//    }
-
     public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletResponse response) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -97,22 +53,25 @@ public class AuthenticationService {
                             request.getPassword()
                     )
             );
+
             var user = userRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
             var jwtToken = jwtService.generateToken(user);
             ResponseCookie cookie = ResponseCookie.from("token", jwtToken)
                     .httpOnly(true)
                     .secure(false) // Set to true in production
                     .path("/")
-                    .maxAge(86400) // 10 minutes
+                    .maxAge(86400) // 1 day
                     .build();
-
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-            AuthenticationResponse token = AuthenticationResponse.builder().token(jwtToken).build();
-            System.out.println("tooooooooken: " + token);
-            return token;
+            return AuthenticationResponse.builder().token(jwtToken).build();
+        } catch (BadCredentialsException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return AuthenticationResponse.builder().message("Invalid email or password").build();
         } catch (UsernameNotFoundException e) {
-            throw new UsernameNotFoundException("User not found", e);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return AuthenticationResponse.builder().message("User not found").build();
         }
     }
 }

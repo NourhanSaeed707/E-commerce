@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { LoginUser } from "@/types/users";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const router = useRouter();
@@ -76,6 +78,7 @@ function LoginForm() {
           </Button>
         </Form.Item>
       </Form>
+      <ToastContainer />
     </div>
   );
 }
