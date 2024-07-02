@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 
-export default function ImageUploader() {
+// export default function ImageUploader() {
 
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>();
+//   const [loading, setLoading] = useState(false);
+//   const [imageUrl, setImageUrl] = useState<string>();
 
- 
-  
-  return (
-    
-  )
-}
+//   return (
+
+//   )
+// }

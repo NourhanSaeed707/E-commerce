@@ -5,6 +5,8 @@ import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class ProductFacade {
     @Autowired
@@ -25,7 +27,6 @@ public class ProductFacade {
     private UploadService uploadService;
 
     public ProductsDTO saveProductRelations(ProductsDTO productDTO) {
-        System.out.println("proooooooduct facade: " + productDTO);
         // Save category
         CategoryDTO savedCategory = categoryService.returnSavedCategory(productDTO.getCategoryType());
         // Save Size

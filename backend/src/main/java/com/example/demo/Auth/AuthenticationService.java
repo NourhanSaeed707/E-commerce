@@ -108,7 +108,9 @@ public class AuthenticationService {
                     .build();
 
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-            return AuthenticationResponse.builder().token(jwtToken).build();
+            AuthenticationResponse token = AuthenticationResponse.builder().token(jwtToken).build();
+            System.out.println("tooooooooken: " + token);
+            return token;
         } catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException("User not found", e);
         }

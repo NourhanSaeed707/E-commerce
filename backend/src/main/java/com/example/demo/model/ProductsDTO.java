@@ -21,7 +21,7 @@ public class ProductsDTO {
     private CategoryTypeDTO categoryType;
     private SizeDTO size;
     private ColorDTO color;
-    private Map images;
+    private List images;
 
 
 }

@@ -160,6 +160,7 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
   const { data: user, mutate } = useSWR<UserType>(
     "/api/v2/auth/user",
     async () => {
+      console.log("insiiiide get user auth");
       const response = await axios.get("/api/get-user");
       const data = response.data;
 

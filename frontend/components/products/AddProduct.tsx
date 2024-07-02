@@ -23,7 +23,10 @@ export default function AddProduct() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("imaaaaaaages list in main add product component: ", imagesList);
+    console.log(
+      "imaaaaaaages list in main add product component: ",
+      imagesList
+    );
   }, [imagesList]);
 
   const onFinish = (values: any) => {
@@ -45,6 +48,7 @@ export default function AddProduct() {
       },
       images: imagesList,
     };
+    console.log("prooooooduct: ", product);
     setEntity(product);
   };
 

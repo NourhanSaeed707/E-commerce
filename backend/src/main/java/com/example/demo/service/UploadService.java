@@ -7,5 +7,5 @@ import java.util.*;
 public interface UploadService {
     Map<String, Object> upload(MultipartFile file) throws IOException;
 //    Map<String, Object> save(Map<String, Object> uploadResult);
-    Map<String, Object> save(CategoryDTO categoryDTO, Map uploadResult);
+    List save(CategoryDTO categoryDTO, List<String> uploadResult);
 }
