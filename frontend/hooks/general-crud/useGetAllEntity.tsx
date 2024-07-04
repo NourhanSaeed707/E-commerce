@@ -2,11 +2,8 @@ import FetchToken from "@/helper/token";
 import { GetAllService } from "@/services/general/getAllService";
 import { GetAllServices } from "@/types/services";
 import useSWR from "swr";
-import { getCookie } from "typescript-cookie";
 
 export default function useGetAllEntity(apiUrl: string) {
-  
-  // const token = getCookie("token");
   
   const fetcher = async () => {
     const { accessToken } = await FetchToken();

@@ -1,22 +1,22 @@
+import FetchToken from "@/helper/token";
 import { GetOneService } from "@/services/general/getOneService";
 import { DeleteAndGetOneServices } from "@/types/services";
 import useSWR from "swr";
-import { getCookie } from "typescript-cookie";
 
 export default function useGetOneEntity<T>(apiUrl: string, id: Number) {
-  const token = getCookie("token");
-  const props: DeleteAndGetOneServices = {
-    apiUrl,
-    token,
-    id,
-  };
 
-  const getOne = async () => {
-    const data = await GetOneService({ ...props });
+  const fetcher = async () => {
+    const { accessToken } = await FetchToken();
+    const props: DeleteAndGetOneServices = {
+      apiUrl,
+      token: accessToken.token,
+      id,
+    };
+    const data = await GetOneService<T>({ ...props });
     return data;
-  };
+  }
 
-  const { data, error } = useSWR(`${apiUrl}/${id}`, getOne, {
+  const { data, error } = useSWR(`${apiUrl}/${id}`, fetcher, {
     dedupingInterval: 1000,
   });
 

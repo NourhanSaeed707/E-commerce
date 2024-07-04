@@ -47,7 +47,6 @@ public class CategoryServiceImpl implements CategoryService {
         category.setCreatedAt(Date.valueOf(LocalDate.now()));
         Category saved = categoryRepository.save(category);
         return ResponseEntity.ok(modelMapper.map(saved, CategoryDTO.class));
-//        return ResponseEntity.ok(categoryDTO);
     }
 
     @Override

@@ -22,7 +22,7 @@ export default function useEditEntity<T>(apiUrl: string) {
       body,
     };
     try {
-      const response = await EditService({ ...props });
+      const response = await EditService<T>({ ...props });
       setResponse(response);
     } catch (error) {
       setError(error);

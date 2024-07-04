@@ -1,12 +1,11 @@
 import client from "@/client/client";
-import { CategoryType } from "@/types/category";
 import { DeleteAndGetOneServices } from "@/types/services";
 
-export const GetOneService = async ({
+export const GetOneService = async <T>({
   apiUrl,
   token,
   id,
-}: DeleteAndGetOneServices): Promise<CategoryType | null> => {
+}: DeleteAndGetOneServices): Promise<T | null> => {
   const { data } = await client.get(`${apiUrl}/${id}`, {
     headers: {
       "Content-type": "application/json",

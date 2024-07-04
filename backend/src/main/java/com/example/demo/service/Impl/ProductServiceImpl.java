@@ -1,5 +1,4 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Adapter.ProductAdapter;
 import com.example.demo.Exception.Products.ProductNotFoundException;
 import com.example.demo.entity.Product;
 import com.example.demo.facade.ProductFacade;
@@ -22,6 +21,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
+    private UploadService uploadService;
+    @Autowired
     private ProductFacade productFacade;
     @Autowired
     private ModelMapper modelMapper;
@@ -38,24 +39,24 @@ public class ProductServiceImpl implements ProductService {
     public ProductsDTO getById(Long id) throws Exception {
          Helper.validateId(id);
          Product product = productRepository.findById(id).orElseThrow( () ->  new ProductNotFoundException(id));
-         return modelMapper.map(product, ProductsDTO.class);
-//         return ProductAdapter.toDTO(product);
+         ProductsDTO productsDTO = modelMapper.map(product, ProductsDTO.class);
+         List imageDTOS = uploadService.getImageByCategoryId(productsDTO.getCategory().getId());
+         System.out.println("imaaaaages after return: " + imageDTOS);
+         productsDTO.setImages(imageDTOS);
+         return productsDTO;
     }
 
     @Override
     public ResponseEntity<ProductsDTO> save(ProductsDTO productDTO)  {
         ProductsDTO productFacadeDTO = productFacade.saveProductRelations(productDTO);
-//        Product product = ProductAdapter.toEntity(productFacadeDTO);
         Product product = modelMapper.map(productFacadeDTO, Product.class);
         product.setCreatedAt(Date.valueOf(LocalDate.now()));
         Product saved = productRepository.save(product);
         return ResponseEntity.ok(modelMapper.map(saved, ProductsDTO.class));
-//        return ResponseEntity.ok(productDTO);
     }
 
     @Override
     public Product setProductFields(Product product, ProductsDTO productsDTO) {
-//        Product productEntity = ProductAdapter.toEntity(productsDTO);
         Product productEntity = modelMapper.map(productsDTO, Product.class);
         product.setLastModifiedAt(Date.valueOf(LocalDate.now()));
         product.setName(productEntity.getName());
@@ -72,7 +73,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<Product> update(Long id, ProductsDTO productDTO) throws Exception {
         ProductsDTO productsDTOFound = getById(id);
-//        Product product = ProductAdapter.toEntity(productsDTOFound);
         Product product = modelMapper.map(productsDTOFound, Product.class);
         product = setProductFields(product, productDTO);
         return ResponseEntity.ok(productRepository.save(product));
@@ -89,7 +89,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception{
         ProductsDTO productsDTOFound = this.getById(id);
-//        Product product = ProductAdapter.toEntity(productsDTOFound);
         Product product = modelMapper.map(productsDTOFound, Product.class);
         productRepository.delete(product);
         return checkByIdExists(id, "deleted");

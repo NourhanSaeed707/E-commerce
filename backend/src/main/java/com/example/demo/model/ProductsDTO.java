@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import com.example.demo.entity.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class ProductsDTO {
     private String codeNumber;
     private double price;
     private Integer stock;
-    private String gender;
+    private Gender gender;
     private CategoryDTO category;
     private CategoryTypeDTO categoryType;
     private SizeDTO size;

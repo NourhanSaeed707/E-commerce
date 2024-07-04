@@ -9,8 +9,8 @@ export default function useEditFacade({ id, formRef }: editFacadeProps) {
   const router = useRouter();
   const apiGetOneUrl =  "/api/category-type/get";
   const apiEditUrl =  "/api/category-type/edit";
-  const {entity} = useGetOneEntity(apiGetOneUrl, Number(id));
-  const {setEntityId, setUpdatedEntity, loading: loadingEdit, error: errorEdit, response: responseEdit} = useEditEntity(apiEditUrl)
+  const {entity} = useGetOneEntity<CategoryType>(apiGetOneUrl, Number(id));
+  const {setEntityId, setUpdatedEntity, loading: loadingEdit, error: errorEdit, response: responseEdit} = useEditEntity<CategoryType>(apiEditUrl)
 
   useEffect(() => {
     if (entity) {

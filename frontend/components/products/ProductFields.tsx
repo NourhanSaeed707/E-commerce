@@ -116,7 +116,6 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
         <Select
           defaultValue=""
           style={{ width: 120 }}
-          // onChange={handleChangeSelectGender}
           options={
             categoryTypes &&
             categoryTypes.map((category: CategoryType) => ({
