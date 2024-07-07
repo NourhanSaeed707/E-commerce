@@ -7,6 +7,6 @@ import java.util.*;
 
 public interface UploadService {
     Map<String, Object> upload(MultipartFile file) throws IOException;
-    List save(CategoryDTO categoryDTO, List<String> uploadResult);
+    List save(CategoryDTO categoryDTO, List<ImageDTO> uploadResult);
     List<ImageDTO> getImageByCategoryId(Long categoryId) throws Exception;
 }

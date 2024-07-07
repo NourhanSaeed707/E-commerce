@@ -1,10 +1,14 @@
 package com.example.demo.service.Impl;
+import com.example.demo.Exception.Catagory.CategoryNotFoundException;
+import com.example.demo.Exception.CategoryTypes.CategoryTypeNotFoundException;
+import com.example.demo.Exception.Color.ColorNotFoundException;
 import com.example.demo.Exception.Products.ProductNotFoundException;
-import com.example.demo.entity.Product;
+import com.example.demo.Exception.Size.SizeNotFoundException;
+import com.example.demo.entity.*;
 import com.example.demo.facade.ProductFacade;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
-import com.example.demo.repository.ProductRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +21,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
     @Autowired
     private ProductRepository productRepository;
     @Autowired
     private UploadService uploadService;
     @Autowired
     private ProductFacade productFacade;
+    @Autowired
+    private ColorRepository colorRepository;
+    @Autowired
+    private SizeRepository sizeRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryTypeRepository categoryTypeRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -32,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAll();
         return products.stream().map(product -> modelMapper.map(product, ProductsDTO.class))
                 .collect(Collectors.toList());
-//        return ProductAdapter.convertListEntityToDTO(products);
     }
 
     @Override
@@ -41,7 +51,6 @@ public class ProductServiceImpl implements ProductService {
          Product product = productRepository.findById(id).orElseThrow( () ->  new ProductNotFoundException(id));
          ProductsDTO productsDTO = modelMapper.map(product, ProductsDTO.class);
          List imageDTOS = uploadService.getImageByCategoryId(productsDTO.getCategory().getId());
-         System.out.println("imaaaaages after return: " + imageDTOS);
          productsDTO.setImages(imageDTOS);
          return productsDTO;
     }
@@ -71,11 +80,59 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ColorDTO updateProductColor(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
+        Color color = colorRepository.findById(productFoundDTO.getColor().getId()).orElseThrow(
+                () -> new ColorNotFoundException(productFoundDTO.getColor().getId()));
+        color.setColor( updateProductDto.getColor().getColor());
+        color.setLastModifiedAt(Date.valueOf(LocalDate.now()));
+        return modelMapper.map(colorRepository.save(color), ColorDTO.class);
+    }
+
+    @Override
+    public SizeDTO updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto) {
+        Size size = sizeRepository.findById(productFoundDTO.getSize().getId()).orElseThrow(
+                () -> new SizeNotFoundException(productFoundDTO.getSize().getId())
+        );
+        size.setSize(updateProductDto.getSize().getSize());
+        size.setLastModifiedAt(Date.valueOf(LocalDate.now()));
+        return modelMapper.map(sizeRepository.save(size), SizeDTO.class);
+    }
+
+    @Override
+    public CategoryDTO updateProductCategoryType(ProductsDTO productFoundDTO, ProductsDTO updateProductDto) {
+        Category category = categoryRepository.findById(productFoundDTO.getCategory().getId()).orElseThrow(
+                () -> new CategoryNotFoundException(productFoundDTO.getCategory().getId())
+        );
+        CategoryType categoryType = categoryTypeRepository.findById(updateProductDto.getCategoryType().getId()).orElseThrow(
+                () -> new CategoryTypeNotFoundException(updateProductDto.getCategoryType().getId())
+        );
+        category.setCategoryType(categoryType);
+        return modelMapper.map(categoryRepository.save(category), CategoryDTO.class);
+    }
+
+    @Override
+    public ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto) {
+        oldProductDTO.setGender(newProductDto.getGender());
+        oldProductDTO.setName(newProductDto.getName());
+        oldProductDTO.setCodeNumber(newProductDto.getCodeNumber());
+        oldProductDTO.setPrice(newProductDto.getPrice());
+        oldProductDTO.setStock(newProductDto.getStock());
+        return oldProductDTO;
+    }
+
+    @Override
     public ResponseEntity<Product> update(Long id, ProductsDTO productDTO) throws Exception {
         ProductsDTO productsDTOFound = getById(id);
-        Product product = modelMapper.map(productsDTOFound, Product.class);
-        product = setProductFields(product, productDTO);
-        return ResponseEntity.ok(productRepository.save(product));
+        CategoryDTO savedCategory = updateProductCategoryType(productsDTOFound, productDTO);
+        ColorDTO savedColor = updateProductColor(productsDTOFound, productDTO);
+        SizeDTO savedSize = updateProductSize(productsDTOFound, productDTO);
+        ProductsDTO oldProductDto = setNonRelationFieldsDto(productsDTOFound, productDTO);
+        oldProductDto.setCategory(savedCategory);
+        oldProductDto.setSize(savedSize);
+        oldProductDto.setColor(savedColor);
+        Product product = modelMapper.map(oldProductDto, Product.class);
+        Product savedProduct = productRepository.save(product);
+        return ResponseEntity.ok(savedProduct);
     }
 
     @Override

@@ -1,11 +1,6 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Adapter.CategoryAdapter;
-import com.example.demo.Adapter.CategorySizeAdapter;
-import com.example.demo.Adapter.SizeAdapter;
 import com.example.demo.Exception.CategorySize.CategorySizeNotFoundException;
-import com.example.demo.entity.Category;
 import com.example.demo.entity.CategorySize;
-import com.example.demo.entity.Size;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.CategorySizeDTO;
@@ -34,7 +29,6 @@ public class CategorySizeServiceImpl implements CategorySizeService {
         List<CategorySize> categorySizes = categorySizeRepository.findAll();
         return categorySizes.stream().map(categorySize -> modelMapper.map(categorySize, CategorySizeDTO.class))
                 .collect(Collectors.toList());
-//        return CategorySizeAdapter.convertListEntityToDTO(categorySizes);
     }
 
     @Override
@@ -42,12 +36,10 @@ public class CategorySizeServiceImpl implements CategorySizeService {
         Helper.validateId(id);
         CategorySize categorySize = categorySizeRepository.findById(id).orElseThrow( () ->  new CategorySizeNotFoundException(id));
         return modelMapper.map(categorySize, CategorySizeDTO.class);
-//        return CategorySizeAdapter.toDTO(categorySize);
     }
 
     @Override
     public ResponseEntity<CategorySizeDTO> save(CategorySizeDTO categorySizeDTO) {
-//        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeDTO);
         CategorySize categorySize = modelMapper.map(categorySizeDTO, CategorySize.class);
         categorySize.setCreatedAt(Date.valueOf(LocalDate.now()));
         categorySizeRepository.save(categorySize);
@@ -65,7 +57,6 @@ public class CategorySizeServiceImpl implements CategorySizeService {
     @Override
     public CategorySize setCategorySizeFields(CategorySize categorySize, CategorySizeDTO categorySizeDTO) {
         categorySize.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-//        CategorySize categorySizeEntity = CategorySizeAdapter.toEntity(categorySizeDTO);
         CategorySize categorySizeEntity = modelMapper.map(categorySizeDTO, CategorySize.class);
         categorySize.setSize(categorySizeEntity.getSize());
         categorySize.setCategory(categorySizeEntity.getCategory());
@@ -75,7 +66,6 @@ public class CategorySizeServiceImpl implements CategorySizeService {
     @Override
     public ResponseEntity<CategorySize> update(Long id, CategorySizeDTO categorySizeDTO) throws Exception {
         CategorySizeDTO categorySizeFoundDTO = getById(id);
-//        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeFoundDTO);
         CategorySize categorySize = modelMapper.map(categorySizeDTO, CategorySize.class);
         categorySize = setCategorySizeFields(categorySize, categorySizeDTO);
         return ResponseEntity.ok(categorySizeRepository.save(categorySize));
@@ -92,7 +82,6 @@ public class CategorySizeServiceImpl implements CategorySizeService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
         CategorySizeDTO categorySizeFoundDTO = this.getById(id);
-//        CategorySize categorySize = CategorySizeAdapter.toEntity(categorySizeFoundDTO);
         CategorySize categorySize = modelMapper.map(categorySizeFoundDTO, CategorySize.class);
         categorySizeRepository.delete(categorySize);
         return checkByIdExists(id, "deleted");

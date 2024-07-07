@@ -33,27 +33,24 @@ public class UploadServiceImpl implements UploadService {
         return uploadResult;
     }
 
-    @Override
-    public List save(CategoryDTO categoryDTO, List<String> uploadResult) {
-//        String imageUrl = (String) uploadResult.get("secure_url");
+    public List<ImageDTO> save(CategoryDTO categoryDTO, List<ImageDTO> uploadResult) {
         Category category = modelMapper.map(categoryDTO, Category.class);
-        for(String imageUrl: uploadResult) {
-            System.out.println("imaaage inside loop: ");
-            System.out.println(imageUrl);
+        for (ImageDTO image : uploadResult) {
             Image imageInstance = new Image();
-            imageInstance.setImageUrl(imageUrl);
+            imageInstance.setImageUrl(image.getImageUrl());
             imageInstance.setCategory(category);
             imageRepository.save(imageInstance);
         }
         return uploadResult;
     }
 
+    // Inside getImageByCategoryId method
     @Override
-    public List<ImageDTO> getImageByCategoryId(Long categoryId) throws Exception{
-        List<Image> images;
-        images = imageRepository.findByCategoryId(categoryId);
-        System.out.println("imaaaaaages with categoryId: " + images);
-        return images.stream().map(image -> modelMapper.map(image, ImageDTO.class)).toList();
+    public List<ImageDTO> getImageByCategoryId(Long categoryId) throws Exception {
+        List<Image> images = imageRepository.findByCategoryId(categoryId);
+        return images.stream()
+                .map(image -> modelMapper.map(image, ImageDTO.class))
+                .collect(Collectors.toList());
     }
 
 }

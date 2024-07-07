@@ -1,7 +1,5 @@
 package com.example.demo.service;
-import com.example.demo.entity.Category;
 import com.example.demo.entity.CategorySize;
-import com.example.demo.entity.Size;
 import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.CategorySizeDTO;
 import com.example.demo.model.SizeDTO;

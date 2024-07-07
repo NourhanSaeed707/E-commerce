@@ -1,5 +1,4 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Adapter.CategoryTypeAdapter;
 import com.example.demo.Exception.CategoryTypes.CategoryTypeNotFoundException;
 import com.example.demo.entity.CategoryType;
 import com.example.demo.helper.Helper;
@@ -29,7 +28,6 @@ public class CategoryTypeServiceImpl implements CategoryTypeService {
         List<CategoryType> categoryTypes = categoryTypeRepository.findAll();
         return categoryTypes.stream().map(categoryType -> modelMapper.map(categoryType, CategoryTypeDTO.class))
                 .collect(Collectors.toList());
-//        return CategoryTypeAdapter.convertListEntityToDTO(categoryTypes);
     }
 
     @Override
@@ -37,17 +35,14 @@ public class CategoryTypeServiceImpl implements CategoryTypeService {
         Helper.validateId(id);
         CategoryType categoryType = categoryTypeRepository.findById(id).orElseThrow( () ->  new CategoryTypeNotFoundException(id));
         return modelMapper.map(categoryType, CategoryTypeDTO.class);
-//        return CategoryTypeAdapter.toDTO(categoryType);
     }
 
     @Override
     public ResponseEntity<CategoryTypeDTO> save(CategoryTypeDTO categoryTypeDTO) {
-//        CategoryType categoryType = CategoryTypeAdapter.toEntity(categoryTypeDTO);
         CategoryType categoryType = modelMapper.map(categoryTypeDTO, CategoryType.class);
         categoryType.setCreatedAt(Date.valueOf(LocalDate.now()));
         CategoryType saved = categoryTypeRepository.save(categoryType);
         return ResponseEntity.ok(modelMapper.map(saved, CategoryTypeDTO.class));
-//        return ResponseEntity.ok(categoryTypeDTO);
     }
 
     @Override
@@ -60,7 +55,6 @@ public class CategoryTypeServiceImpl implements CategoryTypeService {
     @Override
     public ResponseEntity<CategoryType> update(Long id, CategoryTypeDTO categoryTypeDTO) throws Exception {
         CategoryTypeDTO categoryTypeFoundDTO = getById(id);
-//        CategoryType categoryType = CategoryTypeAdapter.toEntity(categoryTypeFoundDTO);
         CategoryType categoryType = modelMapper.map(categoryTypeFoundDTO, CategoryType.class);
         categoryType = setCategoryTypeFields(categoryType, categoryTypeDTO);
         return ResponseEntity.ok(categoryTypeRepository.save(categoryType));
@@ -77,7 +71,6 @@ public class CategoryTypeServiceImpl implements CategoryTypeService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
         CategoryTypeDTO categoryTypeFoundDTO = this.getById(id);
-//        CategoryType categoryType = CategoryTypeAdapter.toEntity(categoryTypeFoundDTO);
         CategoryType categoryType = modelMapper.map(categoryTypeFoundDTO, CategoryType.class);
         categoryTypeRepository.delete(categoryType);
         return checkByIdExists(id, "deleted");

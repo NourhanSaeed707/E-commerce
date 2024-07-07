@@ -42,17 +42,17 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     @NotNull(message = "Category is required")
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "size_id")
     @NotNull(message = "Size is required")
     private Size size;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "color_id")
     @NotNull(message = "Color is required")
     private Color color;

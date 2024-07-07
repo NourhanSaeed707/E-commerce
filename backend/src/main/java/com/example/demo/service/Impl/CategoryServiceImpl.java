@@ -31,7 +31,6 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categories = categoryRepository.findAll();
         return categories.stream().map(category -> modelMapper.map(category, CategoryDTO.class))
                 .collect(Collectors.toList());
-//        return CategoryAdapter.convertListEntityToDTO(categories);
     }
 
     @Override
@@ -59,7 +58,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category setCategoryFields(Category category, CategoryDTO categoryDTO) {
         category.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-//        Category categoryEntity = CategoryAdapter.toEntity(categoryDTO);
         Category categoryEntity = modelMapper.map(categoryDTO, Category.class);
         category.setCategoryType(categoryEntity.getCategoryType());
         category.setCategorySizes(categoryEntity.getCategorySizes());
@@ -72,7 +70,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<Category> update(Long id, CategoryDTO categoryDTO) throws Exception {
         CategoryDTO categoryFoundDTO = getById(id);
-//        Category category = CategoryAdapter.toEntity(categoryFoundDTO);
         Category category = modelMapper.map(categoryFoundDTO, Category.class);
         category = setCategoryFields(category, categoryDTO);
         return ResponseEntity.ok(categoryRepository.save(category));
@@ -89,7 +86,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
         CategoryDTO categoryFoundDTO = this.getById(id);
-//        Category category = CategoryAdapter.toEntity(categoryFoundDTO);
         Category category = modelMapper.map(categoryFoundDTO, Category.class);
         categoryRepository.delete(category);
         return checkByIdExists(id, "deleted");

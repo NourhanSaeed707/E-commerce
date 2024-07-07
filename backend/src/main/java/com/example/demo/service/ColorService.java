@@ -1,6 +1,4 @@
 package com.example.demo.service;
-
-import com.example.demo.entity.CategoryType;
 import com.example.demo.entity.Color;
 import com.example.demo.model.ColorDTO;
 import org.springframework.http.ResponseEntity;

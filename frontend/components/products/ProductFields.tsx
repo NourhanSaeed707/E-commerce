@@ -96,9 +96,9 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
           style={{ width: 120 }}
           // onChange={handleChangeSelectGender}
           options={[
-            { value: Gender.Women, label: Gender.Women },
-            { value: Gender.Male, label: Gender.Male },
-            { value: Gender.Both, label: Gender.Both },
+            { value: Gender.Women, label: "Women" },
+            { value: Gender.Male, label: "Male" },
+            { value: Gender.Both, label: "Both" },
           ]}
         />
       </Form.Item>
@@ -133,10 +133,7 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
             required: true,
             message: `${AddProductRequired.SIZE_RQUIRED}`,
           },
-          // {
-          //   type: "number",
-          //   message: `${Validation.ONLY_NUMBERS}`,
-          // },
+         
         ]}
       >
         <Input />

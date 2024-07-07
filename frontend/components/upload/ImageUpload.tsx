@@ -3,6 +3,7 @@ import { Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import FetchToken from "@/helper/token";
 import { uploadImage } from "@/services/uploader/uploadService";
+import { Image } from "@/types/image";
 
 const { Dragger } = Upload;
 
@@ -18,11 +19,25 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
     fetchToken();
   }, []);
 
+  // Initialize fileList with existing imagesList
+  useEffect(() => {
+    if (imagesList && imagesList.length > 0) {
+      const fileList = imagesList.map((image, index) => ({
+        uid: index.toString(),
+        name: `image-${index}`,
+        status: "done",
+        url: image.imageUrl, 
+      }));
+      setFileList(fileList);
+    }
+  }, [imagesList]);
+
   const customRequest = async ({ file, onSuccess, onError }: any) => {
     try {
       const imageUrl = await uploadImage(file, tokenState); // Call the service function to upload image
       onSuccess(null, file); // Call onSuccess with null (or undefined) as first argument
-      setImagesList([...imagesList, imageUrl]);
+      // Append new image to imagesList
+      setImagesList([...imagesList, { url: imageUrl }]);
       message.success(`${file.name} file uploaded successfully.`);
     } catch (error) {
       onError(error);
@@ -46,7 +61,12 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
     action: "/api/images/upload",
     customRequest,
     onChange,
+    fileList, // Pass fileList state to Dragger component
   };
+
+  useEffect(() => {
+    console.log("imaaaaaaaages list inside uploader: ", imagesList);
+  }, [imagesList]);
 
   return (
     <div>
@@ -61,11 +81,11 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
       </Dragger>
       <div style={{ marginTop: 16 }}>
         {imagesList &&
-          imagesList.map((url, index) => (
+          imagesList.map((image, index) => (
             <img
               key={index}
-              src={url}
-              alt={`uploaded ${index}`}
+              src={image && image.imageUrl}
+              
               style={{ width: "200px", margin: "10px" }}
             />
           ))}

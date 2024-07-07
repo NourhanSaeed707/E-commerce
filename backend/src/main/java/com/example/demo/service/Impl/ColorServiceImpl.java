@@ -36,7 +36,6 @@ public class ColorServiceImpl implements ColorService {
         Helper.validateId(id);
         Color color = colorRepository.findById(id).orElseThrow( () ->  new ColorNotFoundException(id));
         return modelMapper.map(color, ColorDTO.class);
-//        return ColorAdapter.toDTO(color);
     }
 
     @Override

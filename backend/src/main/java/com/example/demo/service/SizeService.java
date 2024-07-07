@@ -1,5 +1,4 @@
 package com.example.demo.service;
-import com.example.demo.entity.CategoryType;
 import com.example.demo.entity.Size;
 import com.example.demo.model.SizeDTO;
 import org.springframework.http.ResponseEntity;

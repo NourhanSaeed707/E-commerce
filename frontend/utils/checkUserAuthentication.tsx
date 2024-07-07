@@ -31,8 +31,6 @@ export const checkUserAuthentication: GetServerSideProps = async (context) => {
       props: { user: response.data },
     };
   } catch (error) {
-    console.error("Authentication error:", error);
-
     return {
       redirect: {
         destination: "/",

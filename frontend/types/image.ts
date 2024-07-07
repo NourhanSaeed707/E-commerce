@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export type UploadImageProps = {
   size: number;
   imageUrl?: string;
@@ -5,3 +7,12 @@ export type UploadImageProps = {
   addImage: (newImageUrl: string) => void;
   removeImage: (newImageUrl: string) => void;
 };
+
+export type Image = {
+  id?: number,
+  createdAt?: Date;
+  lastModifiedAt?: Date;
+  createdBy?: string;
+  imageUrl: string;
+  category?: Category
+}

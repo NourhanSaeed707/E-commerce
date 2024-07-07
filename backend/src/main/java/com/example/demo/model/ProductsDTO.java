@@ -22,7 +22,7 @@ public class ProductsDTO {
     private CategoryTypeDTO categoryType;
     private SizeDTO size;
     private ColorDTO color;
-    private List images;
-
+//    private List images;
+    private List<ImageDTO> images;
 
 }

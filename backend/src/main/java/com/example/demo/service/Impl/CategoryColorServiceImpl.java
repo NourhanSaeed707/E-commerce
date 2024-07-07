@@ -1,5 +1,4 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Adapter.CategoryColorAdapter;
 import com.example.demo.Exception.CategoryColor.CategoryColorNotFoundException;
 import com.example.demo.entity.CategoryColor;
 import com.example.demo.helper.Helper;
@@ -30,7 +29,6 @@ public class CategoryColorServiceImpl implements CategoryColorService {
         List<CategoryColor> categoryColors = categoryColorRepository.findAll();
         return categoryColors.stream().map(categoryColor -> modelMapper.map(categoryColor, CategoryColorDTO.class))
                 .collect(Collectors.toList());
-//        return CategoryColorAdapter.convertListEntityToDTO(categoryColors);
     }
 
     @Override
@@ -43,18 +41,15 @@ public class CategoryColorServiceImpl implements CategoryColorService {
 
     @Override
     public ResponseEntity<CategoryColorDTO> save(CategoryColorDTO categoryColorDTO) {
-//        CategoryColor categoryColor = CategoryColorAdapter.toEntity(categoryColorDTO);
         CategoryColor categoryColor = modelMapper.map(categoryColorDTO, CategoryColor.class);
         categoryColor.setCreatedAt(Date.valueOf(LocalDate.now()));
         CategoryColor saved = categoryColorRepository.save(categoryColor);
         return  ResponseEntity.ok(modelMapper.map(saved, CategoryColorDTO.class));
-//        return ResponseEntity.ok(categoryColorDTO);
     }
 
     @Override
     public CategoryColor setCategoryColorFields(CategoryColor categoryColor, CategoryColorDTO categoryColorDTO) {
         categoryColor.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-//        CategoryColor categoryColorEntity = CategoryColorAdapter.toEntity(categoryColorDTO);
         CategoryColor categoryColorEntity = modelMapper.map(categoryColorDTO, CategoryColor.class);
         categoryColor.setColor(categoryColorEntity.getColor());
         categoryColor.setCategory(categoryColorEntity.getCategory());
@@ -73,7 +68,6 @@ public class CategoryColorServiceImpl implements CategoryColorService {
     @Override
     public ResponseEntity<CategoryColor> update(Long id, CategoryColorDTO categoryColorDTO) throws Exception {
         CategoryColorDTO categoryColorFoundDTO = getById(id);
-//        CategoryColor categoryColor = CategoryColorAdapter.toEntity(categoryColorFoundDTO);
         CategoryColor categoryColor = modelMapper.map(categoryColorFoundDTO, CategoryColor.class);
         categoryColor = setCategoryColorFields(categoryColor, categoryColorDTO);
         return ResponseEntity.ok(categoryColorRepository.save(categoryColor));
@@ -90,7 +84,6 @@ public class CategoryColorServiceImpl implements CategoryColorService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
         CategoryColorDTO categoryColorFoundDTO = this.getById(id);
-//        CategoryColor categoryColor = CategoryColorAdapter.toEntity(categoryColorFoundDTO);
         CategoryColor categoryColor = modelMapper.map(categoryColorFoundDTO, CategoryColor.class);
         categoryColorRepository.delete(categoryColor);
         return checkByIdExists(id, "deleted");

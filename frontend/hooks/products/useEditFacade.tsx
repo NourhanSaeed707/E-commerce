@@ -3,9 +3,14 @@ import { useRouter } from "next/router";
 import useGetOneEntity from "../general-crud/useGetOneEntity";
 import useEditEntity from "../general-crud/useEditEntity";
 import { useEffect } from "react";
-import { Product } from "@/types/product";
+import { editProductFacadeProps, Product } from "@/types/product";
 
-export default function useEditFacade({ id, formRef }: editFacadeProps) {
+export default function useEditFacade({
+  id,
+  formRef,
+  setListingImages,
+  listingImages,
+}: editProductFacadeProps) {
   const router = useRouter();
   const apiGetOneUrl = "/api/product/get";
   const apiEditUrl = "/api/product/edit";
@@ -31,8 +36,10 @@ export default function useEditFacade({ id, formRef }: editFacadeProps) {
         color: entity && entity.color && entity.color.color,
         images: entity.images,
       });
+      setListingImages([...entity.images]);
     }
-  }, [entity, formRef]);
+  }, [entity, formRef, setListingImages, id]);
+  
 
   const editProduct = (updatedValues: Product) => {
     setEntityId(id);
@@ -41,11 +48,13 @@ export default function useEditFacade({ id, formRef }: editFacadeProps) {
 
   useEffect(() => {
     if (!loadingEdit && !errorEdit && responseEdit) {
-      router.push("/product/all");
+      // router.push("/product/all");
+      router.push("/");
     }
   }, [errorEdit, loadingEdit, responseEdit, router]);
 
   return {
     editProduct,
+    listingImages,
   };
 }

@@ -1,7 +1,7 @@
 package com.example.demo.entity;
-import com.example.demo.model.CategoryTypeDTO;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.*;
 
 @Getter
@@ -17,11 +17,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_type_id")
     private CategoryType categoryType;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Product> products;
 
     private Date createdAt;
@@ -30,12 +30,12 @@ public class Category {
 
     private String createdBy;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Set<CategorySize> categorySizes;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private Set<CategoryColor> categoryColors;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private Set<Image> images;
 }
