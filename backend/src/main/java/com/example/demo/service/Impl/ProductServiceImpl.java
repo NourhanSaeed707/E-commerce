@@ -60,8 +60,15 @@ public class ProductServiceImpl implements ProductService {
         ProductsDTO productFacadeDTO = productFacade.saveProductRelations(productDTO);
         Product product = modelMapper.map(productFacadeDTO, Product.class);
         product.setCreatedAt(Date.valueOf(LocalDate.now()));
-        Product saved = productRepository.save(product);
-        return ResponseEntity.ok(modelMapper.map(saved, ProductsDTO.class));
+        System.out.println("prooooooooduct before save: " + product);
+        Category category = modelMapper.map(productFacadeDTO.getCategory(), Category.class);
+        product.setCategory(category);
+        Color color = modelMapper.map(productFacadeDTO.getColor(), Color.class);
+        product.setColor(color);
+        Size size = modelMapper.map(productFacadeDTO.getSize(), Size.class);
+        product.setSize(size);
+        productRepository.save(product);
+        return ResponseEntity.ok(productDTO);
     }
 
     @Override
@@ -145,8 +152,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception{
-        ProductsDTO productsDTOFound = this.getById(id);
+        System.out.println("deeeeeeeelete in product service");
+        ProductsDTO productsDTOFound = getById(id);
         Product product = modelMapper.map(productsDTOFound, Product.class);
+        System.out.println("deleeete product found: " + productsDTOFound);
         productRepository.delete(product);
         return checkByIdExists(id, "deleted");
     }

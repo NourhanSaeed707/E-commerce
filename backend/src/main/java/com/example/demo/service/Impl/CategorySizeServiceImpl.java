@@ -1,11 +1,17 @@
 package com.example.demo.service.Impl;
+import com.example.demo.Exception.Catagory.CategoryNotFoundException;
 import com.example.demo.Exception.CategorySize.CategorySizeNotFoundException;
+import com.example.demo.Exception.Size.SizeNotFoundException;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.CategorySize;
+import com.example.demo.entity.Size;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.CategorySizeDTO;
 import com.example.demo.model.SizeDTO;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.CategorySizeRepository;
+import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.CategorySizeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +27,10 @@ public class CategorySizeServiceImpl implements CategorySizeService {
 
     @Autowired
     private CategorySizeRepository categorySizeRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private SizeRepository sizeRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -42,6 +52,14 @@ public class CategorySizeServiceImpl implements CategorySizeService {
     public ResponseEntity<CategorySizeDTO> save(CategorySizeDTO categorySizeDTO) {
         CategorySize categorySize = modelMapper.map(categorySizeDTO, CategorySize.class);
         categorySize.setCreatedAt(Date.valueOf(LocalDate.now()));
+        Category category = categoryRepository.findById(categorySize.getCategory().getId()).orElseThrow(
+                () -> new CategoryNotFoundException(categorySize.getCategory().getId())
+        );
+        Size size = sizeRepository.findById(categorySize.getSize().getId()).orElseThrow(
+                () -> new SizeNotFoundException(categorySize.getSize().getId())
+        );
+        categorySize.setCategory(category);
+        categorySize.setSize(size);
         categorySizeRepository.save(categorySize);
         return ResponseEntity.ok(categorySizeDTO);
     }

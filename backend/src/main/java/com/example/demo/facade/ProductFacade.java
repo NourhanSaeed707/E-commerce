@@ -42,6 +42,7 @@ public class ProductFacade {
         productDTO.setCategory(savedCategory);
         productDTO.setColor(savedColor);
         productDTO.setSize(savedSize);
+
         return productDTO;
     }
 }

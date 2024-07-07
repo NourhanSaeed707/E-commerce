@@ -21,7 +21,7 @@ public class Category {
     @JoinColumn(name = "category_type_id")
     private CategoryType categoryType;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Product> products;
 
     private Date createdAt;
@@ -30,12 +30,12 @@ public class Category {
 
     private String createdBy;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<CategorySize> categorySizes;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<CategoryColor> categoryColors;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Image> images;
 }

@@ -17,11 +17,11 @@ public class CategoryColor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "color_id")
     private Color color;
 
@@ -31,6 +31,4 @@ public class CategoryColor {
     private Date lastModifiedAt;
 
     private String createdBy;
-
-
 }

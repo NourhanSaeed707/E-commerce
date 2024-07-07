@@ -23,6 +23,6 @@ public class CategoryType {
 
     private String createdBy;
 
-    @OneToMany(mappedBy = "categoryType")
+    @OneToMany(mappedBy = "categoryType", cascade = CascadeType.ALL)
     private Set<Category> categories;
 }

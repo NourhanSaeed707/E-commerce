@@ -1,11 +1,14 @@
 package com.example.demo.service.Impl;
 import com.example.demo.Adapter.CategoryAdapter;
 import com.example.demo.Exception.Catagory.CategoryNotFoundException;
+import com.example.demo.Exception.CategoryTypes.CategoryTypeNotFoundException;
 import com.example.demo.entity.Category;
+import com.example.demo.entity.CategoryType;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.CategoryTypeDTO;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.CategoryTypeRepository;
 import com.example.demo.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private CategoryTypeRepository categoryTypeRepository;
 
     @Override
     public List<CategoryDTO> getAll() {
@@ -43,6 +48,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<CategoryDTO> save(CategoryDTO categoryDTO) {
         Category category = modelMapper.map(categoryDTO, Category.class);
+        CategoryType categoryType = categoryTypeRepository.findById(categoryDTO.getCategoryType().getId())
+                .orElseThrow(() -> new CategoryTypeNotFoundException(categoryDTO.getCategoryType().getId()));
+        category.setCategoryType(categoryType);
         category.setCreatedAt(Date.valueOf(LocalDate.now()));
         Category saved = categoryRepository.save(category);
         return ResponseEntity.ok(modelMapper.map(saved, CategoryDTO.class));
@@ -51,7 +59,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO returnSavedCategory(CategoryTypeDTO categoryTypeDTO) {
         CategoryDTO categoryDTO = new CategoryDTO();
+        System.out.println("cateeeeegory type in category service: " + categoryTypeDTO);
         categoryDTO.setCategoryType(categoryTypeDTO);
+        System.out.println("cateeeeegory in category service: " + categoryDTO);
         return save(categoryDTO).getBody();
     }
 

@@ -1,8 +1,10 @@
 package com.example.demo.service.Impl;
 import com.example.demo.Exception.Size.SizeNotFoundException;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.Size;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.SizeDTO;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.SizeService;
 import org.modelmapper.ModelMapper;
@@ -39,6 +41,7 @@ public class SizeServiceImpl implements SizeService {
     @Override
     public ResponseEntity<SizeDTO> save(SizeDTO sizeDTO) {
         Size size = modelMapper.map(sizeDTO, Size.class);
+        System.out.println("siiiize in save function before save: " + size);
         size.setCreatedAt(Date.valueOf(LocalDate.now()));
         Size saved = sizeRepository.save(size);
         return ResponseEntity.ok(modelMapper.map(saved, SizeDTO.class));

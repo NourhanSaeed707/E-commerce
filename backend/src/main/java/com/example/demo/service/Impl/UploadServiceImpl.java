@@ -1,10 +1,12 @@
 package com.example.demo.service.Impl;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.demo.Exception.Catagory.CategoryNotFoundException;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Image;
 import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.ImageDTO;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.UploadService;
@@ -25,7 +27,7 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private CategoryService categoryService;
+    private CategoryRepository categoryRepository;
 
     @Override
     public  Map<String, Object> upload(MultipartFile file) throws IOException {
@@ -35,10 +37,13 @@ public class UploadServiceImpl implements UploadService {
 
     public List<ImageDTO> save(CategoryDTO categoryDTO, List<ImageDTO> uploadResult) {
         Category category = modelMapper.map(categoryDTO, Category.class);
+        Category categoryFound = categoryRepository.findById(category.getId()).orElseThrow(
+                () -> new CategoryNotFoundException(category.getId())
+        );
         for (ImageDTO image : uploadResult) {
             Image imageInstance = new Image();
             imageInstance.setImageUrl(image.getImageUrl());
-            imageInstance.setCategory(category);
+            imageInstance.setCategory(categoryFound);
             imageRepository.save(imageInstance);
         }
         return uploadResult;

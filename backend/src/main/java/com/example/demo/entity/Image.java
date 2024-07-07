@@ -22,7 +22,7 @@ public class Image {
 
     private String createdBy;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 }

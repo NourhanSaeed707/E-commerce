@@ -27,6 +27,6 @@ public class Size {
 
     private String createdBy;
 
-    @OneToMany(mappedBy = "size")
+    @OneToMany(mappedBy = "size",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<CategorySize> categorySizes;
 }

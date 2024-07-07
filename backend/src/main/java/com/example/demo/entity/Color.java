@@ -29,6 +29,6 @@ public class Color {
 
     private String createdBy;
 
-    @OneToMany(mappedBy = "color")
+    @OneToMany(mappedBy = "color",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<CategoryColor> categoryColors;
 }

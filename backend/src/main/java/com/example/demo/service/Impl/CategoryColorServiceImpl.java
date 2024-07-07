@@ -1,11 +1,17 @@
 package com.example.demo.service.Impl;
+import com.example.demo.Exception.Catagory.CategoryNotFoundException;
 import com.example.demo.Exception.CategoryColor.CategoryColorNotFoundException;
+import com.example.demo.Exception.Color.ColorNotFoundException;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.CategoryColor;
+import com.example.demo.entity.Color;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.CategoryColorDTO;
 import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.ColorDTO;
 import com.example.demo.repository.CategoryColorRepository;
+import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.ColorRepository;
 import com.example.demo.service.CategoryColorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +28,10 @@ public class CategoryColorServiceImpl implements CategoryColorService {
     @Autowired
     private CategoryColorRepository categoryColorRepository;
     @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private ColorRepository colorRepository;
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -36,13 +46,20 @@ public class CategoryColorServiceImpl implements CategoryColorService {
         Helper.validateId(id);
         CategoryColor categoryColor = categoryColorRepository.findById(id).orElseThrow( () ->  new CategoryColorNotFoundException(id));
         return modelMapper.map(categoryColor, CategoryColorDTO.class);
-//        return CategoryColorAdapter.toDTO(categoryColor);
     }
 
     @Override
     public ResponseEntity<CategoryColorDTO> save(CategoryColorDTO categoryColorDTO) {
         CategoryColor categoryColor = modelMapper.map(categoryColorDTO, CategoryColor.class);
         categoryColor.setCreatedAt(Date.valueOf(LocalDate.now()));
+        Category category = categoryRepository.findById(categoryColor.getCategory().getId()).orElseThrow(
+                () -> new CategoryNotFoundException(categoryColor.getCategory().getId())
+        );
+        Color color = colorRepository.findById(categoryColor.getColor().getId()).orElseThrow(
+                () -> new ColorNotFoundException(categoryColor.getColor().getId())
+        );
+        categoryColor.setCategory(category);
+        categoryColor.setColor(color);
         CategoryColor saved = categoryColorRepository.save(categoryColor);
         return  ResponseEntity.ok(modelMapper.map(saved, CategoryColorDTO.class));
     }
