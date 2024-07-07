@@ -48,8 +48,7 @@ export default function useEditFacade({
 
   useEffect(() => {
     if (!loadingEdit && !errorEdit && responseEdit) {
-      // router.push("/product/all");
-      router.push("/");
+      router.push("/products/all");
     }
   }, [errorEdit, loadingEdit, responseEdit, router]);
 
