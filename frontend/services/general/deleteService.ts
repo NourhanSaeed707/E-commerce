@@ -1,7 +1,11 @@
 import client from "@/client/client";
 import { DeleteAndGetOneServices } from "@/types/services";
 
-export const DeleteService = async ({apiUrl, token, id}: DeleteAndGetOneServices) => {
+export const DeleteService = async ({
+  apiUrl,
+  token,
+  id,
+}: DeleteAndGetOneServices) => {
   const response = await client.delete(`${apiUrl}/${id}`, {
     headers: {
       "Content-type": "application/json",

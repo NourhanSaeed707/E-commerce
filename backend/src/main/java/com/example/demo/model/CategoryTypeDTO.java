@@ -2,9 +2,8 @@ package com.example.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -15,5 +14,5 @@ public class CategoryTypeDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
-    private Set<CategoryDTO> categories;
+    private Set<ProductsDTO> categories;
 }

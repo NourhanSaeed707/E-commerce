@@ -4,7 +4,6 @@ import { GetAllServices } from "@/types/services";
 import useSWR from "swr";
 
 export default function useGetAllEntity(apiUrl: string) {
-  
   const fetcher = async () => {
     const { accessToken } = await FetchToken();
     const props: GetAllServices = {
@@ -12,6 +11,7 @@ export default function useGetAllEntity(apiUrl: string) {
       token: accessToken.token,
     };
     const data = await GetAllService({ ...props });
+    console.log("daaaaaaaaata of get all : ", data);
     return data;
   };
 

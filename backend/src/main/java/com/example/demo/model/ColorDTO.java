@@ -13,5 +13,5 @@ public class ColorDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
-    private Set<CategoryColorDTO> categoryColors;
+    private Set<ProductColorDTO> productColorDTOS;
 }

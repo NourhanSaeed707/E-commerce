@@ -71,7 +71,7 @@ export default function ProductTable({
   ];
 
   const data: DataProductTypeTable[] =
-    entities &&
+    entities && entities.length &&
     entities.map((product: Product) => ({
       key: product.id,
       id: product.id,

@@ -26,7 +26,7 @@ export default function useDeleteEntity<T>(apiUrl: string) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [apiUrl, tokenState]);
 
   useEffect(() => {
     if (entityId) {

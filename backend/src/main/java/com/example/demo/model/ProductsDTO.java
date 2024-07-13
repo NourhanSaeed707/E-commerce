@@ -18,11 +18,9 @@ public class ProductsDTO {
     private double price;
     private Integer stock;
     private Gender gender;
-    private CategoryDTO category;
     private CategoryTypeDTO categoryType;
     private SizeDTO size;
     private ColorDTO color;
-//    private List images;
     private List<ImageDTO> images;
 
 }

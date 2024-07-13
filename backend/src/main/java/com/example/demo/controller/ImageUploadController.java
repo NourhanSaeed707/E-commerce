@@ -1,7 +1,4 @@
 package com.example.demo.controller;
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
-import com.example.demo.entity.Image;
 import com.example.demo.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +14,11 @@ import java.util.*;
 public class ImageUploadController {
 
     @Autowired
-    private Cloudinary cloudinary;
-    @Autowired
     private UploadService uploadService;
 
     @PostMapping("/upload")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map> upload(@RequestParam("file") MultipartFile file) {
-        System.out.println("insiiiide upload image controller");
         try {
             Map uploadResult = uploadService.upload(file);
             return ResponseEntity.ok(uploadResult);

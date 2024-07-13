@@ -1,14 +1,12 @@
 package com.example.demo.service.Impl;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.demo.Exception.Catagory.CategoryNotFoundException;
-import com.example.demo.entity.Category;
+import com.example.demo.Exception.Products.ProductNotFoundException;
 import com.example.demo.entity.Image;
-import com.example.demo.model.CategoryDTO;
+import com.example.demo.entity.Product;
 import com.example.demo.model.ImageDTO;
-import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ImageRepository;
-import com.example.demo.service.CategoryService;
+import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.UploadService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private CategoryRepository categoryRepository;
+     private ProductRepository productRepository;
 
     @Override
     public  Map<String, Object> upload(MultipartFile file) throws IOException {
@@ -35,15 +33,14 @@ public class UploadServiceImpl implements UploadService {
         return uploadResult;
     }
 
-    public List<ImageDTO> save(CategoryDTO categoryDTO, List<ImageDTO> uploadResult) {
-        Category category = modelMapper.map(categoryDTO, Category.class);
-        Category categoryFound = categoryRepository.findById(category.getId()).orElseThrow(
-                () -> new CategoryNotFoundException(category.getId())
+    public List<ImageDTO> save(Product product, List<ImageDTO> uploadResult) {
+        Product productFound = productRepository.findById(product.getId()).orElseThrow(
+                () -> new ProductNotFoundException(product.getId())
         );
         for (ImageDTO image : uploadResult) {
             Image imageInstance = new Image();
             imageInstance.setImageUrl(image.getImageUrl());
-            imageInstance.setCategory(categoryFound);
+            imageInstance.setProduct(productFound);
             imageRepository.save(imageInstance);
         }
         return uploadResult;
@@ -51,8 +48,8 @@ public class UploadServiceImpl implements UploadService {
 
     // Inside getImageByCategoryId method
     @Override
-    public List<ImageDTO> getImageByCategoryId(Long categoryId) throws Exception {
-        List<Image> images = imageRepository.findByCategoryId(categoryId);
+    public List<ImageDTO> getImageByProductId(Long productId) throws Exception {
+        List<Image> images = imageRepository.findByProductId(productId);
         return images.stream()
                 .map(image -> modelMapper.map(image, ImageDTO.class))
                 .collect(Collectors.toList());

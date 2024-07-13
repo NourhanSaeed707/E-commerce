@@ -64,10 +64,6 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
     fileList, // Pass fileList state to Dragger component
   };
 
-  useEffect(() => {
-    console.log("imaaaaaaaages list inside uploader: ", imagesList);
-  }, [imagesList]);
-
   return (
     <div>
       <Dragger {...props}>

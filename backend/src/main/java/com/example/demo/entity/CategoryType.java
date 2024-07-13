@@ -1,10 +1,11 @@
 package com.example.demo.entity;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.*;
+import java.util.Date;
+import java.util.Set;
 
 @Getter
-@Data
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,5 +25,5 @@ public class CategoryType {
     private String createdBy;
 
     @OneToMany(mappedBy = "categoryType", cascade = CascadeType.ALL)
-    private Set<Category> categories;
+    private Set<Product> products;
 }

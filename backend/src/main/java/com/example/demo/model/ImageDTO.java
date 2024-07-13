@@ -12,5 +12,5 @@ public class ImageDTO {
     private String imageUrl;
     private Date createdAt;
     private String createdBy;
-    private CategoryDTO category;
+    private ProductsDTO product;
 }

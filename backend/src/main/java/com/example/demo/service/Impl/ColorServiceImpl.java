@@ -1,5 +1,4 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Adapter.ColorAdapter;
 import com.example.demo.Exception.Color.ColorNotFoundException;
 import com.example.demo.entity.Color;
 import com.example.demo.helper.Helper;
@@ -28,7 +27,6 @@ public class ColorServiceImpl implements ColorService {
         List<Color> colors = colorRepository.findAll();
         return colors.stream().map( color -> modelMapper.map(color, ColorDTO.class))
                 .collect(Collectors.toList());
-//        return ColorAdapter.convertListEntityToDTO(colors);
     }
 
     @Override
@@ -40,12 +38,10 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     public ResponseEntity<ColorDTO> save(ColorDTO colorDTO) {
-//        Color color = ColorAdapter.toEntity(colorDTO);
         Color color = modelMapper.map(colorDTO, Color.class);
         color.setCreatedAt(Date.valueOf(LocalDate.now()));
         Color saved = colorRepository.save(color);
         return ResponseEntity.ok(modelMapper.map(saved, ColorDTO.class));
-//        return ResponseEntity.ok(colorDTO);
     }
 
     @Override
@@ -58,7 +54,6 @@ public class ColorServiceImpl implements ColorService {
     @Override
     public ResponseEntity<Color> update(Long id, ColorDTO colorDTO) throws Exception {
         ColorDTO colorFoundDTO = getById(id);
-//        Color color = ColorAdapter.toEntity(colorFoundDTO);
         Color color =modelMapper.map(colorFoundDTO, Color.class);
         color = setColorFields(color, colorFoundDTO);
         return ResponseEntity.ok(colorRepository.save(color));
@@ -75,7 +70,6 @@ public class ColorServiceImpl implements ColorService {
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
         ColorDTO colorFoundDTO = this.getById(id);
-//        Color color = ColorAdapter.toEntity(colorFoundDTO);
         Color color =modelMapper.map(colorFoundDTO, Color.class);
         colorRepository.delete(color);
         return checkByIdExists(id, "deleted");

@@ -14,7 +14,7 @@ export type Product = {
   price: Number;
   stock: Number;
   gender: Gender;
-  category?: Category;
+  // category?: Category;
   categoryType: CategoryType;
   size: Size;
   color: Color;

@@ -1,14 +1,14 @@
 package com.example.demo.entity;
 import jakarta.persistence.*;
 import lombok.*;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
-@Data
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,18 +42,17 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    @NotNull(message = "Category is required")
-    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "category_type_id")
+    @NotNull(message = "Category type is required")
+    private CategoryType categoryType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "size_id")
-    @NotNull(message = "Size is required")
-    private Size size;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ProductColor> productColors;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "color_id")
-    @NotNull(message = "Color is required")
-    private Color color;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ProductSize> productSizes;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Image> images;
 }

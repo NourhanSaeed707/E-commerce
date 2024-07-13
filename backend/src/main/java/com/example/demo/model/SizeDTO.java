@@ -2,7 +2,6 @@ package com.example.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.*;
 
 @Data
@@ -14,5 +13,5 @@ public class SizeDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
-    private Set<CategorySizeDTO> categorySizes;
+    private Set<ProductSizeDTO> productSizeDTOS;
 }

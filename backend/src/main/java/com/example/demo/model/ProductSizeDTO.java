@@ -7,9 +7,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategorySizeDTO {
+public class ProductSizeDTO {
     private Long id;
-    private CategoryDTO category;
+    private ProductsDTO product;
     private SizeDTO size;
     private Date createdAt;
     private Date lastModifiedAt;
