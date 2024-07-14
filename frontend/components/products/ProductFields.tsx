@@ -11,7 +11,21 @@ import ImageUpload from "../upload/ImageUpload";
 
 export default function ProductFields({ edit, imagesList, setImagesList }) {
   const router = useRouter();
-  const { categoryTypes } = useAddFacade();
+  const { categoryTypeEntities, colorsEntities } = useAddFacade();
+
+  const optionsCategoryType =
+    categoryTypeEntities &&
+    categoryTypeEntities.map((category: CategoryType) => ({
+      value: category.id,
+      label: category.name,
+    }));
+
+  const optionsColor =
+    colorsEntities &&
+    colorsEntities.map((color) => ({
+      value: color.id,
+      label: color.color,
+    }));
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
@@ -94,7 +108,6 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
         <Select
           defaultValue=""
           style={{ width: 120 }}
-          // onChange={handleChangeSelectGender}
           options={[
             { value: Gender.Women, label: "Women" },
             { value: Gender.Male, label: "Male" },
@@ -116,13 +129,7 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
         <Select
           defaultValue=""
           style={{ width: 120 }}
-          options={
-            categoryTypes &&
-            categoryTypes.map((category: CategoryType) => ({
-              value: category.id,
-              label: category.name,
-            }))
-          }
+          options={optionsCategoryType}
         />
       </Form.Item>
       <Form.Item
@@ -133,7 +140,6 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
             required: true,
             message: `${AddProductRequired.SIZE_RQUIRED}`,
           },
-         
         ]}
       >
         <Input />
@@ -157,9 +163,15 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
           },
         ]}
       >
-        <Input />
+        <Select
+          mode="multiple"
+          allowClear
+          style={{ width: "100%" }}
+          placeholder="Please select"
+          options={optionsColor}
+        />
       </Form.Item>
-      <Form.Item name = "images" label="image">
+      <Form.Item name="images" label="image">
         {/* <ImageUpload  {...props}/> */}
         <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
       </Form.Item>
