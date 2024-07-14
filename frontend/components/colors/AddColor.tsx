@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import ColorFields from "./ColorFields";
 
 export default function AddColor() {
-  const apiUrl = "/api/product/save";
+  const apiUrl = "/api/colors/save";
   const [formRef] = Form.useForm();
   const router = useRouter();
 

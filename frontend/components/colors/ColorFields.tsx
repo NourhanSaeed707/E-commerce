@@ -11,8 +11,8 @@ export default function ColorFields({ edit }) {
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
       <Form.Item
-        name="name"
-        label="name"
+        name="color"
+        label="color"
         rules={[
           {
             required: true,

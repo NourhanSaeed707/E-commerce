@@ -4,13 +4,13 @@ import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import { ColorTableProps } from "@/types/color";
 import { Button } from "antd";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import ColorTable from "./ColorTable";
 
 export default function ListColors() {
   const router = useRouter();
-  const apiGetAllUrl = "/api/product/get-all";
-  const apiDeleteUrl = "/api/product/delete";
+  const apiGetAllUrl = "/api/colors/get-all";
+  const apiDeleteUrl = "/api/colors/delete";
   const { entities, errors, loading } = useGetAllEntity(apiGetAllUrl);
   const {
     setEntityId: setEntityIdDelete,
@@ -26,12 +26,17 @@ export default function ListColors() {
     errors,
     setEntityIdDelete,
   };
+
+  useEffect(() => {
+    console.log("colooooooors entitiess: ", entities);
+  }, [entities]);
+
   return (
     <div>
       <div>
         <Button
           type="primary"
-          onClick={() => router.push("/products/add")}
+          onClick={() => router.push("/colors/add")}
           className="mb-2 mt-2"
         >
           {BUTTONS.ADD}

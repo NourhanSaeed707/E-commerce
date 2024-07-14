@@ -41,7 +41,7 @@ function Navbar() {
                     {NAVBAR.PRODUCTS}
                   </Link>
                   <Link
-                    href="/category-type/get-all"
+                    href="/category-type/all"
                     className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
                   >
                     {NAVBAR.CATEGORY}

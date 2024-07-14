@@ -45,17 +45,10 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public Color setColorFields(Color color, ColorDTO colorDTO) {
+    public ResponseEntity<Color> update(Long id, ColorDTO colorDTO) throws Exception {
+        Color color = colorRepository.getById(id);
         color.setLastModifiedAt(Date.valueOf(LocalDate.now()));
         color.setColor(colorDTO.getColor());
-        return color;
-    }
-
-    @Override
-    public ResponseEntity<Color> update(Long id, ColorDTO colorDTO) throws Exception {
-        ColorDTO colorFoundDTO = getById(id);
-        Color color =modelMapper.map(colorFoundDTO, Color.class);
-        color = setColorFields(color, colorFoundDTO);
         return ResponseEntity.ok(colorRepository.save(color));
     }
 
@@ -69,8 +62,7 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
-        ColorDTO colorFoundDTO = this.getById(id);
-        Color color =modelMapper.map(colorFoundDTO, Color.class);
+        Color color = colorRepository.getById(id);
         colorRepository.delete(color);
         return checkByIdExists(id, "deleted");
     }

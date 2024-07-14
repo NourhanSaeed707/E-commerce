@@ -38,7 +38,7 @@ export default function ColorTable({
           <Button
             type="primary"
             className="bg-yellow-500 border-yellow-500 hover:bg-yellow-400 hover:border-yellow-400"
-            onClick={() => router.push(`/products/edit/${record.id}`)}
+            onClick={() => router.push(`/colors/edit/${record.id}`)}
           >
             {BUTTONS.EDIT}
           </Button>

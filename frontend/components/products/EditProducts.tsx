@@ -29,7 +29,7 @@ export default function EditProducts() {
     setListingImages: setImagesList,
   };
 
-  const { editProduct, listingImages } = useEditFacade(editFacadeProps);
+  const { editProduct } = useEditFacade(editFacadeProps);
 
   const onFinish = (values: any) => {
     const productVal: Product = {

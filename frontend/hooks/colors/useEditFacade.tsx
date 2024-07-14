@@ -6,8 +6,8 @@ import { useEffect } from "react";
 
 export default function useEditFacade({ id, formRef }: EditColorFacadeProps) {
   const router = useRouter();
-  const apiGetOneUrl = "/api/product/get";
-  const apiEditUrl = "/api/product/edit";
+  const apiGetOneUrl = "/api/colors/get";
+  const apiEditUrl = "/api/colors/edit";
   const { entity } = useGetOneEntity<Color>(apiGetOneUrl, Number(id));
   const {
     setEntityId,
@@ -32,7 +32,7 @@ export default function useEditFacade({ id, formRef }: EditColorFacadeProps) {
 
   useEffect(() => {
     if (!loadingEdit && !errorEdit && responseEdit) {
-      router.push("/products/all");
+      router.push("/colors/all");
     }
   }, [errorEdit, loadingEdit, responseEdit, router]);
 
