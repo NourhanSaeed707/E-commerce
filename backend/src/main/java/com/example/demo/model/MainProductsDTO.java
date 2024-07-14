@@ -11,7 +11,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = {"productColors", "productSizes", "images"})
-public class ProductsDTO {
+public class MainProductsDTO {
     private Long id;
     private String name;
     private Date createdAt;
@@ -21,8 +21,7 @@ public class ProductsDTO {
     private Integer stock;
     private Gender gender;
     private CategoryTypeDTO categoryType;
-    private SizeDTO size;
-    private ColorDTO color;
-    private List<ImageDTO> images;
-
+    private Set<ProductColorDTO> productColors;
+    private Set<ProductSizeDTO> productSizes;
+    private Set<ImageDTO> images;
 }

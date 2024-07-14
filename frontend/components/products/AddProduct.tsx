@@ -8,16 +8,15 @@ import { useRouter } from "next/router";
 export default function AddProduct() {
   const apiUrl = "/api/product/save";
   const [imagesList, setImagesList] = useState([]);
- 
+  const [formRef] = Form.useForm();
+  const router = useRouter();
+
   const props: AddProductFieldsProps = {
     edit: false,
     imagesList,
     setImagesList,
   };
   const { setEntity, loading, error, response } = useAddEntity(apiUrl);
-
-  const [formRef] = Form.useForm();
-  const router = useRouter();
 
   const onFinish = (values: any) => {
     const product: Product = {

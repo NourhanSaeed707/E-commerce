@@ -11,7 +11,6 @@ export default function useGetAllEntity(apiUrl: string) {
       token: accessToken.token,
     };
     const data = await GetAllService({ ...props });
-    console.log("daaaaaaaaata of get all : ", data);
     return data;
   };
 

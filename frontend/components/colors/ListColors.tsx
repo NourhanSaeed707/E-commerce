@@ -1,13 +1,13 @@
-import { ProductTableProps } from "@/types/product";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
-import ProductTable from "./ProductTable";
-import { Button } from "antd";
 import { BUTTONS } from "@/constants/category";
-import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import useDeleteEntity from "@/hooks/general-crud/useDeleteEntity";
+import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
+import { ColorTableProps } from "@/types/color";
+import { Button } from "antd";
+import { useRouter } from "next/router";
+import React from "react";
+import ColorTable from "./ColorTable";
 
-function ListProduct() {
+export default function ListColors() {
   const router = useRouter();
   const apiGetAllUrl = "/api/product/get-all";
   const apiDeleteUrl = "/api/product/delete";
@@ -20,25 +20,24 @@ function ListProduct() {
     error: errorDelete,
   } = useDeleteEntity(apiDeleteUrl);
 
-  const props: ProductTableProps = {
+  const props: ColorTableProps = {
     entities,
     loading,
     errors,
     setEntityIdDelete,
   };
-  
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => router.push("/products/add")}
-        className="mb-2 mt-2"
-      >
-        {BUTTONS.ADD}
-      </Button>
-      <ProductTable {...props} />
+      <div>
+        <Button
+          type="primary"
+          onClick={() => router.push("/products/add")}
+          className="mb-2 mt-2"
+        >
+          {BUTTONS.ADD}
+        </Button>
+        <ColorTable {...props} />
+      </div>
     </div>
   );
 }
-
-export default ListProduct;

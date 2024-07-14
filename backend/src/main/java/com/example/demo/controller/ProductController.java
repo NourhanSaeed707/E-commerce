@@ -19,8 +19,6 @@ public class ProductController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<ProductsDTO>> getAll () {
         List<ProductsDTO> products = productService.getAll();
-        System.out.println("prooooooocutss:");
-        System.out.println(products);
         return ResponseEntity.ok(products);
     }
 

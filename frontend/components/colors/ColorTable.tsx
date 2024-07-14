@@ -1,20 +1,19 @@
 import { BUTTONS } from "@/constants/category";
 import { DataTypeTable } from "@/types/category";
-import { DataProductTypeTable, Product } from "@/types/product";
+import { DataColorTypeTable } from "@/types/color";
 import { Button, Space, Spin, Table, TableProps } from "antd";
 import moment from "moment";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function ProductTable({
+export default function ColorTable({
   entities,
   loading,
   errors,
   setEntityIdDelete,
 }) {
   const router = useRouter();
-
-  const columns: TableProps<DataProductTypeTable>["columns"] = [
+  const columns: TableProps<DataColorTypeTable>["columns"] = [
     {
       title: "id",
       dataIndex: "id",
@@ -22,29 +21,14 @@ export default function ProductTable({
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
       title: "createdAt",
       dataIndex: "createdAt",
       key: "createdAt",
     },
     {
-      title: "price",
-      dataIndex: "price",
-      key: "price",
-    },
-    {
-      title: "stock",
-      dataIndex: "stock",
-      key: "stock",
-    },
-    {
-      title: "categoryType",
-      dataIndex: "categoryType",
-      key: "categoryType",
+      title: "color",
+      dataIndex: "color",
+      key: "color",
     },
     {
       title: "Action",
@@ -70,19 +54,16 @@ export default function ProductTable({
     },
   ];
 
-  const data: DataProductTypeTable[] =
-    entities && entities.length &&
-    entities.map((product: Product) => ({
-      key: product.id,
-      id: product.id,
-      name: product.name,
-      createdAt: moment(product.createdAt).format("DD-MM-YYYY"),
-      price: product.price,
-      stock: product.stock,
-      categoryType:
-        product && product.categoryType && product.categoryType.name,
+  const data: DataColorTypeTable[] =
+    entities &&
+    entities.length &&
+    entities.map((color) => ({
+      key: color.id,
+      id: color.id,
+      createdAt: moment(color.createdAt).format("DD-MM-YYYY"),
+      color: color.color,
     }));
-
+    
   return (
     <div>
       {loading ? <Spin /> : <Table columns={columns} dataSource={data} />}

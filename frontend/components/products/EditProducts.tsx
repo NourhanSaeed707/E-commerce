@@ -1,5 +1,5 @@
 import { Form } from "antd";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import ProductFields from "./ProductFields";
 import { useRouter } from "next/router";
 import {
@@ -9,7 +9,6 @@ import {
 } from "@/types/product";
 import useEditFacade from "@/hooks/products/useEditFacade";
 import { Image } from "@/types/image";
-import { Gender } from "@/types/gender";
 
 export default function EditProducts() {
   const [imagesList, setImagesList] = useState<Image[]>([]);
@@ -52,13 +51,6 @@ export default function EditProducts() {
     };
     editProduct(productVal);
   };
-  useEffect(() => {
-    console.log("liiiiiiisting image: ", listingImages);
-  }, [listingImages]);
-
-  useEffect(() => {
-    setImagesList(listingImages);
-  }, [listingImages]);
 
   return (
     <div>
