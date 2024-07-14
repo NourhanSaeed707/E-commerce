@@ -11,7 +11,7 @@ import ImageUpload from "../upload/ImageUpload";
 
 export default function ProductFields({ edit, imagesList, setImagesList }) {
   const router = useRouter();
-  const { categoryTypeEntities, colorsEntities } = useAddFacade();
+  const { categoryTypeEntities, colorsEntities, sizeEntities } = useAddFacade();
 
   const optionsCategoryType =
     categoryTypeEntities &&
@@ -26,6 +26,12 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
       value: color.id,
       label: color.color,
     }));
+
+    const optionsSize = sizeEntities && 
+    sizeEntities.map((size) => ({
+      value: size.id,
+      label: size.size,
+    }))
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
@@ -142,7 +148,13 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
           },
         ]}
       >
-        <Input />
+        <Select
+          mode="multiple"
+          allowClear
+          style={{ width: "100%" }}
+          placeholder="Please select"
+          options={optionsSize}
+        />
       </Form.Item>
       <Form.Item
         name="color"
