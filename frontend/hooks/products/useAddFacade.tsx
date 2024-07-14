@@ -1,5 +1,3 @@
-import React from "react";
-import useGetAllCategoryType from "../category-type/useGetAllCategoryType";
 import useGetAllEntity from "../general-crud/useGetAllEntity";
 
 export default function useAddFacade() {

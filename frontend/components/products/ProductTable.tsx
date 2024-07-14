@@ -1,5 +1,4 @@
 import { BUTTONS } from "@/constants/category";
-import { DataTypeTable } from "@/types/category";
 import { DataProductTypeTable, ProductForm } from "@/types/product";
 import { Button, Space, Spin, Table, TableProps } from "antd";
 import moment from "moment";
