@@ -46,6 +46,12 @@ function Navbar() {
                   >
                     {NAVBAR.CATEGORY}
                   </Link>
+                  <Link
+                    href="/colors/all"
+                    className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    {NAVBAR.COLOR}
+                  </Link>
                 </>
               )} 
               {currentUser ? (
