@@ -32,7 +32,7 @@ export default function EditColor() {
   
   return (
     <div>
-      <Form name="edit_product_form" onFinish={onFinish} form={formRef}>
+      <Form name="edit_color_form" onFinish={onFinish} form={formRef}>
         <ColorFields {...props} />
       </Form>
     </div>

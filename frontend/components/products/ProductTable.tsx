@@ -1,6 +1,6 @@
 import { BUTTONS } from "@/constants/category";
 import { DataTypeTable } from "@/types/category";
-import { DataProductTypeTable, Product } from "@/types/product";
+import { DataProductTypeTable, ProductForm } from "@/types/product";
 import { Button, Space, Spin, Table, TableProps } from "antd";
 import moment from "moment";
 import { useRouter } from "next/router";
@@ -72,7 +72,7 @@ export default function ProductTable({
 
   const data: DataProductTypeTable[] =
     entities && entities.length &&
-    entities.map((product: Product) => ({
+    entities.map((product: ProductForm) => ({
       key: product.id,
       id: product.id,
       name: product.name,

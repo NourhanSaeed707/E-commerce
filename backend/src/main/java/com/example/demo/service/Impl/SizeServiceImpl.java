@@ -50,13 +50,12 @@ public class SizeServiceImpl implements SizeService {
         size.setSize(sizeDTO.getSize());
         return size;
     }
-
-
+    
     @Override
     public ResponseEntity<Size> update(Long id, SizeDTO sizeDTO) throws Exception {
-        SizeDTO sizeFoundDTO = getById(id);
-        Size size = modelMapper.map(sizeFoundDTO, Size.class);
-        size = setSizeFields(size, sizeFoundDTO);
+        Size size = sizeRepository.getById(id);
+        size.setSize(sizeDTO.getSize());
+        size.setLastModifiedAt(Date.valueOf(LocalDate.now()));
         return ResponseEntity.ok(sizeRepository.save(size));
     }
 
@@ -70,8 +69,7 @@ public class SizeServiceImpl implements SizeService {
 
     @Override
     public ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception {
-        SizeDTO sizeFoundDTO = this.getById(id);
-        Size size = modelMapper.map(sizeFoundDTO, Size.class);
+        Size size = sizeRepository.getById(id);
         sizeRepository.delete(size);
         return checkByIdExists(id, "deleted");
     }

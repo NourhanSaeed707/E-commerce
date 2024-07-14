@@ -1,7 +1,10 @@
-import React from 'react'
+import EditSize from "@/components/sizes/EditSize";
+import React from "react";
 
 export default function EditPage() {
   return (
-    <div>[id]</div>
-  )
+    <div>
+      <EditSize />
+    </div>
+  );
 }

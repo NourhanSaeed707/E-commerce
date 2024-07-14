@@ -1,27 +1,26 @@
-import { editFacadeProps } from "@/types/category";
 import { useRouter } from "next/router";
 import useGetOneEntity from "../general-crud/useGetOneEntity";
 import useEditEntity from "../general-crud/useEditEntity";
 import { useEffect } from "react";
-import { editProductFacadeProps, Product } from "@/types/product";
+import { EditProductFacadeProps, ProductForm } from "@/types/product";
 
 export default function useEditFacade({
   id,
   formRef,
   setListingImages,
   listingImages,
-}: editProductFacadeProps) {
+}: EditProductFacadeProps) {
   const router = useRouter();
   const apiGetOneUrl = "/api/product/get";
   const apiEditUrl = "/api/product/edit";
-  const { entity } = useGetOneEntity<Product>(apiGetOneUrl, Number(id));
+  const { entity } = useGetOneEntity<ProductForm>(apiGetOneUrl, Number(id));
   const {
     setEntityId,
     setUpdatedEntity,
     loading: loadingEdit,
     error: errorEdit,
     response: responseEdit,
-  } = useEditEntity<Product>(apiEditUrl);
+  } = useEditEntity<ProductForm>(apiEditUrl);
 
   useEffect(() => {
     if (entity) {
@@ -41,7 +40,7 @@ export default function useEditFacade({
   }, [entity, formRef, setListingImages, id]);
   
 
-  const editProduct = (updatedValues: Product) => {
+  const editProduct = (updatedValues: ProductForm) => {
     setEntityId(id);
     setUpdatedEntity(updatedValues);
   };

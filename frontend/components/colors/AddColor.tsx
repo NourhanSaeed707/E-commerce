@@ -30,7 +30,7 @@ export default function AddColor() {
 
   return (
     <div>
-    <Form name="add_product_form" onFinish={onFinish} form={formRef}>
+    <Form name="add_color_form" onFinish={onFinish} form={formRef}>
       <ColorFields {...props} />
     </Form>
   </div>

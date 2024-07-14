@@ -4,8 +4,8 @@ import ProductFields from "./ProductFields";
 import { useRouter } from "next/router";
 import {
   AddProductFieldsProps,
-  editProductFacadeProps,
-  Product,
+  EditProductFacadeProps,
+  ProductForm,
 } from "@/types/product";
 import useEditFacade from "@/hooks/products/useEditFacade";
 import { Image } from "@/types/image";
@@ -22,7 +22,7 @@ export default function EditProducts() {
     setImagesList,
   };
 
-  const editFacadeProps: editProductFacadeProps = {
+  const editFacadeProps: EditProductFacadeProps = {
     id: Number(id),
     formRef,
     listingImages: imagesList,
@@ -32,7 +32,7 @@ export default function EditProducts() {
   const { editProduct } = useEditFacade(editFacadeProps);
 
   const onFinish = (values: any) => {
-    const productVal: Product = {
+    const productVal: ProductForm = {
       name: values.name,
       codeNumber: values.codeNumber,
       price: values.price,
@@ -41,12 +41,12 @@ export default function EditProducts() {
       categoryType: {
         id: values.categoryType,
       },
-      size: {
-        size: values.size,
-      },
-      color: {
-        color: values.color,
-      },
+      // size: {
+      //   size: values.size,
+      // },
+      // color: {
+      //   color: values.color,
+      // },
       images: imagesList,
     };
     editProduct(productVal);

@@ -172,7 +172,6 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
         />
       </Form.Item>
       <Form.Item name="images" label="image">
-        {/* <ImageUpload  {...props}/> */}
         <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
       </Form.Item>
       <Form.Item>

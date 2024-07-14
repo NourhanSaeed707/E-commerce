@@ -31,6 +31,7 @@ public class SizeController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SizeDTO> save(@RequestBody SizeDTO sizeDTO) throws Exception {
+        System.out.println("saaave size in controller");
         return  sizeService.save(sizeDTO);
     }
 

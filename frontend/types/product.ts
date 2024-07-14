@@ -43,7 +43,7 @@ export type DataProductTypeTable = {
   categoryType?: CategoryType;
 };
 
-export type editProductFacadeProps = {
+export type EditProductFacadeProps = {
   id: Number,
   formRef: any,
   listingImages: Image[];
