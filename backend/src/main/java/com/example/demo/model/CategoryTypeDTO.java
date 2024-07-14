@@ -18,5 +18,5 @@ public class CategoryTypeDTO {
     private Date lastModifiedAt;
     private String createdBy;
     @JsonIgnore
-    private Set<ProductsDTO> products;
+    private List<ProductsDTO> products;
 }

@@ -27,7 +27,7 @@ export default function useEditFacade({ id, formRef }: editFacadeProps) {
 
   useEffect(() => {
     if (!loadingEdit && !errorEdit && responseEdit) {
-      router.push("/category-type/get-all");
+      router.push("/category-type/all");
     }
   }, [errorEdit, loadingEdit, responseEdit, router]);
 

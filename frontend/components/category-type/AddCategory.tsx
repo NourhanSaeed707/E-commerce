@@ -29,7 +29,7 @@ export default function AddCategory() {
 
   useEffect(() => {
     if (!loading && !error && response) {
-      router.push("/category-type/get-all");
+      router.push("/category-type/all");
     }
   }, [error, loading, response, router]);
 
