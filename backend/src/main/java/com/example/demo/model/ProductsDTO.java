@@ -3,12 +3,15 @@ import com.example.demo.entity.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 import java.util.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = {"productColors", "productSizes", "images"})
 public class ProductsDTO {
     private Long id;
     private String name;

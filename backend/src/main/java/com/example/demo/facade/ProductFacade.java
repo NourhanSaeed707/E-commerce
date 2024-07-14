@@ -7,6 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.xml.crypto.Data;
+import java.sql.Date;
+import java.time.LocalDate;
+
 
 @Component
 public class ProductFacade {
@@ -28,6 +32,7 @@ public class ProductFacade {
     public ProductsDTO saveProductRelations(ProductsDTO productDTO) {
         // Save product first
         Product product = modelMapper.map(productDTO, Product.class);
+        product.setCreatedAt(Date.valueOf(LocalDate.now()));
         Product savedProduct = productRepository.save(product);
         productDTO.setId(savedProduct.getId());
         // Save color and size
@@ -37,11 +42,13 @@ public class ProductFacade {
         ProductColorDTO productColorDTO = new ProductColorDTO();
         productColorDTO.setProduct(productDTO);
         productColorDTO.setColor(colorDTO);
+        productColorDTO.setCreatedAt(Date.valueOf(LocalDate.now()));
         productColorService.save(productColorDTO);
         // Save product size
         ProductSizeDTO productSizeDTO = new ProductSizeDTO();
         productSizeDTO.setSize(sizeDTO);
         productSizeDTO.setProduct(productDTO);
+        productSizeDTO.setCreatedAt(Date.valueOf(LocalDate.now()));
         productSizeService.save(productSizeDTO);
         //save image
         uploadService.save(savedProduct, productDTO.getImages());

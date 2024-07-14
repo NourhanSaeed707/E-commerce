@@ -1,5 +1,5 @@
 import { Gender } from "./gender";
-import { Category, CategoryType } from "./category";
+import {  CategoryType } from "./category";
 import { Size } from "./size";
 import { Color } from "./color";
 import { Image } from "./image";
@@ -14,12 +14,10 @@ export type Product = {
   price: Number;
   stock: Number;
   gender: Gender;
-  // category?: Category;
-  categoryType: CategoryType;
-  size: Size;
-  color: Color;
-  // images: any[];
-  images: Image[]
+  categoryType?: CategoryType;
+  size?: Size;
+  color?: Color;
+  images?: Image[]
 };
 
 export type AddProductFieldsProps = {
@@ -42,7 +40,7 @@ export type DataProductTypeTable = {
   createdAt: number;
   price: number;
   stock: number;
-  categoryType: CategoryType;
+  categoryType?: CategoryType;
 };
 
 export type editProductFacadeProps = {

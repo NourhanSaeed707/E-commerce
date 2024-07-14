@@ -1,4 +1,5 @@
 import { Category } from "./category";
+import { Product } from "./product";
 
 export type UploadImageProps = {
   size: number;
@@ -14,5 +15,5 @@ export type Image = {
   lastModifiedAt?: Date;
   createdBy?: string;
   imageUrl: string;
-  category?: Category
+  product?: Product
 }
