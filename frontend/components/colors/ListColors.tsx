@@ -27,10 +27,6 @@ export default function ListColors() {
     setEntityIdDelete,
   };
 
-  useEffect(() => {
-    console.log("colooooooors entitiess: ", entities);
-  }, [entities]);
-
   return (
     <div>
       <div>

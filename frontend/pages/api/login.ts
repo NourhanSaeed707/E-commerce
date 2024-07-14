@@ -3,13 +3,11 @@ import client from "@/client/client";
 
 export default withSession(async (req: any, res: any) => {
   const { email, password } = req.body;
-  console.log("daaaaaaaaaata of user: " + email + " , " + password);
   const response = await client.post("/api/v2/auth/authenticate", {
     email,
     password,
   });
   if (response.data && response.data.token) {
-    console.log("toooooooooooken: " + response.data.token);
     req.session.set("user", { token: response.data.token });
     await req.session.save();
     res.status(200).json({ message: "Logged in" });
