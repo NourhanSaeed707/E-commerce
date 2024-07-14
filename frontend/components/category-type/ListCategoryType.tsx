@@ -42,6 +42,14 @@ export default function ListCategoryType() {
       >
         {BUTTONS.ADD}
       </Button>
+      <Button
+          type="text"
+          onClick={() => router.push("/")}
+          className="mb-2 mt-2"
+          style={{ backgroundColor: '#D1D100' }}
+        >
+          {BUTTONS.BACK}
+        </Button>
       <CategoryTypeTable {...props} />
     </div>
   );
