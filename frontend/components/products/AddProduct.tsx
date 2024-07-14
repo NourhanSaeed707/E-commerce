@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductFields from "./ProductFields";
 import { Form } from "antd";
 import useAddEntity from "@/hooks/general-crud/useAddEntity";
-import { AddProductFieldsProps, Product } from "@/types/product";
+import { AddProductFieldsProps, ProductForm } from "@/types/product";
 import { useRouter } from "next/router";
 
 export default function AddProduct() {
@@ -19,7 +19,7 @@ export default function AddProduct() {
   const { setEntity, loading, error, response } = useAddEntity(apiUrl);
 
   const onFinish = (values: any) => {
-    const product: Product = {
+    const product: ProductForm = {
       name: values.name,
       codeNumber: values.codeNumber,
       price: values.price,
@@ -28,12 +28,8 @@ export default function AddProduct() {
       categoryType: {
         id: values.categoryType,
       },
-      size: {
-        size: values.size,
-      },
-      color: {
-        color: values.color,
-      },
+      size: values.size,
+      color: values.color,
       images: imagesList,
     };
     setEntity(product);

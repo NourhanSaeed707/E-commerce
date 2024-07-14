@@ -14,5 +14,6 @@ export const NAVBAR = {
     CONTACT: "Contact",
     PRODUCTS : "Products",
     CATEGORY: "Category",
-    COLOR: "Color"
+    COLOR: "Color",
+    SIZE: "Size"
 }

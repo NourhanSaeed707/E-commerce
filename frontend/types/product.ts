@@ -4,7 +4,7 @@ import { Size } from "./size";
 import { Color } from "./color";
 import { Image } from "./image";
 
-export type Product = {
+export type ProductForm = {
   id?: Number;
   name: string;
   createdAt?: Date;
@@ -15,8 +15,8 @@ export type Product = {
   stock: Number;
   gender: Gender;
   categoryType?: CategoryType;
-  size?: Size;
-  color?: Color;
+  size?: Size[];
+  color?: Color[];
   images?: Image[]
 };
 
@@ -27,7 +27,7 @@ export type AddProductFieldsProps = {
 };
 
 export type ProductTableProps = {
-  entities: Product[];
+  entities: ProductForm[];
   loading: boolean;
   errors: string | null;
   setEntityIdDelete: (id) => void;
