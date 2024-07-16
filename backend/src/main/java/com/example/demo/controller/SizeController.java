@@ -31,7 +31,6 @@ public class SizeController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SizeDTO> save(@RequestBody SizeDTO sizeDTO) throws Exception {
-        System.out.println("saaave size in controller");
         return  sizeService.save(sizeDTO);
     }
 
@@ -46,6 +45,4 @@ public class SizeController {
     public ResponseEntity<Map<String, Boolean>> delete(@PathVariable Long id) throws Exception {
         return sizeService.delete(id);
     }
-
-
 }

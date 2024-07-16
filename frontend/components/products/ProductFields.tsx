@@ -20,12 +20,12 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
       label: category.name,
     }));
 
-  const optionsColor =
-    colorsEntities &&
-    colorsEntities.map((color) => ({
-      value: color.id,
-      label: color.color,
-    }));
+  // const optionsColor =
+  //   colorsEntities &&
+  //   colorsEntities.map((color) => ({
+  //     value: color.id,
+  //     label: color.color,
+  //   }));
 
     const optionsSize = sizeEntities && 
     sizeEntities.map((size) => ({
@@ -156,7 +156,7 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
           options={optionsSize}
         />
       </Form.Item>
-      <Form.Item
+      {/* <Form.Item
         name="color"
         label="Color"
         rules={[
@@ -164,15 +164,15 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
             required: true,
             message: `${AddProductRequired.COLOR_RQUIRED}`,
           },
-          {
-            validator: (_, value) => {
-              const onlyLetters = /^[A-Za-z]+$/;
-              if (onlyLetters.test(value)) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error(`${Validation.ONLY_STRING}`));
-            },
-          },
+          // {
+          //   validator: (_, value) => {
+          //     const onlyLetters = /^[A-Za-z]+$/;
+          //     if (onlyLetters.test(value)) {
+          //       return Promise.resolve();
+          //     }
+          //     return Promise.reject(new Error(`${Validation.ONLY_STRING}`));
+          //   },
+          // },
         ]}
       >
         <Select
@@ -185,7 +185,7 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
       </Form.Item>
       <Form.Item name="images" label="image">
         <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item>
         <Button type="primary" htmlType="submit" className="w-full">
           {Buttons.ADD}

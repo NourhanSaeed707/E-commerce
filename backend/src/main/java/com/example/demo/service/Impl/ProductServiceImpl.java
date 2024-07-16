@@ -46,15 +46,17 @@ public class ProductServiceImpl implements ProductService {
          Helper.validateId(id);
          Product product = productRepository.findById(id).orElseThrow( () ->  new ProductNotFoundException(id));
          ProductsDTO productsDTO = modelMapper.map(product, ProductsDTO.class);
-         List imageDTOS = uploadService.getImageByProductId(productsDTO.getId());
-         productsDTO.setImages(imageDTOS);
+//         List imageDTOS = uploadService.getImageByProductId(productsDTO.getId());
+//         productsDTO.setImages(imageDTOS);
          return productsDTO;
     }
 
     @Override
     @Transactional
     public ResponseEntity<ProductsDTO> save(ProductsDTO productDTO)  {
-        ProductsDTO productFacadeDTO = productFacade.saveProductRelations(productDTO);
+        System.out.println("saaaaaaaaver service");
+        System.out.println(productDTO);
+//        ProductsDTO productFacadeDTO = productFacade.saveProductRelations(productDTO);
         return ResponseEntity.ok(productDTO);
     }
 
@@ -72,21 +74,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ColorDTO updateProductColor(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
-        Color color = colorRepository.findById(productFoundDTO.getColor().getId()).orElseThrow(
-                () -> new ColorNotFoundException(productFoundDTO.getColor().getId()));
-        color.setColor( updateProductDto.getColor().getColor());
-        color.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        return modelMapper.map(colorRepository.save(color), ColorDTO.class);
+//        Color color = colorRepository.findById(productFoundDTO.getColor().getId()).orElseThrow(
+//                () -> new ColorNotFoundException(productFoundDTO.getColor().getId()));
+//        color.setColor( updateProductDto.getColor().getColor());
+//        color.setLastModifiedAt(Date.valueOf(LocalDate.now()));
+//        return modelMapper.map(colorRepository.save(color), ColorDTO.class);
+        return null;
     }
 
     @Override
     public SizeDTO updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto) {
-        Size size = sizeRepository.findById(productFoundDTO.getSize().getId()).orElseThrow(
-                () -> new SizeNotFoundException(productFoundDTO.getSize().getId())
-        );
-        size.setSize(updateProductDto.getSize().getSize());
-        size.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        return modelMapper.map(sizeRepository.save(size), SizeDTO.class);
+//        Size size = sizeRepository.findById(productFoundDTO.getSize().getId()).orElseThrow(
+//                () -> new SizeNotFoundException(productFoundDTO.getSize().getId())
+//        );
+//        size.setSize(updateProductDto.getSize().getSize());
+//        size.setLastModifiedAt(Date.valueOf(LocalDate.now()));
+//        return modelMapper.map(sizeRepository.save(size), SizeDTO.class);
+        return null;
     }
 
     @Override
@@ -106,8 +110,8 @@ public class ProductServiceImpl implements ProductService {
         SizeDTO savedSize = updateProductSize(productsDTOFound, productDTO);
         ProductsDTO oldProductDto = setNonRelationFieldsDto(productsDTOFound, productDTO);
 //        oldProductDto.setCategory(savedCategory);
-        oldProductDto.setSize(savedSize);
-        oldProductDto.setColor(savedColor);
+//        oldProductDto.setSize(savedSize);
+//        oldProductDto.setColor(savedColor);
         Product product = modelMapper.map(oldProductDto, Product.class);
         Product savedProduct = productRepository.save(product);
         return ResponseEntity.ok(savedProduct);

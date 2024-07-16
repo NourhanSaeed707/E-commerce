@@ -56,7 +56,7 @@ public class Product {
     @JsonIgnore
     private Set<ProductSize> productSizes;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private Set<Image> images;
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIgnore
+//    private Set<Image> images;
 }

@@ -1,5 +1,5 @@
 export type Color = {
-  id?: Number;
+  id?: number;
   createdAt?: Date;
   lastModifiedAt?: Date;
   createdBy?: string;

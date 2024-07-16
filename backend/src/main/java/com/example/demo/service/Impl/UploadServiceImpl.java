@@ -5,6 +5,7 @@ import com.example.demo.Exception.Products.ProductNotFoundException;
 import com.example.demo.entity.Image;
 import com.example.demo.entity.Product;
 import com.example.demo.model.ImageDTO;
+import com.example.demo.model.ProductColorDTO;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.UploadService;
@@ -33,26 +34,39 @@ public class UploadServiceImpl implements UploadService {
         return uploadResult;
     }
 
-    public List<ImageDTO> save(Product product, List<ImageDTO> uploadResult) {
+//    public List<ImageDTO> save(Product product, List<ImageDTO> uploadResult) {
+//        Product productFound = productRepository.findById(product.getId()).orElseThrow(
+//                () -> new ProductNotFoundException(product.getId())
+//        );
+//        for (ImageDTO image : uploadResult) {
+//            Image imageInstance = new Image();
+//            imageInstance.setImageUrl(image.getImageUrl());
+//           imageInstance.setProduct(productFound);
+//            imageRepository.save(imageInstance);
+//        }
+//        return uploadResult;
+//    }
+
+    public List<ImageDTO> save(ProductColorDTO productColorDTO, List<ImageDTO> uploadResult) {
         Product productFound = productRepository.findById(product.getId()).orElseThrow(
                 () -> new ProductNotFoundException(product.getId())
         );
         for (ImageDTO image : uploadResult) {
             Image imageInstance = new Image();
             imageInstance.setImageUrl(image.getImageUrl());
-            imageInstance.setProduct(productFound);
+//            imageInstance.setProduct(productFound);
             imageRepository.save(imageInstance);
         }
         return uploadResult;
     }
 
     // Inside getImageByCategoryId method
-    @Override
-    public List<ImageDTO> getImageByProductId(Long productId) throws Exception {
-        List<Image> images = imageRepository.findByProductId(productId);
-        return images.stream()
-                .map(image -> modelMapper.map(image, ImageDTO.class))
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<ImageDTO> getImageByProductId(Long productId) throws Exception {
+//        List<Image> images = imageRepository.findByProductId(productId);
+//        return images.stream()
+//                .map(image -> modelMapper.map(image, ImageDTO.class))
+//                .collect(Collectors.toList());
+//    }
 
 }

@@ -8,5 +8,5 @@ import java.util.*;
 public interface UploadService {
     Map<String, Object> upload(MultipartFile file) throws IOException;
     List save(Product product, List<ImageDTO> uploadResult);
-    List<ImageDTO> getImageByProductId(Long productId) throws Exception;
+//    List<ImageDTO> getImageByProductId(Long productId) throws Exception;
 }

@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
+import java.util.*;
 
 @Getter
 @Setter
@@ -31,4 +32,8 @@ public class ProductColor {
     private Date lastModifiedAt;
 
     private String createdBy;
+
+    //new
+    @OneToMany(mappedBy = "productColor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
 }

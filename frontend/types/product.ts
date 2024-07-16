@@ -5,14 +5,14 @@ import { Color } from "./color";
 import { Image } from "./image";
 
 export type ProductForm = {
-  id?: Number;
+  id?: number;
   name: string;
   createdAt?: Date;
   lastModifiedAt?: Date;
   createdBy?: string;
   codeNumber: string;
-  price: Number;
-  stock: Number;
+  price: number;
+  stock: number;
   gender: Gender;
   categoryType?: CategoryType;
   size?: Size[];

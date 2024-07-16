@@ -21,8 +21,8 @@ public class ProductsDTO {
     private Integer stock;
     private Gender gender;
     private CategoryTypeDTO categoryType;
-    private SizeDTO size;
-    private ColorDTO color;
+    private List<SizeDTO> size;
+    private List<ColorDTO> color;
     private List<ImageDTO> images;
 
 }

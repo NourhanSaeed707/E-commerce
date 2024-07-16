@@ -1,5 +1,5 @@
 export type Size = {
-  id?: Number;
+  id?: number;
   createdAt?: Date;
   lastModifiedAt?: Date;
   createdBy?: string;
@@ -22,6 +22,6 @@ export type SizeTableProps = {
 };
 
 export type EditSizeFacadeProps = {
-  id: Number,
+  id: number,
   formRef: any,
 }

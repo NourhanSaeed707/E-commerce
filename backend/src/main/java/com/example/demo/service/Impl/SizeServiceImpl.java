@@ -50,7 +50,7 @@ public class SizeServiceImpl implements SizeService {
         size.setSize(sizeDTO.getSize());
         return size;
     }
-    
+
     @Override
     public ResponseEntity<Size> update(Long id, SizeDTO sizeDTO) throws Exception {
         Size size = sizeRepository.getById(id);
