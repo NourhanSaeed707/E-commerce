@@ -1,5 +1,5 @@
 import { Gender } from "./gender";
-import {  CategoryType } from "./category";
+import { CategoryType } from "./category";
 import { Size } from "./size";
 import { Color } from "./color";
 import { Image } from "./image";
@@ -17,7 +17,7 @@ export type ProductForm = {
   categoryType?: CategoryType;
   size?: Size[];
   color?: Color[];
-  images?: Image[]
+  images?: Image[];
 };
 
 export type AddProductFieldsProps = {
@@ -44,8 +44,14 @@ export type DataProductTypeTable = {
 };
 
 export type EditProductFacadeProps = {
-  id: Number,
-  formRef: any,
+  id: Number;
+  formRef: any;
   listingImages: Image[];
-  setListingImages: (listingImages: Image[]) =>  void;
-}
+  setListingImages: (listingImages: Image[]) => void;
+};
+
+export type ProductColorImage = {
+  productId: number,
+  color:  Color;
+  imagesList: Image[],
+};

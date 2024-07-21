@@ -4,9 +4,11 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.demo.Exception.Products.ProductNotFoundException;
 import com.example.demo.entity.Image;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.ProductColor;
 import com.example.demo.model.ImageDTO;
 import com.example.demo.model.ProductColorDTO;
 import com.example.demo.repository.ImageRepository;
+import com.example.demo.repository.ProductColorRepository;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.UploadService;
 import org.modelmapper.ModelMapper;
@@ -26,7 +28,9 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-     private ProductRepository productRepository;
+    private ProductRepository productRepository;
+    @Autowired
+    private ProductColorRepository productColorRepository;
 
     @Override
     public  Map<String, Object> upload(MultipartFile file) throws IOException {
@@ -48,12 +52,14 @@ public class UploadServiceImpl implements UploadService {
 //    }
 
     public List<ImageDTO> save(ProductColorDTO productColorDTO, List<ImageDTO> uploadResult) {
-        Product productFound = productRepository.findById(product.getId()).orElseThrow(
-                () -> new ProductNotFoundException(product.getId())
-        );
+//        Product productFound = productRepository.findById(product.getId()).orElseThrow(
+//                () -> new ProductNotFoundException(product.getId())
+//        );
+        ProductColor productColor = productColorRepository.getById(productColorDTO.getId());
         for (ImageDTO image : uploadResult) {
             Image imageInstance = new Image();
             imageInstance.setImageUrl(image.getImageUrl());
+            imageInstance.setProductColor(productColor);
 //            imageInstance.setProduct(productFound);
             imageRepository.save(imageInstance);
         }

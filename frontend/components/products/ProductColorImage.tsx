@@ -3,12 +3,16 @@ import ProductColorImageFields from "./ProductColorImageFields";
 import { AddProductFieldsProps } from "@/types/product";
 import { useRouter } from "next/router";
 import { Form } from "antd";
+import useAddEntity from "@/hooks/general-crud/useAddEntity";
 
 export default function ProductColorImage() {
+  const apiUrl = "/api/product/save/color-image";
   const router = useRouter();
   const [formRef] = Form.useForm();
   const [imagesList, setImagesList] = useState([]);
   const { id } = router.query;
+  const { setEntity, loading, error, response } = useAddEntity(apiUrl);
+
 
   const props: AddProductFieldsProps = {
     edit: false,
@@ -17,13 +21,13 @@ export default function ProductColorImage() {
   };
 
   const onFinish = (values: any) => {
-    
     const productColorImages = {
+      productId: id,
       color: values.color,
       images: imagesList,
     };
     console.log("vaaaaaaaalues: ", values);
-    setEntity(product);
+    setEntity(productColorImages);
   };
 
   return (

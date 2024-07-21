@@ -9,12 +9,14 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "product")
+@ToString(exclude = "productColorDTO")
 public class ImageDTO {
     private Long id;
     private String imageUrl;
     private Date createdAt;
     private String createdBy;
+//    @JsonIgnore
+//    private ProductsDTO product;
     @JsonIgnore
-    private ProductsDTO product;
+    private ProductColorDTO productColorDTO;
 }

@@ -5,11 +5,14 @@ import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class ProductFacade {
@@ -73,5 +76,19 @@ public class ProductFacade {
         return productDTO;
     }
 
-    public saveProductColorImages(Long id, ColorDTO colorDTO, List<ImageDTO> imageDTOList)
+    public ResponseEntity<Map<String, Object>> saveProductColorImages(ProductColorImageDTO productColorImageDTO) {
+       ColorDTO savedColorDto = colorService.save(productColorImageDTO.getColorDTO()).getBody();
+       Product productEntity = productRepository.getById(productColorImageDTO.getProductId());
+       ProductsDTO productsDTO = modelMapper.map(productEntity, ProductsDTO.class);
+       ProductColorDTO productColorDTO = new ProductColorDTO();
+       productColorDTO.setColor(savedColorDto);
+       productColorDTO.setProduct(productsDTO);
+       productColorDTO.setCreatedAt(Date.valueOf(LocalDate.now()));
+       ProductColorDTO savedProductColor = productColorService.save(productColorDTO).getBody();
+       uploadService.save(savedProductColor, productColorImageDTO.getImageDTOList());
+       Map<String, Object> response = new HashMap<>();
+       response.put("status", 200);
+       response.put("data", savedProductColor);
+       return ResponseEntity.ok(response);
+    }
 }

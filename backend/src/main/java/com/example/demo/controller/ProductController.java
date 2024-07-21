@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 import com.example.demo.entity.Product;
+import com.example.demo.model.ProductColorImageDTO;
 import com.example.demo.model.ProductsDTO;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class ProductController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ProductsDTO> save(@RequestBody ProductsDTO productsDTO) throws Exception {
         return  productService.save(productsDTO);
+    }
+
+    @PostMapping("/save/color-image")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Map<String, Object>> saveProductColorImage(@RequestBody ProductColorImageDTO productColorImageDTO){
+        return  productService.saveProductColorImage(productColorImageDTO);
     }
 
     @PutMapping("/edit/{id}")
