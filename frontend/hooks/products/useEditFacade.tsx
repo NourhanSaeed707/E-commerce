@@ -25,12 +25,12 @@ export default function useEditFacade({
   } = useEditEntity<ProductForm>(apiEditUrl);
 
   useEffect(() => {
-    const sizes: Size[] =
+    const sizes: any[] =
       entity &&
       entity.size &&
-      entity.size.map((size: any) => ({
-        id: Number(size),
-        size,
+      entity.size.map((size: Size) => ({
+        value: size.id,
+        label: size.size,
       }));
     const colors: Color[] =
       entity &&

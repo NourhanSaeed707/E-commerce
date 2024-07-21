@@ -7,6 +7,7 @@ import { Buttons } from "@/constants/auth";
 import { useRouter } from "next/router";
 import { ProductColorImgFieldsProps } from "@/types/product";
 import AddCancelButton from "./AddCancelButton";
+import { COLOR_PLACEHOLDER } from "@/constants/color";
 
 export default function ProductColorImageFields({
   edit,
@@ -39,25 +40,14 @@ export default function ProductColorImageFields({
         <Select
           allowClear
           style={{ width: "100%" }}
-          placeholder="Please select"
+          placeholder= {edit ? `${COLOR_PLACEHOLDER.EDIT_SELECT_COLOR}` : `${COLOR_PLACEHOLDER.ADD_SELECT_COLOR}`}
           options={optionsColor}
         />
       </Form.Item>
       <Form.Item name="images" label="image">
         <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
       </Form.Item>
-      {/* <Form.Item>
-        <Button type="primary" htmlType="submit" className="w-full">
-          {Buttons.ADD}
-        </Button>
-        <Button
-          type="default"
-          className="mt-3 w-full"
-          onClick={() => router.push("/")}
-        >
-          {Buttons.CANCEL}
-        </Button>
-      </Form.Item> */}
+      
       {!edit && <AddCancelButton edit={edit} />}
     </>
   );

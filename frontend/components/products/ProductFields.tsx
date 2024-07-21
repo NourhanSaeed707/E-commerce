@@ -167,21 +167,8 @@ export default function ProductFields({
           edit={true}
           imagesList={imagesList}
           setImagesList={setImagesList}
-          // color={}
         />
       )}
-      {/* <Form.Item>
-        <Button type="primary" htmlType="submit" className="w-full">
-          {Buttons.ADD}
-        </Button>
-        <Button
-          type="default"
-          className="mt-3 w-full"
-          onClick={() => router.push("/")}
-        >
-          {Buttons.CANCEL}
-        </Button>
-      </Form.Item> */}
       <AddCancelButton edit={edit} />
     </div>
   );

@@ -52,6 +52,16 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
+    public List<SizeDTO> getSizeByListOfIds(List<Long> sizeIds) {
+        List<SizeDTO> sizeDTOS = new ArrayList<>();
+        sizeIds.forEach(sizeId -> {
+            Size size = sizeRepository.getById(sizeId);
+            sizeDTOS.add(modelMapper.map(size, SizeDTO.class));
+        });
+        return sizeDTOS;
+    }
+
+    @Override
     public ResponseEntity<Size> update(Long id, SizeDTO sizeDTO) throws Exception {
         Size size = sizeRepository.getById(id);
         size.setSize(sizeDTO.getSize());

@@ -18,10 +18,10 @@ export default function EditProducts() {
   const { id } = router.query;
 
   const props: EditProductFieldsProps = {
-    edit: false,
+    edit: true,
     imagesList,
     setImagesList,
-    // colors
+    
   };
 
   const editFacadeProps: EditProductFacadeProps = {
@@ -43,7 +43,6 @@ export default function EditProducts() {
       categoryType: {
         id: values.categoryType,
       },
-
       images: imagesList,
     };
     editProduct(productVal);
