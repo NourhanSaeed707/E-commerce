@@ -12,7 +12,6 @@ import java.util.*;
 @RequestMapping("/api/images")
 @CrossOrigin("*")
 public class ImageUploadController {
-
     @Autowired
     private UploadService uploadService;
 

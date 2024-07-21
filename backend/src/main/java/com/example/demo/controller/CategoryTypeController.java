@@ -12,7 +12,6 @@ import java.util.*;
 @RequestMapping("/api/category-type")
 @CrossOrigin("*")
 public class CategoryTypeController {
-
     @Autowired
     private CategoryTypeService categoryTypeService;
 

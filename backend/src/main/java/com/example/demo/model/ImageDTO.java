@@ -15,8 +15,6 @@ public class ImageDTO {
     private String imageUrl;
     private Date createdAt;
     private String createdBy;
-//    @JsonIgnore
-//    private ProductsDTO product;
     @JsonIgnore
     private ProductColorDTO productColorDTO;
 }

@@ -19,8 +19,6 @@ public class ColorController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<ColorDTO>> getAll () {
         List<ColorDTO> colors = colorService.getAll();
-        System.out.println("colooooooors:");
-        System.out.println(colors);
         return ResponseEntity.ok(colors);
     }
 
