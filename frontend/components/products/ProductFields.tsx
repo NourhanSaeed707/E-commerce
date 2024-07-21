@@ -7,9 +7,21 @@ import { Gender } from "@/types/gender";
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
+import AddCancelButton from "./AddCancelButton";
+import ProductColorImageFields from "./ProductColorImageFields";
+import { Image } from "@/types/image";
 
-export default function ProductFields({ edit }) {
-  const router = useRouter();
+interface ProductFieldsProps {
+  edit: boolean;
+  imagesList?: Image[];
+  setImagesList?: React.Dispatch<React.SetStateAction<Image[]>>;
+}
+
+export default function ProductFields({
+  edit,
+  imagesList,
+  setImagesList,
+}: ProductFieldsProps) {
   const { categoryTypeEntities, colorsEntities, sizeEntities } = useAddFacade();
 
   const optionsCategoryType =
@@ -18,13 +30,6 @@ export default function ProductFields({ edit }) {
       value: category.id,
       label: category.name,
     }));
-
-  // const optionsColor =
-  //   colorsEntities &&
-  //   colorsEntities.map((color) => ({
-  //     value: color.id,
-  //     label: color.color,
-  //   }));
 
   const optionsSize =
     sizeEntities &&
@@ -156,37 +161,16 @@ export default function ProductFields({ edit }) {
           options={optionsSize}
         />
       </Form.Item>
-      {/* <Form.Item
-        name="color"
-        label="Color"
-        rules={[
-          {
-            required: true,
-            message: `${AddProductRequired.COLOR_RQUIRED}`,
-          },
-          // {
-          //   validator: (_, value) => {
-          //     const onlyLetters = /^[A-Za-z]+$/;
-          //     if (onlyLetters.test(value)) {
-          //       return Promise.resolve();
-          //     }
-          //     return Promise.reject(new Error(`${Validation.ONLY_STRING}`));
-          //   },
-          // },
-        ]}
-      >
-        <Select
-          mode="multiple"
-          allowClear
-          style={{ width: "100%" }}
-          placeholder="Please select"
-          options={optionsColor}
+
+      {edit && (
+        <ProductColorImageFields
+          edit={true}
+          imagesList={imagesList}
+          setImagesList={setImagesList}
+          // color={}
         />
-      </Form.Item>
-      <Form.Item name="images" label="image">
-        <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
-      </Form.Item> */}
-      <Form.Item>
+      )}
+      {/* <Form.Item>
         <Button type="primary" htmlType="submit" className="w-full">
           {Buttons.ADD}
         </Button>
@@ -197,7 +181,8 @@ export default function ProductFields({ edit }) {
         >
           {Buttons.CANCEL}
         </Button>
-      </Form.Item>
+      </Form.Item> */}
+      <AddCancelButton edit={edit} />
     </div>
   );
 }

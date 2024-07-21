@@ -3,6 +3,8 @@ import useGetOneEntity from "../general-crud/useGetOneEntity";
 import useEditEntity from "../general-crud/useEditEntity";
 import { useEffect } from "react";
 import { EditProductFacadeProps, ProductForm } from "@/types/product";
+import { Size } from "@/types/size";
+import { Color } from "@/types/color";
 
 export default function useEditFacade({
   id,
@@ -23,6 +25,20 @@ export default function useEditFacade({
   } = useEditEntity<ProductForm>(apiEditUrl);
 
   useEffect(() => {
+    const sizes: Size[] =
+      entity &&
+      entity.size &&
+      entity.size.map((size: any) => ({
+        id: Number(size),
+        size,
+      }));
+    const colors: Color[] =
+      entity &&
+      entity.color &&
+      entity.color.map((colorVal: Color) => ({
+        id: Number(colorVal),
+        color: colorVal.color,
+      }));
     if (entity) {
       formRef.setFieldsValue({
         name: entity.name,
@@ -31,14 +47,14 @@ export default function useEditFacade({
         stock: entity.stock,
         gender: entity && entity.gender && entity.gender,
         categoryType: entity && entity.categoryType && entity.categoryType.id,
-        size: entity && entity.size && entity.size.size,
-        color: entity && entity.color && entity.color.color,
-        images: entity.images,
+        size: sizes,
+        color: colors,
       });
-      setListingImages([...entity.images]);
+      if (entity && entity.images) {
+        setListingImages([...entity.images]);
+      }
     }
   }, [entity, formRef, setListingImages, id]);
-  
 
   const editProduct = (updatedValues: ProductForm) => {
     setEntityId(id);

@@ -22,12 +22,18 @@ export type ProductForm = {
 
 export type AddProductFieldsProps = {
   edit: boolean;
-  // imagesList: Image[];
-  // setImagesList: (imagesList: Image[]) => void;
+};
+
+export type EditProductFieldsProps = {
+  edit: boolean;
+  imagesList: Image[];
+  setImagesList: (imagesList: Image[]) => void;
+  // colors: Color[];
 };
 
 export type ProductColorImgFieldsProps = {
   edit: boolean;
+  color?: Color;
   imagesList: Image[];
   setImagesList: (imagesList: Image[]) => void;
 };
@@ -60,4 +66,8 @@ export type ProductColorImageProps = {
   productId: number;
   colorId: number;
   images: Image[];
+};
+
+export type AddCancelButtonProps = {
+  edit: boolean;
 };

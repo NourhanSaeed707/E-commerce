@@ -6,8 +6,11 @@ import useAddFacade from "@/hooks/products/useAddFacade";
 import { Buttons } from "@/constants/auth";
 import { useRouter } from "next/router";
 import { ProductColorImgFieldsProps } from "@/types/product";
+import AddCancelButton from "./AddCancelButton";
 
 export default function ProductColorImageFields({
+  edit,
+  color,
   imagesList,
   setImagesList,
 }: ProductColorImgFieldsProps) {
@@ -43,7 +46,7 @@ export default function ProductColorImageFields({
       <Form.Item name="images" label="image">
         <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
       </Form.Item>
-      <Form.Item>
+      {/* <Form.Item>
         <Button type="primary" htmlType="submit" className="w-full">
           {Buttons.ADD}
         </Button>
@@ -54,7 +57,8 @@ export default function ProductColorImageFields({
         >
           {Buttons.CANCEL}
         </Button>
-      </Form.Item>
+      </Form.Item> */}
+      {!edit && <AddCancelButton edit={edit} />}
     </>
   );
 }

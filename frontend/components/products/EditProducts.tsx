@@ -1,10 +1,11 @@
 import { Form } from "antd";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import ProductFields from "./ProductFields";
 import { useRouter } from "next/router";
 import {
   AddProductFieldsProps,
   EditProductFacadeProps,
+  EditProductFieldsProps,
   ProductForm,
 } from "@/types/product";
 import useEditFacade from "@/hooks/products/useEditFacade";
@@ -16,10 +17,11 @@ export default function EditProducts() {
   const router = useRouter();
   const { id } = router.query;
 
-  const props: AddProductFieldsProps = {
+  const props: EditProductFieldsProps = {
     edit: false,
     imagesList,
     setImagesList,
+    // colors
   };
 
   const editFacadeProps: EditProductFacadeProps = {
@@ -41,12 +43,7 @@ export default function EditProducts() {
       categoryType: {
         id: values.categoryType,
       },
-      // size: {
-      //   size: values.size,
-      // },
-      // color: {
-      //   color: values.color,
-      // },
+
       images: imagesList,
     };
     editProduct(productVal);
