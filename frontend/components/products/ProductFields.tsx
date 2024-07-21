@@ -7,9 +7,8 @@ import { Gender } from "@/types/gender";
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
-import ImageUpload from "../upload/ImageUpload";
 
-export default function ProductFields({ edit, imagesList, setImagesList }) {
+export default function ProductFields({ edit }) {
   const router = useRouter();
   const { categoryTypeEntities, colorsEntities, sizeEntities } = useAddFacade();
 
@@ -27,11 +26,12 @@ export default function ProductFields({ edit, imagesList, setImagesList }) {
   //     label: color.color,
   //   }));
 
-    const optionsSize = sizeEntities && 
+  const optionsSize =
+    sizeEntities &&
     sizeEntities.map((size) => ({
       value: size.id,
       label: size.size,
-    }))
+    }));
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">

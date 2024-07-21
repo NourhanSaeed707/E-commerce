@@ -3,7 +3,6 @@ import { Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import FetchToken from "@/helper/token";
 import { uploadImage } from "@/services/uploader/uploadService";
-import { Image } from "@/types/image";
 
 const { Dragger } = Upload;
 
@@ -26,7 +25,7 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
         uid: index.toString(),
         name: `image-${index}`,
         status: "done",
-        url: image.imageUrl, 
+        imageUrl: image.imageUrl,
       }));
       setFileList(fileList);
     }
@@ -37,7 +36,7 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
       const imageUrl = await uploadImage(file, tokenState); // Call the service function to upload image
       onSuccess(null, file); // Call onSuccess with null (or undefined) as first argument
       // Append new image to imagesList
-      setImagesList([...imagesList, { url: imageUrl }]);
+      setImagesList([...imagesList, { imageUrl }]);
       message.success(`${file.name} file uploaded successfully.`);
     } catch (error) {
       onError(error);
@@ -81,7 +80,6 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
             <img
               key={index}
               src={image && image.imageUrl}
-              
               style={{ width: "200px", margin: "10px" }}
             />
           ))}

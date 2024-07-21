@@ -10,6 +10,6 @@ import java.util.*;
 @NoArgsConstructor
 public class ProductColorImageDTO {
     private Long productId;
-    private ColorDTO colorDTO;
-    private List<ImageDTO> imageDTOList;
+    private Long colorId;
+    private List<ImageDTO> images;
 }

@@ -1,6 +1,3 @@
-import { Category } from "./category";
-import { Product } from "./product";
-
 export type UploadImageProps = {
   size: number;
   imageUrl?: string;
@@ -10,10 +7,10 @@ export type UploadImageProps = {
 };
 
 export type Image = {
-  id?: number,
+  id?: number;
   createdAt?: Date;
   lastModifiedAt?: Date;
   createdBy?: string;
   imageUrl: string;
-  product?: Product
-}
+  // productColor?: ProductColo
+};

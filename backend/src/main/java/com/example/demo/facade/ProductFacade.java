@@ -31,17 +31,6 @@ public class ProductFacade {
     @Autowired
     private ModelMapper modelMapper;
 
-//    public List<ProductColorDTO> saveProductColor(ProductsDTO productDTO) {
-//        List<ProductColorDTO> productColorDTOList = new ArrayList<>();
-//        for (int i = 0; i < productDTO.getColor().size(); i++) {
-//            ProductColorDTO productColorDTO = new ProductColorDTO();
-//            productColorDTO.setProduct(productDTO);
-//            productColorDTO.setColor(productDTO.getColor().get(i));
-//            productColorDTO.setCreatedAt(Date.valueOf(LocalDate.now()));
-//            productColorDTOList.add(productColorService.save(productColorDTO).getBody());
-//        }
-//        return productColorDTOList;
-//    }
     public void saveProductSize(ProductsDTO productDTO) {
         for (int i = 0; i < productDTO.getSize().size(); i++) {
             ProductSizeDTO productSizeDTO = new ProductSizeDTO();
@@ -52,43 +41,27 @@ public class ProductFacade {
         }
     }
     public ProductsDTO saveProductRelations(ProductsDTO productDTO) {
-        // Save product first
         Product product = modelMapper.map(productDTO, Product.class);
         product.setCreatedAt(Date.valueOf(LocalDate.now()));
         Product savedProduct = productRepository.save(product);
         productDTO.setId(savedProduct.getId());
-        // Save color and size
-//        SizeDTO sizeDTO = sizeService.save(productDTO.getSize()).getBody();
-//        ColorDTO colorDTO = colorService.save(productDTO.getColor()).getBody();
-        // Save product color
-//        List<ProductColorDTO> productColorDTOList  = new ArrayList<>();
-//        productColorDTOList = saveProductColor(productDTO);
-//        ProductColorDTO productColorDTO = new ProductColorDTO();
-//        productColorDTO.setProduct(productDTO);
-//        productColorDTO.setColor(colorDTO);
-//        productColorDTO.setCreatedAt(Date.valueOf(LocalDate.now()));
-//        productColorService.save(productColorDTO);
-        // Save product size
         saveProductSize(productDTO);
-        //save image
-//        uploadService.save(savedProduct, productDTO.getImages());
-//        uploadService.save(productColorDTOList, productDTO.getImages());
         return productDTO;
     }
 
-    public ResponseEntity<Map<String, Object>> saveProductColorImages(ProductColorImageDTO productColorImageDTO) {
-       ColorDTO savedColorDto = colorService.save(productColorImageDTO.getColorDTO()).getBody();
-       Product productEntity = productRepository.getById(productColorImageDTO.getProductId());
-       ProductsDTO productsDTO = modelMapper.map(productEntity, ProductsDTO.class);
-       ProductColorDTO productColorDTO = new ProductColorDTO();
-       productColorDTO.setColor(savedColorDto);
-       productColorDTO.setProduct(productsDTO);
-       productColorDTO.setCreatedAt(Date.valueOf(LocalDate.now()));
-       ProductColorDTO savedProductColor = productColorService.save(productColorDTO).getBody();
-       uploadService.save(savedProductColor, productColorImageDTO.getImageDTOList());
-       Map<String, Object> response = new HashMap<>();
-       response.put("status", 200);
-       response.put("data", savedProductColor);
-       return ResponseEntity.ok(response);
+    public ResponseEntity<Map<String, Object>> saveProductColorImages(ProductColorImageDTO productColorImageDTO) throws Exception {
+        ColorDTO colorDTO = colorService.getById(productColorImageDTO.getColorId());
+        Product productEntity = productRepository.getById(productColorImageDTO.getProductId());
+        ProductsDTO productsDTO = modelMapper.map(productEntity, ProductsDTO.class);
+        ProductColorDTO productColorDTO = new ProductColorDTO();
+        productColorDTO.setColor(colorDTO);
+        productColorDTO.setProduct(productsDTO);
+        productColorDTO.setCreatedAt(Date.valueOf(LocalDate.now()));
+        ProductColorDTO savedProductColor = productColorService.save(productColorDTO).getBody();
+        uploadService.save(savedProductColor, productColorImageDTO.getImages());
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", 200);
+        response.put("data", savedProductColor);
+        return ResponseEntity.ok(response);
     }
 }

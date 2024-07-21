@@ -11,7 +11,7 @@ public interface ProductService {
     List<ProductsDTO> getAll();
     ProductsDTO getById(Long id) throws Exception ;
     ResponseEntity<ProductsDTO> save(ProductsDTO productDTO) throws Exception;
-    ResponseEntity<Map<String, Object>>saveProductColorImage(ProductColorImageDTO productColorImageDTO);
+    ResponseEntity<Map<String, Object>>saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception;
     Product setProductFields(Product product, ProductsDTO productsDTO);
     ColorDTO updateProductColor(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);
     SizeDTO updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);

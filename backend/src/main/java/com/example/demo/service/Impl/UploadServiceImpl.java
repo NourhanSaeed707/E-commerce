@@ -56,6 +56,8 @@ public class UploadServiceImpl implements UploadService {
 //                () -> new ProductNotFoundException(product.getId())
 //        );
         ProductColor productColor = productColorRepository.getById(productColorDTO.getId());
+        System.out.println("proooooduct color in image service: " + productColor);
+        System.out.println("images list in image service: " + uploadResult);
         for (ImageDTO image : uploadResult) {
             Image imageInstance = new Image();
             imageInstance.setImageUrl(image.getImageUrl());

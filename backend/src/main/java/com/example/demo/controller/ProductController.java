@@ -38,7 +38,7 @@ public class ProductController {
 
     @PostMapping("/save/color-image")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Map<String, Object>> saveProductColorImage(@RequestBody ProductColorImageDTO productColorImageDTO){
+    public ResponseEntity<Map<String, Object>> saveProductColorImage(@RequestBody ProductColorImageDTO productColorImageDTO) throws Exception {
         return  productService.saveProductColorImage(productColorImageDTO);
     }
 

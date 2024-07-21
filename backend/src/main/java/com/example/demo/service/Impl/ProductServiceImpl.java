@@ -54,15 +54,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ResponseEntity<ProductsDTO> save(ProductsDTO productDTO)  {
-        System.out.println("saaaaaaaaver service");
-        System.out.println(productDTO);
-        ProductsDTO productFacadeDTO = productFacade.saveProductRelations(productDTO);
+         productFacade.saveProductRelations(productDTO);
         return ResponseEntity.ok(productDTO);
     }
 
     @Override
     @Transactional
-    public ResponseEntity<Map<String, Object>> saveProductColorImage(ProductColorImageDTO productColorImageDTO)  {
+    public ResponseEntity<Map<String, Object>> saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception {
         return productFacade.saveProductColorImages(productColorImageDTO);
     }
 

@@ -1,11 +1,18 @@
-import { Form, Select } from "antd";
+import { Button, Form, Select } from "antd";
 import React from "react";
 import ImageUpload from "../upload/ImageUpload";
 import { AddProductRequired } from "@/constants/product";
 import useAddFacade from "@/hooks/products/useAddFacade";
+import { Buttons } from "@/constants/auth";
+import { useRouter } from "next/router";
+import { ProductColorImgFieldsProps } from "@/types/product";
 
-export default function ProductColorImageFields({imagesList, setImagesList}) {
-  const {  colorsEntities } = useAddFacade();
+export default function ProductColorImageFields({
+  imagesList,
+  setImagesList,
+}: ProductColorImgFieldsProps) {
+  const router = useRouter();
+  const { colorsEntities } = useAddFacade();
 
   const optionsColor =
     colorsEntities &&
@@ -35,6 +42,18 @@ export default function ProductColorImageFields({imagesList, setImagesList}) {
       </Form.Item>
       <Form.Item name="images" label="image">
         <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="w-full">
+          {Buttons.ADD}
+        </Button>
+        <Button
+          type="default"
+          className="mt-3 w-full"
+          onClick={() => router.push("/")}
+        >
+          {Buttons.CANCEL}
+        </Button>
       </Form.Item>
     </>
   );

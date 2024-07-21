@@ -6,10 +6,14 @@ export const AddProductRequired = {
   GENDER_REQUIRED: "Please enter gender of product",
   CATEGORY_REQUIRED: "Please enter category of product",
   COLOR_RQUIRED: "Please enter color of product",
-  SIZE_RQUIRED:"Please enter size of product"
+  SIZE_RQUIRED: "Please enter size of product",
 };
 
 export const Buttons = {
   ADD: "Add",
   CANCEL: "Cancel",
+};
+
+export const ToastMessage = {
+  SUCCESS_PRODUCT_COLOR_IMG: "Successfully added product's color and images",
 };
