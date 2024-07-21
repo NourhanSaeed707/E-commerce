@@ -54,8 +54,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ResponseEntity<ProductsDTO> save(ProductsDTO productDTO)  {
-         productFacade.saveProductRelations(productDTO);
-        return ResponseEntity.ok(productDTO);
+        return ResponseEntity.ok(productFacade.saveProductRelations(productDTO));
     }
 
     @Override
