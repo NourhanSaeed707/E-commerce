@@ -43,4 +43,12 @@ public class UploadServiceImpl implements UploadService {
         return uploadResult;
     }
 
+    @Override
+    public List<ImageDTO> getImagesByProductColorId(Long productColorId) {
+       List<Image> imageEntities = imageRepository.findByProductColorId(productColorId);
+       List<ImageDTO> imageDTOS = Collections.singletonList(modelMapper.map(imageEntities, ImageDTO.class));
+       System.out.println("imaaaaaaages: "+ imageDTOS);
+       return  imageDTOS;
+    }
+
 }

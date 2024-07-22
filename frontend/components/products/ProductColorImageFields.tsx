@@ -1,13 +1,16 @@
 import { Button, Form, Select } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ImageUpload from "../upload/ImageUpload";
 import { AddProductRequired } from "@/constants/product";
 import useAddFacade from "@/hooks/products/useAddFacade";
 import { Buttons } from "@/constants/auth";
 import { useRouter } from "next/router";
 import { ProductColorImgFieldsProps } from "@/types/product";
+
 import AddCancelButton from "./AddCancelButton";
 import { COLOR_PLACEHOLDER } from "@/constants/color";
+import useGetColorImgFacade from "@/hooks/products/useGetColorImgFacade";
+import { GetColorImgFacade, ProductColor } from "@/types/product-color";
 
 export default function ProductColorImageFields({
   edit,
@@ -16,6 +19,8 @@ export default function ProductColorImageFields({
   setImagesList,
 }: ProductColorImgFieldsProps) {
   const router = useRouter();
+  const { id: productId } = router.query;
+  const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const { colorsEntities } = useAddFacade();
 
   const optionsColor =
@@ -24,6 +29,24 @@ export default function ProductColorImageFields({
       value: color.id,
       label: color.color,
     }));
+
+  const handleColorChange = (value) => {
+    console.log("Seeeeeeeeeelected color: ", value);
+    setSelectedColor(Number(value));
+  };
+
+  const colorImgFacadeObj: GetColorImgFacade = {
+    colorId: selectedColor,
+    productId: Number(productId),
+  };
+
+  const { imageEntities } = useGetColorImgFacade(colorImgFacadeObj);
+
+  useEffect(() => {
+    if (imageEntities) {
+      setImagesList(imageEntities);
+    }
+  }, [imageEntities, setImagesList]);
 
   return (
     <>
@@ -40,14 +63,19 @@ export default function ProductColorImageFields({
         <Select
           allowClear
           style={{ width: "100%" }}
-          placeholder= {edit ? `${COLOR_PLACEHOLDER.EDIT_SELECT_COLOR}` : `${COLOR_PLACEHOLDER.ADD_SELECT_COLOR}`}
+          placeholder={
+            edit
+              ? `${COLOR_PLACEHOLDER.EDIT_SELECT_COLOR}`
+              : `${COLOR_PLACEHOLDER.ADD_SELECT_COLOR}`
+          }
           options={optionsColor}
+          onChange={handleColorChange}
         />
       </Form.Item>
       <Form.Item name="images" label="image">
         <ImageUpload setImagesList={setImagesList} imagesList={imagesList} />
       </Form.Item>
-      
+
       {!edit && <AddCancelButton edit={edit} />}
     </>
   );

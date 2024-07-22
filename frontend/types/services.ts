@@ -21,3 +21,9 @@ export type GetAllServices = {
   apiUrl: string;
   token: string;
 };
+
+export type IGetOneByObjectService = {
+  apiUrl: string;
+  token: string;
+  object: any;
+};

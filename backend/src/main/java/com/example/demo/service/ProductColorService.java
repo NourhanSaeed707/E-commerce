@@ -7,6 +7,7 @@ import java.util.*;
 public interface ProductColorService {
     List<ProductColorDTO> getAll();
     ProductColorDTO getById(Long id) throws Exception ;
+    ProductColorDTO getOneByProductColorIds(ProductColorIdsDTO productColorIdsDTO);
     ResponseEntity<ProductColorDTO> save(ProductColorDTO productColorDTO);
     ProductColor setProductColorFields(ProductColor categoryColor, ProductColorDTO categoryColorDTO);
     void savedProductColor(ProductsDTO productDTO, ColorDTO colorDTO);

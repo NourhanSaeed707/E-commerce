@@ -37,6 +37,13 @@ public class ProductColorServiceImpl implements ProductColorService {
     }
 
     @Override
+    public ProductColorDTO getOneByProductColorIds(ProductColorIdsDTO productColorIdsDTO) {
+        ProductColor productColor = productColorRepository.findByProductIdAndColorId(productColorIdsDTO.getProductId(), productColorIdsDTO.getColorId());
+        System.out.println("proooooooduct color entityyy: " + productColor);
+        return modelMapper.map(productColor, ProductColorDTO.class);
+    }
+
+    @Override
     public ResponseEntity<ProductColorDTO> save(ProductColorDTO productColorDTO) {
         ProductColor productColor = modelMapper.map(productColorDTO, ProductColor.class);
         productColor.setCreatedAt(Date.valueOf(LocalDate.now()));
