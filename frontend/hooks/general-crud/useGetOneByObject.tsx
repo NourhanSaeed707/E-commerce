@@ -11,7 +11,9 @@ export default function useGetOneByObject<T>(apiUrl: string, object: any) {
       token: accessToken.token,
       object,
     };
+    console.log("tooooooooken: ", accessToken.token);
     const data = await GetOneByObjectService<T>({ ...props });
+    console.log("daaaaataa from get one by object: ", data);
     return data;
   };
 

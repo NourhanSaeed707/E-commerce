@@ -3,21 +3,20 @@ import com.example.demo.model.ProductColorDTO;
 import com.example.demo.model.ProductColorIdsDTO;
 import com.example.demo.service.ProductColorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/product-color")
 @CrossOrigin("*")
 public class ProductColorController {
-
     @Autowired
     private ProductColorService productColorService;
 
     @GetMapping("/get-one")
-    public ProductColorDTO getOneByProductColorIds (ProductColorIdsDTO productColorDTO) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ProductColorDTO getOneByProductColorIds (@RequestBody  ProductColorIdsDTO productColorDTO) {
+        System.out.println("insiiiiiide get one product color ids");
         return productColorService.getOneByProductColorIds(productColorDTO);
     }
 

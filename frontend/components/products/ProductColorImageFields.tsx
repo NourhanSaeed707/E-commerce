@@ -11,6 +11,7 @@ import AddCancelButton from "./AddCancelButton";
 import { COLOR_PLACEHOLDER } from "@/constants/color";
 import useGetColorImgFacade from "@/hooks/products/useGetColorImgFacade";
 import { GetColorImgFacade, ProductColor } from "@/types/product-color";
+import { Image } from "@/types/image";
 
 export default function ProductColorImageFields({
   edit,
@@ -43,8 +44,9 @@ export default function ProductColorImageFields({
   const { imageEntities } = useGetColorImgFacade(colorImgFacadeObj);
 
   useEffect(() => {
+    console.log("imaaaaaaages before set: ", imageEntities);
     if (imageEntities) {
-      setImagesList(imageEntities);
+      setImagesList(imageEntities as Image[]);
     }
   }, [imageEntities, setImagesList]);
 
