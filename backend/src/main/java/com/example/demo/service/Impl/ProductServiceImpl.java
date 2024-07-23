@@ -50,7 +50,6 @@ public class ProductServiceImpl implements ProductService {
          Helper.validateId(id);
          Product product = productRepository.findById(id).orElseThrow( () ->  new ProductNotFoundException(id));
          List<ProductSize> productSizes = productSizeRepository.findByProductId(id);
-         System.out.println("list of product sizes with product id: " + productSizes);
          // Get Sizes
          List<Long> sizeIds = productSizes.stream().map(productSize -> productSize.getSize().getId()).toList();
          List<SizeDTO> sizeDTOS = sizeService.getSizeByListOfIds(sizeIds);

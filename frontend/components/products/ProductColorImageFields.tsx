@@ -32,7 +32,6 @@ export default function ProductColorImageFields({
     }));
 
   const handleColorChange = (value) => {
-    console.log("Seeeeeeeeeelected color: ", value);
     setSelectedColor(Number(value));
   };
 
@@ -44,7 +43,6 @@ export default function ProductColorImageFields({
   const { imageEntities } = useGetColorImgFacade(colorImgFacadeObj);
 
   useEffect(() => {
-    console.log("imaaaaaaages before set: ", imageEntities);
     if (imageEntities) {
       setImagesList(imageEntities as Image[]);
     }

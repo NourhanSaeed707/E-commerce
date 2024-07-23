@@ -39,7 +39,6 @@ public class ProductColorServiceImpl implements ProductColorService {
     @Override
     public ProductColorDTO getOneByProductColorIds(ProductColorIdsDTO productColorIdsDTO) {
         ProductColor productColor = productColorRepository.findByProductIdAndColorId(productColorIdsDTO.getProductId(), productColorIdsDTO.getColorId());
-        System.out.println("proooooooduct color entityyy: " + productColor);
         return modelMapper.map(productColor, ProductColorDTO.class);
     }
 

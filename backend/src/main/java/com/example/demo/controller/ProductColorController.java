@@ -13,7 +13,7 @@ public class ProductColorController {
     @Autowired
     private ProductColorService productColorService;
 
-    @GetMapping("/get-one")
+    @PostMapping("/get-one")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ProductColorDTO getOneByProductColorIds (@RequestBody  ProductColorIdsDTO productColorDTO) {
         System.out.println("insiiiiiide get one product color ids");

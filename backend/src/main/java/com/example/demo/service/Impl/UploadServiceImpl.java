@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UploadServiceImpl implements UploadService {
@@ -45,10 +46,11 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public List<ImageDTO> getImagesByProductColorId(Long productColorId) {
-       List<Image> imageEntities = imageRepository.findByProductColorId(productColorId);
-       List<ImageDTO> imageDTOS = Collections.singletonList(modelMapper.map(imageEntities, ImageDTO.class));
-       System.out.println("imaaaaaaages: "+ imageDTOS);
-       return  imageDTOS;
+        List<Image> imageEntities = imageRepository.findByProductColorId(productColorId);
+        List<ImageDTO> imageDTOS = imageEntities.stream()
+                .map(image -> modelMapper.map(image, ImageDTO.class))
+                .collect(Collectors.toList());
+        return  imageDTOS;
     }
 
 }

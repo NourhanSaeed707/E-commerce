@@ -28,7 +28,8 @@ public class ImageUploadController {
     }
 
     @GetMapping("/get/images/{productColorId}")
-    public List<ImageDTO> getImagesByProductColorId(Long productColorId) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<ImageDTO> getImagesByProductColorId(@PathVariable Long productColorId) {
         return uploadService.getImagesByProductColorId(productColorId);
     }
 }

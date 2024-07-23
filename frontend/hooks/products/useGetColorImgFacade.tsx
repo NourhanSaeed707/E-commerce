@@ -1,7 +1,6 @@
 import { GetColorImgFacade, ProductColor } from "@/types/product-color";
 import useGetOneByObject from "../general-crud/useGetOneByObject";
 import useGetOneEntity from "../general-crud/useGetOneEntity";
-import { Image } from "@/types/image";
 
 export default function useGetColorImgFacade(props: GetColorImgFacade) {
   // Get Product Color
@@ -11,7 +10,7 @@ export default function useGetColorImgFacade(props: GetColorImgFacade) {
     props
   );
   // Get images by product color
-  const apiGetImagesUrl = "/get/images";
+  const apiGetImagesUrl = "/api/images/get/images";
   const { entity: imageEntities } = useGetOneEntity(
     apiGetImagesUrl,
     productColorEntity && productColorEntity.id
