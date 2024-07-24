@@ -31,6 +31,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private  ProductColorRepository productColorRepository;
     @Autowired
+    private ProductSizeService productSizeService;
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -82,33 +84,27 @@ public class ProductServiceImpl implements ProductService {
     public void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
         ProductColor productColor = productColorRepository.findByProductIdAndColorId(updateProductDto.getId(), updateProductDto.getColor().get(0).getId());
         if(productColor != null) {
-            uploadService.deleteImagesByProductColor(productColor.getId());
-            ProductColorDTO productColorDTO = modelMapper.map(productColor, ProductColorDTO.class);
-            uploadService.save(productColorDTO, updateProductDto.getImages());
+            uploadService.updateImagesByProductColor(productColor, updateProductDto);
         }
         else{
-           ProductColorDTO productColorDTO = new ProductColorDTO();
-            productColorDTO.setProduct(updateProductDto);
-            if (!updateProductDto.getColor().isEmpty()) {
-                productColorDTO.setColor(updateProductDto.getColor().get(0));
-            }
-           productColorDTO.setColor(updateProductDto.getColor().get(0));
-           ProductColor productColorEntity = modelMapper.map(productColorDTO, ProductColor.class);
-           ProductColor savedProductColor = productColorRepository.save(productColorEntity);
-           productColorDTO.setId(savedProductColor.getId());
-           uploadService.save(productColorDTO, updateProductDto.getImages());
+          uploadService.addNewImagesWithProductColor(productColor, updateProductDto);
         }
     }
 
     @Override
-    public void updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto) {
+    public void updateProductSize( ProductsDTO updateProductDto) {
         updateProductDto.getSize().forEach(size -> {
-            ProductSize productSize = productSizeRepository.findByProductIdAndSizeId(updateProductDto.getId(), size.getId());
-            if(productSize == null) {
-                ProductSizeDTO productSizeDTO = new ProductSizeDTO();
-                productSizeDTO.setProduct(updateProductDto);
-                productSizeDTO.setSize(modelMapper.map(size, SizeDTO.class));
-                productSizeRepository.save(modelMapper.map(productSizeDTO, ProductSize.class));
+            if(!productSizeService.productSizeExists(updateProductDto.getId(), size.getId())) {
+//                ProductSizeDTO productSizeDTO = new ProductSizeDTO();
+//                productSizeDTO.setProduct(updateProductDto);
+//                productSizeDTO.setSize(modelMapper.map(size, SizeDTO.class));
+//                productSizeRepository.save(modelMapper.map(productSizeDTO, ProductSize.class));
+                System.out.println("size in for looop: " +size);
+                productSizeService.savedProductSize(updateProductDto, modelMapper.map(size, SizeDTO.class));
+            }
+            else{
+                break;
+                productSizeService.updateProductSize(updateProductDto, modelMapper.map(size, SizeDTO.class));
             }
         });
     }
@@ -127,7 +123,7 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<Product> update(Long id, ProductsDTO productDTO) throws Exception {
         ProductsDTO productsDTOFound = getById(id);
         updateProductColorImages(productsDTOFound, productDTO);
-        updateProductSize(productsDTOFound, productDTO);
+        updateProductSize(productDTO);
         ProductsDTO oldProductDto = setNonRelationFieldsDto(productsDTOFound, productDTO);
         Product product = modelMapper.map(oldProductDto, Product.class);
         Product savedProduct = productRepository.save(product);

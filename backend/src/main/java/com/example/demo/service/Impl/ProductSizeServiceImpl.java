@@ -48,6 +48,8 @@ public class ProductSizeServiceImpl implements ProductSizeService {
 
     @Override
     public void savedProductSize(ProductsDTO productsDTO, SizeDTO sizeDTO) {
+        System.out.println("proooduct: " + productsDTO);
+        System.out.println("siiiiiize dto: " + sizeDTO);
         ProductSizeDTO productSizeDTO = new ProductSizeDTO();
         productSizeDTO.setProduct(productsDTO);
         productSizeDTO.setSize(sizeDTO);
@@ -84,5 +86,16 @@ public class ProductSizeServiceImpl implements ProductSizeService {
         ProductSize productSize = modelMapper.map(productSizeDTO, ProductSize.class);
         productSizeRepository.delete(productSize);
         return checkByIdExists(id, "deleted");
+    }
+
+    @Override
+    public Boolean productSizeExists(Long productId, Long sizeId) {
+        return productSizeRepository.findByProductIdAndSizeId(productId, sizeId) != null;
+    }
+
+    @Override
+    public void updateProductSize(ProductsDTO updateProductDto, SizeDTO sizeDTO) {
+      ProductSize productSize = productSizeRepository.findByProductIdAndSizeId(updateProductDto.getId(), sizeDTO.getId());
+      if(productSize =)
     }
 }
