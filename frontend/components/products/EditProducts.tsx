@@ -10,6 +10,8 @@ import {
 } from "@/types/product";
 import useEditFacade from "@/hooks/products/useEditFacade";
 import { Image } from "@/types/image";
+import { Size } from "@/types/size";
+import { Color } from "@/types/color";
 
 export default function EditProducts() {
   const [imagesList, setImagesList] = useState<Image[]>([]);
@@ -21,7 +23,6 @@ export default function EditProducts() {
     edit: true,
     imagesList,
     setImagesList,
-    
   };
 
   const editFacadeProps: EditProductFacadeProps = {
@@ -34,15 +35,22 @@ export default function EditProducts() {
   const { editProduct } = useEditFacade(editFacadeProps);
 
   const onFinish = (values: any) => {
+    const sizes: Size[] =  values.size?.map((sizeId) => ({ id: sizeId.value }));
+    const colors: Color[] = [{id: values.color }]
     const productVal: ProductForm = {
+      id: Number(id),
       name: values.name,
       codeNumber: values.codeNumber,
       price: values.price,
       stock: values.stock,
       gender: values.gender,
+
       categoryType: {
         id: values.categoryType,
       },
+
+      size: sizes,
+      color: colors,
       images: imagesList,
     };
     editProduct(productVal);

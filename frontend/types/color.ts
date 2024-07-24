@@ -3,7 +3,7 @@ export type Color = {
   createdAt?: Date;
   lastModifiedAt?: Date;
   createdBy?: string;
-  color: string;
+  color?: string;
 };
 export type AddColorFieldsProps = {
   edit: boolean;

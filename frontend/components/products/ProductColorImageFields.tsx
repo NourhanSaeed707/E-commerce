@@ -1,9 +1,8 @@
-import { Button, Form, Select } from "antd";
+import {  Form, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import ImageUpload from "../upload/ImageUpload";
 import { AddProductRequired } from "@/constants/product";
 import useAddFacade from "@/hooks/products/useAddFacade";
-import { Buttons } from "@/constants/auth";
 import { useRouter } from "next/router";
 import { ProductColorImgFieldsProps } from "@/types/product";
 

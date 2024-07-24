@@ -8,6 +8,7 @@ import com.example.demo.model.ProductColorDTO;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.ProductColorRepository;
 import com.example.demo.service.UploadService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,12 @@ public class UploadServiceImpl implements UploadService {
                 .map(image -> modelMapper.map(image, ImageDTO.class))
                 .collect(Collectors.toList());
         return  imageDTOS;
+    }
+
+    @Transactional
+    @Override
+    public void deleteImagesByProductColor(Long productColorId) {
+        imageRepository.deleteByProductColorId(productColorId);
     }
 
 }

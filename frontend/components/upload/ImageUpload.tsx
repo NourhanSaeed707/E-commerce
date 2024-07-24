@@ -18,14 +18,13 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
     fetchToken();
   }, []);
 
-  // Initialize fileList with existing imagesList
   useEffect(() => {
     if (imagesList && imagesList.length > 0) {
       const fileList = imagesList.map((image, index) => ({
         uid: index.toString(),
         name: `image-${index}`,
         status: "done",
-        imageUrl: image.imageUrl,
+        url: image.imageUrl, // Changed from imageUrl to url for compatibility
       }));
       setFileList(fileList);
     }
@@ -33,9 +32,8 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
 
   const customRequest = async ({ file, onSuccess, onError }: any) => {
     try {
-      const imageUrl = await uploadImage(file, tokenState); // Call the service function to upload image
-      onSuccess(null, file); // Call onSuccess with null (or undefined) as first argument
-      // Append new image to imagesList
+      const imageUrl = await uploadImage(file, tokenState);
+      onSuccess(null, file);
       setImagesList([...imagesList, { imageUrl }]);
       message.success(`${file.name} file uploaded successfully.`);
     } catch (error) {
@@ -54,12 +52,19 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
     setFileList(info.fileList);
   };
 
+  const onRemove = (file: any) => {
+    const newImagesList = imagesList.filter((image) => image.imageUrl !== file.url);
+    setImagesList(newImagesList);
+    setFileList((prevFileList) => prevFileList.filter((f) => f.uid !== file.uid));
+  };
+
   const props = {
     name: "file",
     multiple: true,
     action: "/api/images/upload",
     customRequest,
     onChange,
+    onRemove,
     fileList, // Pass fileList state to Dragger component
   };
 

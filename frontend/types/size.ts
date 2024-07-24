@@ -3,7 +3,7 @@ export type Size = {
   createdAt?: Date;
   lastModifiedAt?: Date;
   createdBy?: string;
-  size: string;
+  size?: string;
 };
 export type AddSizeFieldsProps = {
   edit: boolean;

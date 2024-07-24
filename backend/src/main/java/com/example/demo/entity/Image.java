@@ -22,11 +22,6 @@ public class Image {
 
     private String createdBy;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "product_id")
-//    @JsonIgnore
-//    private Product product;
-
     @ManyToOne()
     @JoinColumn(name = "product_color_id")
     @JsonIgnore

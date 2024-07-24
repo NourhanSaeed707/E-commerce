@@ -1,11 +1,9 @@
 import { Validation } from "@/constants/error";
-import { Buttons } from "@/constants/product";
 import { AddProductRequired } from "@/constants/product";
 import useAddFacade from "@/hooks/products/useAddFacade";
 import { CategoryType } from "@/types/category";
 import { Gender } from "@/types/gender";
-import { Button, Form, Input, InputNumber, Select } from "antd";
-import { useRouter } from "next/router";
+import {  Form, Input, InputNumber, Select } from "antd";
 import React from "react";
 import AddCancelButton from "./AddCancelButton";
 import ProductColorImageFields from "./ProductColorImageFields";
@@ -22,7 +20,7 @@ export default function ProductFields({
   imagesList,
   setImagesList,
 }: ProductFieldsProps) {
-  const { categoryTypeEntities, colorsEntities, sizeEntities } = useAddFacade();
+  const { categoryTypeEntities, sizeEntities } = useAddFacade();
 
   const optionsCategoryType =
     categoryTypeEntities &&

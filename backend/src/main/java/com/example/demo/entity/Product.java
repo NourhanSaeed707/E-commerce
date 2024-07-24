@@ -38,10 +38,10 @@ public class Product {
     @JoinColumn(name = "category_type_id")
     @NotNull(message = "Category type is required")
     private CategoryType categoryType;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<ProductColor> productColors;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<ProductSize> productSizes;
 

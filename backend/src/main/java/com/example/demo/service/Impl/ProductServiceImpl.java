@@ -8,6 +8,7 @@ import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.*;
+import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,15 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductFacade productFacade;
     @Autowired
-    private ColorRepository colorRepository;
+    private ColorService colorService;
     @Autowired
     private SizeRepository sizeRepository;
     @Autowired
     private SizeService sizeService;
     @Autowired
     private ProductSizeRepository productSizeRepository;
+    @Autowired
+    private  ProductColorRepository productColorRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -83,45 +86,56 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ColorDTO updateProductColor(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
-//        Color color = colorRepository.findById(productFoundDTO.getColor().getId()).orElseThrow(
-//                () -> new ColorNotFoundException(productFoundDTO.getColor().getId()));
-//        color.setColor( updateProductDto.getColor().getColor());
-//        color.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-//        return modelMapper.map(colorRepository.save(color), ColorDTO.class);
-        return null;
+    public void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
+        ProductColor productColor = productColorRepository.findByProductIdAndColorId(updateProductDto.getId(), updateProductDto.getColor().get(0).getId());
+        if(productColor != null) {
+            uploadService.deleteImagesByProductColor(productColor.getId());
+            ProductColorDTO productColorDTO = modelMapper.map(productColor, ProductColorDTO.class);
+            uploadService.save(productColorDTO, updateProductDto.getImages());
+        }
+        else{
+           ProductColorDTO productColorDTO = new ProductColorDTO();
+            productColorDTO.setProduct(updateProductDto);
+            if (!updateProductDto.getColor().isEmpty()) {
+                productColorDTO.setColor(updateProductDto.getColor().get(0));
+            }
+           productColorDTO.setColor(updateProductDto.getColor().get(0));
+           ProductColor productColorEntity = modelMapper.map(productColorDTO, ProductColor.class);
+           ProductColor savedProductColor = productColorRepository.save(productColorEntity);
+           productColorDTO.setId(savedProductColor.getId());
+           uploadService.save(productColorDTO, updateProductDto.getImages());
+        }
     }
 
     @Override
-    public SizeDTO updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto) {
-//        Size size = sizeRepository.findById(productFoundDTO.getSize().getId()).orElseThrow(
-//                () -> new SizeNotFoundException(productFoundDTO.getSize().getId())
-//        );
-//        size.setSize(updateProductDto.getSize().getSize());
-//        size.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-//        return modelMapper.map(sizeRepository.save(size), SizeDTO.class);
-        return null;
+    public void updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto) {
+        updateProductDto.getSize().forEach(size -> {
+            ProductSize productSize = productSizeRepository.findByProductIdAndSizeId(updateProductDto.getId(), size.getId());
+            if(productSize == null) {
+                ProductSizeDTO productSizeDTO = new ProductSizeDTO();
+                productSizeDTO.setProduct(updateProductDto);
+                productSizeDTO.setSize(modelMapper.map(size, SizeDTO.class));
+                productSizeRepository.save(modelMapper.map(productSizeDTO, ProductSize.class));
+            }
+        });
     }
 
     @Override
     public ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto) {
-        oldProductDTO.setGender(newProductDto.getGender());
         oldProductDTO.setName(newProductDto.getName());
         oldProductDTO.setCodeNumber(newProductDto.getCodeNumber());
         oldProductDTO.setPrice(newProductDto.getPrice());
         oldProductDTO.setStock(newProductDto.getStock());
+        oldProductDTO.setGender(newProductDto.getGender());
         return oldProductDTO;
     }
 
     @Override
     public ResponseEntity<Product> update(Long id, ProductsDTO productDTO) throws Exception {
         ProductsDTO productsDTOFound = getById(id);
-        ColorDTO savedColor = updateProductColor(productsDTOFound, productDTO);
-        SizeDTO savedSize = updateProductSize(productsDTOFound, productDTO);
+        updateProductColorImages(productsDTOFound, productDTO);
+        updateProductSize(productsDTOFound, productDTO);
         ProductsDTO oldProductDto = setNonRelationFieldsDto(productsDTOFound, productDTO);
-//        oldProductDto.setCategory(savedCategory);
-//        oldProductDto.setSize(savedSize);
-//        oldProductDto.setColor(savedColor);
         Product product = modelMapper.map(oldProductDto, Product.class);
         Product savedProduct = productRepository.save(product);
         return ResponseEntity.ok(savedProduct);

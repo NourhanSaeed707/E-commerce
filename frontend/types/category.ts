@@ -1,4 +1,4 @@
-import { Product } from './product';
+import { ProductForm } from '@/types/product';
 export type CategoryType =  {
    id?: Number;
    name?: String;
@@ -10,7 +10,7 @@ export type CategoryType =  {
 export type Category = {
    id?: Number;
    categoryType: CategoryType,
-   product: Product,
+   product: ProductForm,
    createdAt?: Date,
    lastModifiedAt?: Date,
    createdBy?: String,

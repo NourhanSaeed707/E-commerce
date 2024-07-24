@@ -1,9 +1,7 @@
 package com.example.demo.service;
 import com.example.demo.entity.Product;
-import com.example.demo.model.ColorDTO;
 import com.example.demo.model.ProductColorImageDTO;
 import com.example.demo.model.ProductsDTO;
-import com.example.demo.model.SizeDTO;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
 
@@ -13,8 +11,8 @@ public interface ProductService {
     ResponseEntity<ProductsDTO> save(ProductsDTO productDTO) throws Exception;
     ResponseEntity<Map<String, Object>>saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception;
     Product setProductFields(Product product, ProductsDTO productsDTO);
-    ColorDTO updateProductColor(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);
-    SizeDTO updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);
+    void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);
+    void updateProductSize(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);
     ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto);
     ResponseEntity<Product> update (Long id, ProductsDTO productsDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);

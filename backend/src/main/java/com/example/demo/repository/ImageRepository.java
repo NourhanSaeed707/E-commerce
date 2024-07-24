@@ -5,4 +5,5 @@ import java.util.*;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
     List<Image> findByProductColorId(Long productColorId);
+    void deleteByProductColorId(Long productColorId);
 }

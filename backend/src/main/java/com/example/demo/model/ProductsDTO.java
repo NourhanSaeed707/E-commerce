@@ -10,7 +10,6 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"productColors", "productSizes", "images"})
 public class ProductsDTO {
     private Long id;
     private String name;
@@ -24,5 +23,4 @@ public class ProductsDTO {
     private List<SizeDTO> size;
     private List<ColorDTO> color;
     private List<ImageDTO> images;
-
 }
