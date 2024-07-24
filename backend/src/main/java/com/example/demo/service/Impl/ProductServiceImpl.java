@@ -1,14 +1,11 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Exception.Color.ColorNotFoundException;
 import com.example.demo.Exception.Products.ProductNotFoundException;
-import com.example.demo.Exception.Size.SizeNotFoundException;
 import com.example.demo.entity.*;
 import com.example.demo.facade.ProductFacade;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.*;
-import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +24,6 @@ public class ProductServiceImpl implements ProductService {
     private UploadService uploadService;
     @Autowired
     private ProductFacade productFacade;
-    @Autowired
-    private ColorService colorService;
-    @Autowired
-    private SizeRepository sizeRepository;
     @Autowired
     private SizeService sizeService;
     @Autowired
