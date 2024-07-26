@@ -1,4 +1,6 @@
 import ListProduct from "@/components/products/ListProduct";
+import { withAuth } from "@/helper/auth";
+import { GetServerSideProps } from "next";
 
 function GetAll() {
   return (
@@ -8,4 +10,5 @@ function GetAll() {
   );
 }
 
+export const getServerSideProps: GetServerSideProps = withAuth();
 export default GetAll;
