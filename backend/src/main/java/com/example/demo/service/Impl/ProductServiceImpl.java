@@ -92,21 +92,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void updateProductSize( ProductsDTO updateProductDto) {
-        updateProductDto.getSize().forEach(size -> {
-            if(!productSizeService.productSizeExists(updateProductDto.getId(), size.getId())) {
-//                ProductSizeDTO productSizeDTO = new ProductSizeDTO();
-//                productSizeDTO.setProduct(updateProductDto);
-//                productSizeDTO.setSize(modelMapper.map(size, SizeDTO.class));
-//                productSizeRepository.save(modelMapper.map(productSizeDTO, ProductSize.class));
-                System.out.println("size in for looop: " +size);
-                productSizeService.savedProductSize(updateProductDto, modelMapper.map(size, SizeDTO.class));
-            }
-            else{
-                break;
-                productSizeService.updateProductSize(updateProductDto, modelMapper.map(size, SizeDTO.class));
-            }
-        });
+        productSizeService.updateProductSize(updateProductDto );
     }
 
     @Override

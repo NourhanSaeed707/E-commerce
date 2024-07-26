@@ -13,6 +13,5 @@ public interface ProductSizeService {
     ResponseEntity<ProductSize> update (Long id, ProductSizeDTO productSizeDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);
     ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception;
-    Boolean productSizeExists(Long productId, Long sizeId);
-    void updateProductSize(ProductsDTO updateProductDto, SizeDTO sizeDTO);
+    void updateProductSize( ProductsDTO updateProductDto);
 }

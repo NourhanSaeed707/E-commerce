@@ -17,5 +17,4 @@ public interface ProductService {
     ResponseEntity<Product> update (Long id, ProductsDTO productsDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);
     ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception;
-
 }

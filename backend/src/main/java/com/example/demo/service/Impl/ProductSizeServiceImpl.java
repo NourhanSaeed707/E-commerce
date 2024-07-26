@@ -5,6 +5,7 @@ import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.ProductSizeService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -89,13 +90,14 @@ public class ProductSizeServiceImpl implements ProductSizeService {
     }
 
     @Override
-    public Boolean productSizeExists(Long productId, Long sizeId) {
-        return productSizeRepository.findByProductIdAndSizeId(productId, sizeId) != null;
-    }
-
-    @Override
-    public void updateProductSize(ProductsDTO updateProductDto, SizeDTO sizeDTO) {
-      ProductSize productSize = productSizeRepository.findByProductIdAndSizeId(updateProductDto.getId(), sizeDTO.getId());
-      if(productSize =)
+    @Transactional
+    public void updateProductSize( ProductsDTO updateProductDto) {
+        productSizeRepository.deleteByProductId(updateProductDto.getId());
+        updateProductDto.getSize().forEach(sizeDTO -> {
+            ProductSize productSize = new ProductSize();
+            productSize.setProduct(modelMapper.map(updateProductDto, Product.class));
+            productSize.setSize(modelMapper.map(sizeDTO, Size.class));
+            productSizeRepository.save(productSize);
+        });
     }
 }
