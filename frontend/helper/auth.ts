@@ -1,7 +1,8 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import axios from "axios";
+import { getIronSession } from "iron-session";
+import client from "@/client/client";
 import FetchToken from "./token";
-import { useState } from "react";
-import { getCookie } from "typescript-cookie";
 
 export const withAuth = (
   getServerSidePropsFunc?: (
@@ -9,36 +10,63 @@ export const withAuth = (
   ) => Promise<GetServerSidePropsResult<any>>
 ) => {
   return async (context: GetServerSidePropsContext) => {
-    // const [tokenState, setToken] = useState<string | null>('');
-    // const { accessToken } = await FetchToken();
-    // const token = accessToken.token;
-    const token = getCookie("token");
-    console.log("tooooooooooken: ", token)
-    console.log("insiiiiiide get server side:");
-    const { res, req } = context;
+    const { req, res } = context;
     const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-    const response = await fetch(`${baseUrl}/api/get-user`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log("reeeeeeeeeespooonse in auth: ", response);
-    if (response.ok) {
-      const user = await response.json();
-      return {
-        props: {
-          user,
+
+    
+    try {
+      // const user = req.cookies;
+      // console.log("coooooooookies: ", user);
+
+      // if (!user || !user.token) {
+      //   throw new Error("No token found");
+      // }
+
+      // const response = await axios.get(`${baseUrl}/api/v2/auth/user`, {
+      //   headers: {
+      //     Authorization: `Bearer ${user.token}`,
+      //   },
+      // });
+      const { accessToken } = await FetchToken();
+      const token = accessToken.token;
+  
+      if (!token) {
+        return {
+          redirect: {
+            destination: "/",
+            permanent: false,
+          },
+        };
+      }
+  
+      const response = await client.get("/api/get-user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      };
-    } else {
-      const redirect = {
+      });
+      
+      console.log("reeeeeeeeesponse: ", response);
+
+      if (response.status === 200) {
+        console.log("if condiiiiition");
+        const userData = response.data;
+        return {
+          props: {
+            user: userData,
+          },
+        };
+      } else {
+        throw new Error("Invalid or expired token");
+      }
+    } catch (error) {
+      console.log("errrrrrrrooooooooor");
+      console.error("Authentication error:", error.message);
+      return {
         redirect: {
           permanent: false,
           destination: "/auth/login",
         },
       };
-      return redirect;
-      //   res.end();
     }
   };
 };

@@ -5,6 +5,7 @@ import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.ProductColorService;
+import com.example.demo.service.UploadService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ public class ProductColorServiceImpl implements ProductColorService {
 
     @Autowired
     private ProductColorRepository productColorRepository;
+    @Autowired
+    private UploadService uploadService;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -91,6 +94,17 @@ public class ProductColorServiceImpl implements ProductColorService {
         ProductColor productColor = modelMapper.map(productColorDTO, ProductColor.class);
         productColorRepository.delete(productColor);
         return checkByIdExists(id, "deleted");
+    }
+
+    @Override
+    public void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
+        ProductColor productColor = productColorRepository.findByProductIdAndColorId(updateProductDto.getId(), updateProductDto.getColor().get(0).getId());
+        if(productColor != null) {
+            uploadService.updateImagesByProductColor(productColor, updateProductDto);
+        }
+        else{
+            uploadService.addNewImagesWithProductColor(productColor, updateProductDto);
+        }
     }
 
 }

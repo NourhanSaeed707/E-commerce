@@ -14,4 +14,6 @@ public interface ProductColorService {
     ResponseEntity<ProductColor> update (Long id, ProductColorDTO productColorDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);
     ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception;
+    void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);
+
 }

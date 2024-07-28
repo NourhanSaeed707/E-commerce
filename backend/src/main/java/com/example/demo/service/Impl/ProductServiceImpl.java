@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductSizeRepository productSizeRepository;
     @Autowired
-    private  ProductColorRepository productColorRepository;
+    private  ProductColorService productColorService;
     @Autowired
     private ProductSizeService productSizeService;
     @Autowired
@@ -80,22 +80,22 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-    @Override
-    public void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
-        ProductColor productColor = productColorRepository.findByProductIdAndColorId(updateProductDto.getId(), updateProductDto.getColor().get(0).getId());
-        if(productColor != null) {
-            uploadService.updateImagesByProductColor(productColor, updateProductDto);
-        }
-        else{
-          uploadService.addNewImagesWithProductColor(productColor, updateProductDto);
-        }
-    }
+//    @Override
+//    public void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
+//        ProductColor productColor = productColorRepository.findByProductIdAndColorId(updateProductDto.getId(), updateProductDto.getColor().get(0).getId());
+//        if(productColor != null) {
+//            uploadService.updateImagesByProductColor(productColor, updateProductDto);
+//        }
+//        else{
+//          uploadService.addNewImagesWithProductColor(productColor, updateProductDto);
+//        }
+//    }
 
-    @Override
-    @Transactional
-    public void updateProductSize( ProductsDTO updateProductDto) {
-        productSizeService.updateProductSize(updateProductDto );
-    }
+//    @Override
+//    @Transactional
+//    public void updateProductSize( ProductsDTO updateProductDto) {
+//        productSizeService.updateProductSize(updateProductDto );
+//    }
 
     @Override
     public ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto) {
@@ -110,8 +110,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<Product> update(Long id, ProductsDTO productDTO) throws Exception {
         ProductsDTO productsDTOFound = getById(id);
-        updateProductColorImages(productsDTOFound, productDTO);
-        updateProductSize(productDTO);
+        productColorService.updateProductColorImages(productsDTOFound, productDTO);
+        productSizeService.updateProductSize(productDTO);
         ProductsDTO oldProductDto = setNonRelationFieldsDto(productsDTOFound, productDTO);
         Product product = modelMapper.map(oldProductDto, Product.class);
         Product savedProduct = productRepository.save(product);
