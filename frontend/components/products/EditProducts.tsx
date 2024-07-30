@@ -42,7 +42,6 @@ export default function EditProducts() {
       values.size.map((size: any) => ({
         id: Number(size),
       }));
-    console.log("siiiiiiiiize arraaaaaay: ", sizes);
     const colors: Color[] = [{ id: values.color }];
     const productVal: ProductForm = {
       id: Number(id),

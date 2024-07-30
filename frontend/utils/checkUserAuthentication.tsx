@@ -1,41 +1,50 @@
-import ListProduct from "@/components/products/ListProduct";
-import { GetServerSideProps } from "next";
-import client from "@/client/client";
-import FetchToken from "@/helper/token";
+import { GetServerSidePropsContext } from "next";
 
-export const checkUserAuthentication: GetServerSideProps = async (context) => {
+export const checkUserAuthentication = async (
+  context: GetServerSidePropsContext
+) => {
+  const token = context.req.headers.cookie?.split("token=")[1];
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
   try {
-    const { accessToken } = await FetchToken();
-    const token = accessToken.token;
-    console.log("tooooooken in chek auth: ", token);
-
-    if (!token) {
+    const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_UR;
+    const res = await fetch(`${baseUrl}/api/get-user`, {
+      headers: {
+        cookie: context.req.headers.cookie,
+      },
+    });
+    if (!res.ok) {
       return {
         redirect: {
-          destination: "/",
+          destination: "/auth/login",
           permanent: false,
         },
       };
     }
-
-    const response = await client.get("/api/get-user", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.data) {
-      throw new Error("User data not available");
+    const data = await res.json();
+    const isAdmin = data.authorities.some((user) => user.authority === "ADMIN");
+    if (!isAdmin) {
+      return {
+        redirect: {
+          destination: "/auth/login",
+          permanent: false,
+        },
+      };
     }
-
     return {
-      props: { user: response.data },
+      props: { data },
     };
   } catch (error) {
-    console.log("erroooooooor: ", error)
+    console.error("Error during data fetch:", error);
     return {
       redirect: {
-        destination: "/",
+        destination: "/auth/login",
         permanent: false,
       },
     };
