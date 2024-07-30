@@ -1,10 +1,17 @@
 import ListColors from '@/components/colors/ListColors'
+import { checkUserAuthentication } from '@/utils/checkUserAuthentication';
+import { GetServerSideProps } from 'next';
 import React from 'react'
 
-export default function GetAllPage() {
+function GetAllPage() {
   return (
     <div>
         <ListColors/>
     </div>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return checkUserAuthentication(context);
+};
+export default GetAllPage;

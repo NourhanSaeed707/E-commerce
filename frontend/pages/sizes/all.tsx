@@ -1,8 +1,12 @@
-import ListSize from '@/components/sizes/ListSize'
-import React from 'react'
+import ListSize from "@/components/sizes/ListSize";
+import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
+import { GetServerSideProps } from "next";
+import React from "react";
 
-export default function AllPage() {
-  return (
-    <ListSize/>
-  )
+function AllPage() {
+  return <ListSize />;
 }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return checkUserAuthentication(context);
+};
+export default AllPage;

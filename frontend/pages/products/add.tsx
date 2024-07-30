@@ -1,10 +1,17 @@
 import AddProduct from "@/components/products/AddProduct";
+import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
+import { GetServerSideProps } from "next";
 import React from "react";
 
-export default function Add() {
+function Add() {
   return (
     <div>
       <AddProduct />
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return checkUserAuthentication(context);
+};
+export default Add;

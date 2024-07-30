@@ -1,10 +1,17 @@
-import AddColor from '@/components/colors/AddColor'
-import React from 'react'
+import AddColor from "@/components/colors/AddColor";
+import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
+import { GetServerSideProps } from "next";
+import React from "react";
 
-export default function AddPage() {
+function AddPage() {
   return (
     <div>
-        <AddColor/>
+      <AddColor />
     </div>
-  )
+  );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return checkUserAuthentication(context);
+};
+export default AddPage;
