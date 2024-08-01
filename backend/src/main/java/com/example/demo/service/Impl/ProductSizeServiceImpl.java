@@ -48,16 +48,6 @@ public class ProductSizeServiceImpl implements ProductSizeService {
     }
 
     @Override
-    public void savedProductSize(ProductsDTO productsDTO, SizeDTO sizeDTO) {
-        System.out.println("proooduct: " + productsDTO);
-        System.out.println("siiiiiize dto: " + sizeDTO);
-        ProductSizeDTO productSizeDTO = new ProductSizeDTO();
-        productSizeDTO.setProduct(productsDTO);
-        productSizeDTO.setSize(sizeDTO);
-        save(productSizeDTO);
-    }
-
-    @Override
     public ProductSize setProductSizeFields(ProductSize productSize, ProductSizeDTO productSizeDTO) {
         productSize.setLastModifiedAt(Date.valueOf(LocalDate.now()));
         ProductSize productSizeEntity = modelMapper.map(productSizeDTO, ProductSize.class);

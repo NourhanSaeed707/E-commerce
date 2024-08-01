@@ -10,7 +10,6 @@ public interface ProductService {
     ProductsDTO getById(Long id) throws Exception ;
     ResponseEntity<ProductsDTO> save(ProductsDTO productDTO) throws Exception;
     ResponseEntity<Map<String, Object>>saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception;
-    Product setProductFields(Product product, ProductsDTO productsDTO);
     ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto);
     ResponseEntity<Product> update (Long id, ProductsDTO productsDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);

@@ -10,7 +10,6 @@ public interface ProductColorService {
     ProductColorDTO getOneByProductColorIds(ProductColorIdsDTO productColorIdsDTO);
     ResponseEntity<ProductColorDTO> save(ProductColorDTO productColorDTO);
     ProductColor setProductColorFields(ProductColor categoryColor, ProductColorDTO categoryColorDTO);
-    void savedProductColor(ProductsDTO productDTO, ColorDTO colorDTO);
     ResponseEntity<ProductColor> update (Long id, ProductColorDTO productColorDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);
     ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception;

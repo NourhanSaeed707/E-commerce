@@ -45,13 +45,6 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
-    public Size setSizeFields(Size size, SizeDTO sizeDTO) {
-        sizeDTO.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        size.setSize(sizeDTO.getSize());
-        return size;
-    }
-
-    @Override
     public List<SizeDTO> getSizeByListOfIds(List<Long> sizeIds) {
         List<SizeDTO> sizeDTOS = new ArrayList<>();
         sizeIds.forEach(sizeId -> {

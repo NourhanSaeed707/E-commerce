@@ -21,8 +21,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private UploadService uploadService;
-    @Autowired
     private ProductFacade productFacade;
     @Autowired
     private SizeService sizeService;
@@ -67,35 +65,6 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<Map<String, Object>> saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception {
         return productFacade.saveProductColorImages(productColorImageDTO);
     }
-
-    @Override
-    public Product setProductFields(Product product, ProductsDTO productsDTO) {
-        Product productEntity = modelMapper.map(productsDTO, Product.class);
-        product.setLastModifiedAt(Date.valueOf(LocalDate.now()));
-        product.setName(productEntity.getName());
-        product.setCodeNumber(productEntity.getCodeNumber());
-        product.setPrice(productEntity.getPrice());
-        product.setGender(productEntity.getGender());
-        product.setStock(productEntity.getStock());
-        return product;
-    }
-
-//    @Override
-//    public void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto){
-//        ProductColor productColor = productColorRepository.findByProductIdAndColorId(updateProductDto.getId(), updateProductDto.getColor().get(0).getId());
-//        if(productColor != null) {
-//            uploadService.updateImagesByProductColor(productColor, updateProductDto);
-//        }
-//        else{
-//          uploadService.addNewImagesWithProductColor(productColor, updateProductDto);
-//        }
-//    }
-
-//    @Override
-//    @Transactional
-//    public void updateProductSize( ProductsDTO updateProductDto) {
-//        productSizeService.updateProductSize(updateProductDto );
-//    }
 
     @Override
     public ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto) {

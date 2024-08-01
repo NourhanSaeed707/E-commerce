@@ -65,14 +65,6 @@ public class ProductColorServiceImpl implements ProductColorService {
     }
 
     @Override
-    public void savedProductColor(ProductsDTO productsDTO, ColorDTO colorDTO) {
-        ProductColorDTO productColorDTO = new ProductColorDTO();
-        productColorDTO.setProduct(productsDTO);
-        productColorDTO.setColor(colorDTO);
-        save(productColorDTO);
-    }
-
-    @Override
     public ResponseEntity<ProductColor> update(Long id, ProductColorDTO productColorDTO) throws Exception {
         ProductColorDTO productColorFoundDTO = getById(id);
         ProductColor productColor = modelMapper.map(productColorFoundDTO, ProductColor.class);

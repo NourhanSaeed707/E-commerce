@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from "next";
-
+import { Authority } from "@/types/authority";
 export const checkUserAuthentication = async (
   context: GetServerSidePropsContext
 ) => {
@@ -13,7 +13,7 @@ export const checkUserAuthentication = async (
     };
   }
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_UR;
+    const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
     const res = await fetch(`${baseUrl}/api/get-user`, {
       headers: {
         cookie: context.req.headers.cookie,
@@ -28,7 +28,12 @@ export const checkUserAuthentication = async (
       };
     }
     const data = await res.json();
-    const isAdmin = data.authorities.some((user) => user.authority === "ADMIN");
+    console.log("daaaaaaaaata user: ", data);
+    console.log(data.authorities);
+    const isAdmin = data.authorities.some(
+      (user) => user.authority === Authority.ADMIN
+    );
+    console.log("isAdmiiiiiiiiin: ", isAdmin);
     if (!isAdmin) {
       return {
         redirect: {
