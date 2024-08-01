@@ -28,12 +28,9 @@ export const checkUserAuthentication = async (
       };
     }
     const data = await res.json();
-    console.log("daaaaaaaaata user: ", data);
-    console.log(data.authorities);
     const isAdmin = data.authorities.some(
       (user) => user.authority === Authority.ADMIN
     );
-    console.log("isAdmiiiiiiiiin: ", isAdmin);
     if (!isAdmin) {
       return {
         redirect: {
