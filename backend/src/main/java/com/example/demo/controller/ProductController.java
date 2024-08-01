@@ -17,7 +17,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<ProductsDTO>> getAll () {
         List<ProductsDTO> products = productService.getAll();
         return ResponseEntity.ok(products);

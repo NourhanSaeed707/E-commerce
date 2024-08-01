@@ -8,9 +8,6 @@ export default function useAddFacade() {
   const {entities : colorsEntities , errors: errorColor, loading: loadingColor} = useGetAllEntity(apiColorUrl);
   const {entities : sizeEntities , errors: errorSize, loading: loadingSize} = useGetAllEntity(apiSizeUrl);
 
-  // const { categoryTypes } = useGetAllCategoryType();
-
-
   return {
     categoryTypeEntities,
     colorsEntities,
