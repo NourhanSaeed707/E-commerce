@@ -1,6 +1,6 @@
 import { ProductTableProps } from "@/types/product";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import ProductTable from "./ProductTable";
 import { Button } from "antd";
 import { BUTTONS } from "@/constants/category";
