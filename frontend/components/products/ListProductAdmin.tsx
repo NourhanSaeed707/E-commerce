@@ -7,7 +7,7 @@ import { BUTTONS } from "@/constants/category";
 import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import useDeleteEntity from "@/hooks/general-crud/useDeleteEntity";
 
-function ListProduct() {
+function ListProductAdmin() {
   const router = useRouter();
   const apiGetAllUrl = "/api/product/get-all";
   const apiDeleteUrl = "/api/product/delete";
@@ -49,4 +49,4 @@ function ListProduct() {
   );
 }
 
-export default ListProduct;
+export default ListProductAdmin;

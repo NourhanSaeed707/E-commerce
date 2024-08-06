@@ -1,4 +1,4 @@
-import ListProduct from "@/components/products/ListProduct";
+import ListProductAdmin from "@/components/products/ListProductAdmin";
 import GetUserAuthority from "@/helper/get-authority";
 import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
 import { GetServerSideProps } from "next";
@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next";
 function GetAll() {  
   return (
     <div>
-      <ListProduct />
+      <ListProductAdmin />
     </div>
   );
 }
