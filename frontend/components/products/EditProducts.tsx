@@ -1,5 +1,5 @@
 import { Form } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductFields from "./ProductFields";
 import { useRouter } from "next/router";
 import {
@@ -32,16 +32,17 @@ export default function EditProducts() {
     setListingImages: setImagesList,
   };
 
-  const { editProduct } = useEditFacade(editFacadeProps);
+  const { editProduct, entity } = useEditFacade(editFacadeProps);
 
   const onFinish = (values: any) => {
     // const sizes: Size[] =  values.size?.map((sizeId) => ({ id: sizeId.value }));
-    const sizes: Size[] =
+    let sizes: Size[] =
       values &&
       values.size &&
       values.size.map((size: any) => ({
-        id: Number(size),
+        id: Number(size.value),
       }));
+    
     const colors: Color[] = [{ id: values.color }];
     const productVal: ProductForm = {
       id: Number(id),
@@ -50,7 +51,6 @@ export default function EditProducts() {
       price: values.price,
       stock: values.stock,
       gender: values.gender,
-
       categoryType: {
         id: values.categoryType,
       },

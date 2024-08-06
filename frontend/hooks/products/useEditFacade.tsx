@@ -25,6 +25,7 @@ export default function useEditFacade({
   } = useEditEntity<ProductForm>(apiEditUrl);
 
   useEffect(() => {
+    console.log("seeeeeet fieeeeeeelds: ", entity);
     const sizes: any[] =
       entity &&
       entity.size &&
@@ -53,8 +54,9 @@ export default function useEditFacade({
       if (entity && entity.images) {
         setListingImages([...entity.images]);
       }
+      
     }
-  }, [entity, formRef, setListingImages, id]);
+  }, [entity, formRef, setListingImages]);
 
   const editProduct = (updatedValues: ProductForm) => {
     setEntityId(id);
@@ -70,5 +72,6 @@ export default function useEditFacade({
   return {
     editProduct,
     listingImages,
+    entity
   };
 }

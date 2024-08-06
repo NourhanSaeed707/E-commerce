@@ -1,22 +1,21 @@
 import { ProductForm } from "@/types/product";
 import { Card } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 const { Meta } = Card;
 
 function ProductCard({ product }) {
+  useEffect(() => {
+    console.log("prooooooduct: ", product);
+  }, [product]);
+
   return (
     <div>
       <Card
         hoverable
         style={{ width: 240 }}
-        cover={
-          <img
-            alt="example"
-            src={product.images && product.images[0]}
-          />
-        }
+        cover={<img alt="example" src={product.images && product.images[0].imageUrl} />}
       >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
+        <Meta title={product.name} description={product.price} />
       </Card>
     </div>
   );

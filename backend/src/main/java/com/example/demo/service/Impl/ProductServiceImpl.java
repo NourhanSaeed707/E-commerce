@@ -34,12 +34,31 @@ public class ProductServiceImpl implements ProductService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<ProductsDTO> getAll () {
+    public List<ProductsDTO> getAll() {
         List<Product> products = productRepository.findAll();
-        return products.stream().map(product -> modelMapper.map(product, ProductsDTO.class))
-                .collect(Collectors.toList());
-
+        return products.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
+
+    private ProductsDTO convertToDTO(Product product) {
+        ProductsDTO productsDTO = modelMapper.map(product, ProductsDTO.class);
+
+        productsDTO.setImages(
+                product.getProductColors().stream()
+                        .flatMap(productColor -> productColor.getImages().stream())
+                        .map(image -> modelMapper.map(image, ImageDTO.class))
+                        .collect(Collectors.toList())
+        );
+
+        return productsDTO;
+    }
+//    public List<ProductsDTO> getAll () {
+//        List<Product> products = productRepository.findAll();
+//        System.out.println("prooooooductsss: " );
+//        System.out.println(products.get(0).getProductColors());
+//        return products.stream().map(product -> modelMapper.map(product, ProductsDTO.class))
+//                .collect(Collectors.toList());
+//
+//    }
 
     @Override
     public ProductsDTO getById(Long id) throws Exception {
