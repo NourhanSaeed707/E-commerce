@@ -24,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping("/get/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     public ResponseEntity<ProductsDTO> getById(@PathVariable Long id) throws Exception {
         ProductsDTO product = productService.getById(id);
         return ResponseEntity.ok(product);
