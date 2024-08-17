@@ -24,7 +24,12 @@ public class SecurityConfiguration {
         http.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable() )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v2/auth/**", "/api/email/**", "/api/sms/**").permitAll()
+                        .requestMatchers(
+                                "/api/v2/auth/**",
+                                "/api/email/**",
+                                "/api/sms/**",
+                                "/api/product/get/{id}"
+                                ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

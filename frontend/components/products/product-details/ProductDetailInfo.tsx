@@ -1,8 +1,12 @@
 import { Button } from "antd";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 function ProductDetailInfo({product}) {
+  useEffect(() => {
+      console.log("insiiiiiiiiide hooooook: ", product);
+  },[product]);
+  
   return (
     <div>
       <div className="container mx-auto p-4">
@@ -49,12 +53,12 @@ function ProductDetailInfo({product}) {
             <div>
               <h2 className="text-lg font-medium mb-2">Select Size</h2>
               <div className="flex space-x-2">
-                {product && product.size && product.size.map((size) => (
+                {product && product.size && product.size.map((sizeVal) => (
                   <button
-                    key={size}
+                    key={sizeVal.id}
                     className="px-4 py-2 border rounded-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
                   >
-                    {size}
+                    {sizeVal.size}
                   </button>
                 ))}
               </div>

@@ -24,9 +24,10 @@ public class ProductController {
     }
 
     @GetMapping("/get/{id}")
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     public ResponseEntity<ProductsDTO> getById(@PathVariable Long id) throws Exception {
+        System.out.println("insiiiiide get one: " +  id);
         ProductsDTO product = productService.getById(id);
+        System.out.println("proooooooducttt: " + product);
         return ResponseEntity.ok(product);
     }
 

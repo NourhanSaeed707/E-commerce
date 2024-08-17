@@ -10,7 +10,7 @@ export const GetOneService = async <T>({
     headers: {
       "Content-type": "application/json",
       "Access-Control-Allow-Origin": "*",
-      Authorization: `Bearer ${token}`,
+      Authorization: token ? `Bearer ${token}` : undefined,
     },
   });
   return data;

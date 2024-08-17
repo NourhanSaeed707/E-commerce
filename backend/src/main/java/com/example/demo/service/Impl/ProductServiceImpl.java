@@ -18,7 +18,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-//    private ProductFacade productFacade;
     private ProductFacadeService productFacadeService;
     @Autowired
     private SizeService sizeService;
@@ -39,7 +38,6 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductsDTO convertToDTO(Product product) {
         ProductsDTO productsDTO = modelMapper.map(product, ProductsDTO.class);
-
         productsDTO.setImages(
                 product.getProductColors().stream()
                         .flatMap(productColor -> productColor.getImages().stream())

@@ -4,13 +4,16 @@ import { DeleteAndGetOneServices } from "@/types/services";
 import useSWR from "swr";
 
 export default function useGetOneEntity<T>(apiUrl: string, id: Number) {
+  console.log("isniiiiide get one entity");
   const fetcher = async () => {
     const { accessToken } = await FetchToken();
+    console.log("accccccess tokkkken: ", accessToken);
     const props: DeleteAndGetOneServices = {
       apiUrl,
       token: accessToken.token,
       id,
     };
+
     const data = await GetOneService<T>({ ...props });
     return data;
   };
