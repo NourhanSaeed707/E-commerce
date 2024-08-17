@@ -1,7 +1,6 @@
 package com.example.demo.service.Impl;
 import com.example.demo.Exception.Products.ProductNotFoundException;
 import com.example.demo.entity.*;
-import com.example.demo.facade.ProductFacade;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
@@ -11,8 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
-import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,7 +18,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private ProductFacade productFacade;
+//    private ProductFacade productFacade;
+    private ProductFacadeService productFacadeService;
     @Autowired
     private SizeService sizeService;
     @Autowired
@@ -51,14 +49,6 @@ public class ProductServiceImpl implements ProductService {
 
         return productsDTO;
     }
-//    public List<ProductsDTO> getAll () {
-//        List<Product> products = productRepository.findAll();
-//        System.out.println("prooooooductsss: " );
-//        System.out.println(products.get(0).getProductColors());
-//        return products.stream().map(product -> modelMapper.map(product, ProductsDTO.class))
-//                .collect(Collectors.toList());
-//
-//    }
 
     @Override
     public ProductsDTO getById(Long id) throws Exception {
@@ -76,13 +66,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ResponseEntity<ProductsDTO> save(ProductsDTO productDTO)  {
-        return ResponseEntity.ok(productFacade.saveProductRelations(productDTO));
+        return ResponseEntity.ok(productFacadeService.saveProductRelations(productDTO));
     }
 
     @Override
     @Transactional
     public ResponseEntity<Map<String, Object>> saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception {
-        return productFacade.saveProductColorImages(productColorImageDTO);
+        return productFacadeService.saveProductColorImages(productColorImageDTO);
     }
 
     @Override

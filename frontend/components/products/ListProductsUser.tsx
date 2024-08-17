@@ -23,7 +23,7 @@ function ListProductsUser() {
             {products.map((product, index) => (
               <div key={index} onClick={() => router.push(`/products/get/${product.id}`)}>
                 <ProductCard
-                  key={index}
+                  
                   product={product}
                   
                 />
