@@ -5,11 +5,15 @@ import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,9 +35,10 @@ public class ProductServiceImpl implements ProductService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<ProductsDTO> getAll() {
-        List<Product> products = productRepository.findAll();
-        return products.stream().map(this::convertToDTO).collect(Collectors.toList());
+    public Page<ProductsDTO> getAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productRepository.findAll(pageable);
+        return productPage.map(this::convertToDTO);
     }
 
     private ProductsDTO convertToDTO(Product product) {
@@ -44,7 +49,6 @@ public class ProductServiceImpl implements ProductService {
                         .map(image -> modelMapper.map(image, ImageDTO.class))
                         .collect(Collectors.toList())
         );
-
         return productsDTO;
     }
 

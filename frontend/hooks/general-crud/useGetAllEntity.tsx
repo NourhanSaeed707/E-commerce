@@ -3,7 +3,7 @@ import { GetAllService } from "@/services/general/getAllService";
 import { GetAllServices } from "@/types/services";
 import useSWR from "swr";
 
-export default function useGetAllEntity(apiUrl: string) {
+export default function useGetAllEntity(apiUrl: string, paginated: boolean = true) {
   const fetcher = async () => {
     const { accessToken } = await FetchToken();
     const props: GetAllServices = {
@@ -11,10 +11,11 @@ export default function useGetAllEntity(apiUrl: string) {
       token: accessToken.token,
     };
     const data = await GetAllService({ ...props });
+    console.log("daaaataa from list all: ", data);
     return data;
   };
 
-  const { data, error } = useSWR<any[]>(apiUrl, fetcher, {
+  const { data, error } = useSWR<any>(apiUrl, fetcher, {
     dedupingInterval: 1000,
   });
 
@@ -22,7 +23,8 @@ export default function useGetAllEntity(apiUrl: string) {
   const errors = error ? error.message : null;
 
   return {
-    entities: data || null,
+    entities: paginated ? data.content || data : data,
+    total: paginated ? data && data.totalElements : data.length,
     loading,
     errors,
     fetcher,

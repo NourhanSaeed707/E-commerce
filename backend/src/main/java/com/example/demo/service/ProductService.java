@@ -2,11 +2,12 @@ package com.example.demo.service;
 import com.example.demo.entity.Product;
 import com.example.demo.model.ProductColorImageDTO;
 import com.example.demo.model.ProductsDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 public interface ProductService {
-    List<ProductsDTO> getAll();
+    Page<ProductsDTO> getAll(int page, int size);
     ProductsDTO getById(Long id) throws Exception ;
     ResponseEntity<ProductsDTO> save(ProductsDTO productDTO) throws Exception;
     ResponseEntity<Map<String, Object>>saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception;

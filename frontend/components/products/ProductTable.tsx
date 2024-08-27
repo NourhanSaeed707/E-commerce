@@ -1,4 +1,5 @@
 import { BUTTONS } from "@/constants/category";
+import { PAGINATION_SIZE } from "@/constants/pagination";
 import { DataProductTypeTable, ProductForm } from "@/types/product";
 import { Button, Space, Spin, Table, TableProps } from "antd";
 import moment from "moment";
@@ -9,6 +10,9 @@ export default function ProductTable({
   entities,
   loading,
   errors,
+  currentPage,
+  total,
+  handlePageChange,
   setEntityIdDelete,
 }) {
   const router = useRouter();
@@ -84,7 +88,17 @@ export default function ProductTable({
 
   return (
     <div>
-      {loading ? <Spin /> : <Table columns={columns} dataSource={data} />}
+      {loading ? <Spin /> : 
+      <Table 
+      columns={columns} 
+      dataSource={data} 
+      pagination={{
+        current: currentPage,
+        pageSize: PAGINATION_SIZE,
+        total,
+        onChange: handlePageChange,
+      }}
+      />}
     </div>
   );
 }

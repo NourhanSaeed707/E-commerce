@@ -3,6 +3,7 @@ import com.example.demo.entity.Product;
 import com.example.demo.model.ProductColorImageDTO;
 import com.example.demo.model.ProductsDTO;
 import com.example.demo.service.ProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,8 +19,10 @@ public class ProductController {
 
     @GetMapping("/get-all")
 //    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<List<ProductsDTO>> getAll () {
-        List<ProductsDTO> products = productService.getAll();
+    public ResponseEntity<Page<ProductsDTO>> getAll (
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        Page<ProductsDTO> products = productService.getAll(page, size);
         return ResponseEntity.ok(products);
     }
 

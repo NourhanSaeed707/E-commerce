@@ -3,6 +3,7 @@ import com.example.demo.entity.CategoryType;
 import com.example.demo.model.CategoryTypeDTO;
 import com.example.demo.service.CategoryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,16 @@ public class CategoryTypeController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<CategoryTypeDTO>> getAll() {
         List<CategoryTypeDTO> categoryTypes = categoryTypeService.getAll();
+        return ResponseEntity.ok(categoryTypes);
+    }
+
+    @GetMapping("/get-all-paginated")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Page<CategoryTypeDTO>> getAllPaginated(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        Page<CategoryTypeDTO> categoryTypes = categoryTypeService.getAllPaginated(page, size);
         return ResponseEntity.ok(categoryTypes);
     }
 

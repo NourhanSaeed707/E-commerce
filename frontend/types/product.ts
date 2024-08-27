@@ -42,7 +42,10 @@ export type ProductTableProps = {
   entities: ProductForm[];
   loading: boolean;
   errors: string | null;
+  currentPage: number;
+  total: number;
   setEntityIdDelete: (id) => void;
+  handlePageChange: (page: number) => void;
 };
 
 export type DataProductTypeTable = {
