@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useState } from "react";
 import ProductCard from "../ProductCard";
 import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import { Pagination, Spin } from "antd";
