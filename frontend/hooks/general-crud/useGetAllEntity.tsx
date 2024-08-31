@@ -23,8 +23,8 @@ export default function useGetAllEntity(apiUrl: string, paginated: boolean = tru
   const errors = error ? error.message : null;
 
   return {
-    entities: paginated ? data.content || data : data,
-    total: paginated ? data && data.totalElements : data.length,
+    entities: paginated ?  data && data.content || data : data,
+    total: paginated ? data && data.totalElements : data && data.length,
     loading,
     errors,
     fetcher,

@@ -1,23 +1,11 @@
-import { BUTTONS } from "@/constants/category";
-import { PAGINATION_SIZE } from "@/constants/pagination";
-import { DataProductTypeTable, ProductForm } from "@/types/product";
-import { Button, Space, Spin, Table, TableProps } from "antd";
-import moment from "moment";
-import { useRouter } from "next/router";
 import React from "react";
+import { Button, Space } from "antd";
+import { BUTTONS } from "@/constants/category";
+import { useRouter } from "next/router";
 
-export default function ProductTable({
-  entities,
-  loading,
-  errors,
-  currentPage,
-  total,
-  handlePageChange,
-  setEntityIdDelete,
-}) {
+function ColumnsConfig(setEntityIdDelete) {
   const router = useRouter();
-
-  const columns: TableProps<DataProductTypeTable>["columns"] = [
+  return [
     {
       title: "id",
       dataIndex: "id",
@@ -72,33 +60,6 @@ export default function ProductTable({
       ),
     },
   ];
-
-  const data: DataProductTypeTable[] =
-    entities && entities.length &&
-    entities.map((product: ProductForm) => ({
-      key: product.id,
-      id: product.id,
-      name: product.name,
-      createdAt: moment(product.createdAt).format("DD-MM-YYYY"),
-      price: product.price,
-      stock: product.stock,
-      categoryType:
-        product && product.categoryType && product.categoryType.name,
-    }));
-
-  return (
-    <div>
-      {loading ? <Spin /> : 
-      <Table 
-      columns={columns} 
-      dataSource={data} 
-      pagination={{
-        current: currentPage,
-        pageSize: PAGINATION_SIZE,
-        total,
-        onChange: handlePageChange,
-      }}
-      />}
-    </div>
-  );
 }
+
+export default ColumnsConfig;

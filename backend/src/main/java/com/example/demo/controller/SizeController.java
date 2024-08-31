@@ -3,6 +3,7 @@ import com.example.demo.entity.Size;
 import com.example.demo.model.SizeDTO;
 import com.example.demo.service.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,19 @@ public class SizeController {
     private SizeService sizeService;
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasAuthority('ADMIN')")public ResponseEntity<List<SizeDTO>> getAll () {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<List<SizeDTO>> getAll () {
         List<SizeDTO> sizes = sizeService.getAll();
+        return ResponseEntity.ok(sizes);
+    }
+
+    @GetMapping("/get-all-paginated")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Page<SizeDTO>> getAllPaginated (
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        Page<SizeDTO> sizes = sizeService.getAllPaginated(page, size);
         return ResponseEntity.ok(sizes);
     }
 

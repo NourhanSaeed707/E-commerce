@@ -4,14 +4,16 @@ import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import { ColorTableProps } from "@/types/color";
 import { Button } from "antd";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import ColorTable from "./ColorTable";
+import { PAGINATION_SIZE } from "@/constants/pagination";
 
 export default function ListColors() {
+  const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
-  const apiGetAllUrl = "/api/colors/get-all";
+  const apiGetAllUrl = `/api/colors/get-all?page=${currentPage - 1}&size=${PAGINATION_SIZE}`;
   const apiDeleteUrl = "/api/colors/delete";
-  const { entities, errors, loading } = useGetAllEntity(apiGetAllUrl);
+  const { entities, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
   const {
     setEntityId: setEntityIdDelete,
     entityId: deleteId,
@@ -20,11 +22,18 @@ export default function ListColors() {
     error: errorDelete,
   } = useDeleteEntity(apiDeleteUrl);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   const props: ColorTableProps = {
     entities,
     loading,
     errors,
+    currentPage,
+    total,
     setEntityIdDelete,
+    handlePageChange,
   };
 
   return (

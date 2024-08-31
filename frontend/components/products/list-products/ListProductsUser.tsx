@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer } from "react";
-import ProductCard from "./ProductCard";
+import ProductCard from "../ProductCard";
 import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import { Spin } from "antd";
-import Navbar from "../layout/Navbar";
+import Navbar from "../../layout/Navbar";
 import { useRouter } from "next/router";
 
 function ListProductsUser() {

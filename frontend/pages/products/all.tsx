@@ -1,4 +1,4 @@
-import ListProductAdmin from "@/components/products/ListProductAdmin";
+import ListProductAdmin from "@/components/products/list-products/ListProductAdmin";
 import GetUserAuthority from "@/helper/get-authority";
 import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
 import { GetServerSideProps } from "next";

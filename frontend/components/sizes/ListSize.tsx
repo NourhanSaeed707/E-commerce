@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SizeTable from "./SizeTable";
 import { BUTTONS } from "@/constants/category";
 import { Button } from "antd";
@@ -6,12 +6,16 @@ import { useRouter } from "next/router";
 import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import useDeleteEntity from "@/hooks/general-crud/useDeleteEntity";
 import { SizeTableProps } from "@/types/size";
+import { PAGINATION_SIZE } from "@/constants/pagination";
 
 export default function ListSize() {
+  const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
-  const apiGetAllUrl = "/api/sizes/get-all";
+  const apiGetAllUrl = `/api/sizes/get-all?page=${
+    currentPage - 1
+  }&size=${PAGINATION_SIZE}`;
   const apiDeleteUrl = "/api/sizes/delete";
-  const { entities, errors, loading } = useGetAllEntity(apiGetAllUrl);
+  const { entities, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
 
   const {
     setEntityId: setEntityIdDelete,
@@ -21,13 +25,19 @@ export default function ListSize() {
     error: errorDelete,
   } = useDeleteEntity(apiDeleteUrl);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
   const props: SizeTableProps = {
     entities,
     loading,
     errors,
+    total,
+    currentPage,
+    handlePageChange,
     setEntityIdDelete,
   };
-  
+
   return (
     <div>
       <Button

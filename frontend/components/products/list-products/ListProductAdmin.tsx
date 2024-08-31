@@ -1,7 +1,7 @@
 import { ProductTableProps } from "@/types/product";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import ProductTable from "./ProductTable";
+import ProductTable from "./table/ProductTable";
 import { Button } from "antd";
 import { BUTTONS } from "@/constants/category";
 import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";

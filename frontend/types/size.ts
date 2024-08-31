@@ -18,6 +18,9 @@ export type SizeTableProps = {
   entities: Size[];
   loading: boolean;
   errors: string | null;
+  total: number,
+  currentPage: number;
+  handlePageChange: (page: number) => void;
   setEntityIdDelete: (id) => void;
 };
 
