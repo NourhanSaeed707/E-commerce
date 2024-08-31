@@ -1,4 +1,4 @@
-import ListProductsUser from "@/components/products/ListProductsUser";
+import ListProductsUser from "@/components/products/list-products/ListProductsUser";
 import React from "react";
 
 function ClientProductsAll() {
