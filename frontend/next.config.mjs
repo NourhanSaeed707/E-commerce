@@ -38,6 +38,9 @@ const nextConfig = {
     "rc-upload",
     "rc-util",
   ],
+  images: {
+    domains: ['res.cloudinary.com'], // Add 'res.cloudinary.com' to the list of allowed domains
+  },
 };
 
 export default nextConfig;

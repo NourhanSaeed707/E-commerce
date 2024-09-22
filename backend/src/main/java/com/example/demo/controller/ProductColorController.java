@@ -19,4 +19,10 @@ public class ProductColorController {
         return productColorService.getOneByProductColorIds(productColorDTO);
     }
 
+    @GetMapping("/get/{productId}/{colorId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ProductColorDTO getByProductAndColorId (@PathVariable  Long productId, @PathVariable  Long colorId) {
+        return productColorService.getByProductAndColorId(productId, colorId);
+    }
+
 }

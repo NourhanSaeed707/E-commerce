@@ -28,6 +28,10 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductSizeRepository productSizeRepository;
     @Autowired
+    private ProductColorRepository productColorRepository;
+    @Autowired
+    private ColorService colorService;
+    @Autowired
     private  ProductColorService productColorService;
     @Autowired
     private ProductSizeService productSizeService;
@@ -62,7 +66,12 @@ public class ProductServiceImpl implements ProductService {
          List<SizeDTO> sizeDTOS = sizeService.getSizeByListOfIds(sizeIds);
          ProductsDTO productsDTO = modelMapper.map(product, ProductsDTO.class);
          productsDTO.setSize(sizeDTOS);
-         return productsDTO;
+         // Get Colors
+        List<ProductColor> productColors = productColorRepository.findByProductId(id);
+        List<Long> colorIds = productColors.stream().map(productColor -> productColor.getColor().getId()).toList();
+        List<ColorDTO> colorDTOS = colorService.getColorByListOfIds(colorIds);
+        productsDTO.setColor(colorDTOS);
+        return productsDTO;
     }
 
     @Override

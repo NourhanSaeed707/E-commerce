@@ -4,9 +4,12 @@ export type Color = {
   lastModifiedAt?: Date;
   createdBy?: string;
   color?: string;
+  imageUrl?: string;
 };
 export type AddColorFieldsProps = {
   edit: boolean;
+  imageUrl: any[];
+  setImageUrl: (imageUrl: any[]) => void;
 };
 export type DataColorTypeTable = {
   key: string;

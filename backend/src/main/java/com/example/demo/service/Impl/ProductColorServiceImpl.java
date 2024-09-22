@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductColorServiceImpl implements ProductColorService {
-
     @Autowired
     private ProductColorRepository productColorRepository;
     @Autowired
@@ -97,6 +96,12 @@ public class ProductColorServiceImpl implements ProductColorService {
         else{
             uploadService.addNewImagesWithProductColor(productColor, updateProductDto);
         }
+    }
+
+    @Override
+    public ProductColorDTO getByProductAndColorId(Long productId, Long colorId) {
+        ProductColor productColor = productColorRepository.findByProductIdColorId(productId, colorId);
+        return modelMapper.map(productColor, ProductColorDTO.class);
     }
 
 }

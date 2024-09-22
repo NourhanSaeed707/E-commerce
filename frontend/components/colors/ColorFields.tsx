@@ -4,8 +4,10 @@ import { Validation } from "@/constants/error";
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
+import ProductColorImageFields from "../products/ProductColorImageFields";
+import ImageUpload from "../upload/ImageUpload";
 
-export default function ColorFields({ edit }) {
+export default function ColorFields({ edit, imageUrl, setImageUrl }) {
   const router = useRouter();
 
   return (
@@ -30,7 +32,10 @@ export default function ColorFields({ edit }) {
         ]}
       >
         <Input />
-      </Form.Item>{" "}
+      </Form.Item>
+      <Form.Item name="images" label="image">
+        <ImageUpload setImagesList={setImageUrl} imagesList={imageUrl} />
+      </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" className="w-full">
           {Buttons.ADD}
@@ -43,6 +48,7 @@ export default function ColorFields({ edit }) {
           {Buttons.CANCEL}
         </Button>
       </Form.Item>
+      
     </div>
   );
 }

@@ -13,5 +13,6 @@ public class ColorDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
+    private String imageUrl;
     private Set<ProductColorDTO> productColorDTOS;
 }

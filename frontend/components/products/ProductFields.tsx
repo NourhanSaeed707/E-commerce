@@ -46,15 +46,15 @@ export default function ProductFields({
             required: true,
             message: `${AddProductRequired.NAME_REQUIRED}`,
           },
-          {
-            validator: (_, value) => {
-              const onlyLetters = /^[A-Za-z]+$/;
-              if (onlyLetters.test(value)) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error(`${Validation.ONLY_STRING}`));
-            },
-          },
+          // {
+          //   validator: (_, value) => {
+          //     const onlyLetters = /^[A-Za-z]+$/;
+          //     if (onlyLetters.test(value)) {
+          //       return Promise.resolve();
+          //     }
+          //     return Promise.reject(new Error(`${Validation.ONLY_STRING}`));
+          //   },
+          // },
         ]}
       >
         <Input />

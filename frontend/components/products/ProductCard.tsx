@@ -13,7 +13,7 @@ function ProductCard({ product }) {
       <Card
         hoverable
         style={{ width: 240 }}
-        cover={<img alt="example" src={product.images && product.images[0].imageUrl} />}
+        cover={<img alt="example" src={product && product.images && product.images[0]?.imageUrl} />}
       >
         <Meta title={product.name} description={product.price} />
       </Card>

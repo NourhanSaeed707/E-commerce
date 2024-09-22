@@ -8,7 +8,4 @@ public interface ProductSizeRepository extends JpaRepository<ProductSize, Long> 
     ProductSize getById(Long id);
     List<ProductSize> findByProductId(Long id);
     ProductSize findByProductIdAndSizeId(Long productId, Long sizeId);
-//    void deleteByProductSizeId(Long productSizeId);
-//    void updateByProductSizeId(Long productSizeId);
-
 }

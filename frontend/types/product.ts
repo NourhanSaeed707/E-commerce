@@ -74,3 +74,9 @@ export type ProductColorImageProps = {
 export type AddCancelButtonProps = {
   edit: boolean;
 };
+
+export type ProductDetailInfoType = {
+  product: ProductForm,
+  selectedColorId: number;
+  SetSelectedColorId: (selectedColorId: number) => void;
+}

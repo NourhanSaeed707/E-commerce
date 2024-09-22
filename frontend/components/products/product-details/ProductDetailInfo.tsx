@@ -1,12 +1,12 @@
 import { Button } from "antd";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-function ProductDetailInfo({product}) {
+function ProductDetailInfo({ product, SetSelectedColorId, selectedColorId }) {
   useEffect(() => {
-      console.log("insiiiiiiiiide hooooook: ", product);
-  },[product]);
-  
+    console.log("insiiiiiiiiide hooooook: ", product);
+  }, [product]);
+
   return (
     <div>
       <div className="container mx-auto p-4">
@@ -53,14 +53,43 @@ function ProductDetailInfo({product}) {
             <div>
               <h2 className="text-lg font-medium mb-2">Select Size</h2>
               <div className="flex space-x-2">
-                {product && product.size && product.size.map((sizeVal) => (
-                  <button
-                    key={sizeVal.id}
-                    className="px-4 py-2 border rounded-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
-                  >
-                    {sizeVal.size}
-                  </button>
-                ))}
+                {product &&
+                  product.size &&
+                  product.size.map((sizeVal) => (
+                    <button
+                      key={sizeVal.id}
+                      className="px-4 py-2 border rounded-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
+                    >
+                      {sizeVal.size}
+                    </button>
+                  ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-medium mb-2">Select Color</h2>
+              <div className="flex space-x-2">
+                {product &&
+                  product.color &&
+                  product.color.length &&
+                  product.color.map((colorVal) => (
+                    <Button
+                      key={colorVal.id}
+                      className="w-10 h-10 p-0 rounded-full border focus:ring-2 focus:ring-blue-500 overflow-hidden"
+                      onClick={() => SetSelectedColorId(colorVal.id)}
+                      defaultValue={SetSelectedColorId(product?.color[0]?.id)}
+                    >
+                      <div className="w-full h-full">
+                        <Image
+                          src={colorVal.imageUrl}
+                          alt={colorVal.colorName}
+                          width={50}
+                          height={40}
+                          className="object-cover"
+                        />
+                      </div>
+                    </Button>
+                  ))}
               </div>
             </div>
 

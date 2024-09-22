@@ -26,6 +26,8 @@ public class Color {
 
     private String createdBy;
 
+    private String colorImageUrl;
+
     @OneToMany(mappedBy = "color", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProductColor> productColors;
 }

@@ -2,23 +2,28 @@ import useAddEntity from "@/hooks/general-crud/useAddEntity";
 import { AddColorFieldsProps, Color } from "@/types/color";
 import { Form } from "antd";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ColorFields from "./ColorFields";
 
 export default function AddColor() {
+  const [imageUrl, setImageUrl] = useState<any[]>([]);
   const apiUrl = "/api/colors/save";
   const [formRef] = Form.useForm();
   const router = useRouter();
 
   const props: AddColorFieldsProps = {
-    edit: false
+    edit: false,
+    imageUrl,
+    setImageUrl
   }
   const { setEntity, loading, error, response } = useAddEntity(apiUrl);
 
   const onFinish = (values: any) => {
     const color: Color = {
         color: values.color,
+        imageUrl: imageUrl[0]?.imageUrl
     };
+    console.log("coooooooolor values: ", color);
     setEntity(color);
   };
 

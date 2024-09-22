@@ -1,8 +1,10 @@
 package com.example.demo.service.Impl;
 import com.example.demo.Exception.Color.ColorNotFoundException;
 import com.example.demo.entity.Color;
+import com.example.demo.entity.Size;
 import com.example.demo.helper.Helper;
 import com.example.demo.model.ColorDTO;
+import com.example.demo.model.SizeDTO;
 import com.example.demo.repository.ColorRepository;
 import com.example.demo.service.ColorService;
 import org.modelmapper.ModelMapper;
@@ -65,5 +67,15 @@ public class ColorServiceImpl implements ColorService {
         Color color = colorRepository.getById(id);
         colorRepository.delete(color);
         return checkByIdExists(id, "deleted");
+    }
+
+    @Override
+    public List<ColorDTO> getColorByListOfIds(List<Long> sizeIds) {
+        List<ColorDTO> colorDTOS = new ArrayList<>();
+        sizeIds.forEach(sizeId -> {
+            Color color = colorRepository.getById(sizeId);
+            colorDTOS.add(modelMapper.map(color, ColorDTO.class));
+        });
+        return colorDTOS;
     }
 }
