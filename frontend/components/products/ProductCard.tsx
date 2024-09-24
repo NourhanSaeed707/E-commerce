@@ -5,7 +5,7 @@ const { Meta } = Card;
 
 function ProductCard({ product }) {
   useEffect(() => {
-    console.log("prooooooduct: ", product);
+    console.log("prooooooduct card: ", product);
   }, [product]);
 
   return (

@@ -1,31 +1,55 @@
 import React, { useEffect, useState } from "react";
 import ProductDetailInfo from "./ProductDetailInfo";
 import ProductImages from "./ProductImages";
-import useGetOneEntity from "@/hooks/general-crud/useGetOneEntity";
 import { ProductDetailInfoType } from "@/types/product";
+import useGetAllImages from "@/hooks/images/useGetAllImages";
+import { useParams } from "next/navigation";
 
 function ProductDetail({ product }) {
-  const [selectedColorId, SetSelectedColorId] = useState<number>(null);
+  const [selectedColorId, SetSelectedColorId] = useState<number>(
+    product?.color[0]?.id 
+  );
+  const { id } = useParams();
+  const apiImageUrl = "/api/product-color/get/images";
+  const { images, error } = useGetAllImages(
+    apiImageUrl,
+    Number(id),
+    selectedColorId
+  );
 
-  const apiImageUrl = "";
-  const { entity } = useGetOneEntity(apiImageUrl, product.id);
   useEffect(() => {
     console.log("prooooooductt inside product detail from hook: ", product);
   }, [product]);
 
+  useEffect(() => {
+    console.log("imaaaaaaaages: ", images);
+  }, [images]);
+
+  useEffect(() => {
+    console.log("idddddd: ", id);
+  }, [id]);
+
+  useEffect(() => {
+    console.log("selectedColorId: ", selectedColorId);
+  }, [selectedColorId]);
+
   const productDetailInfo: ProductDetailInfoType = {
     product,
     selectedColorId,
-    SetSelectedColorId
-  }
+    SetSelectedColorId,
+  };
 
   return (
     <div>
       {product && (
-        <>
-          <ProductImages />
-          <ProductDetailInfo {...productDetailInfo} />
-        </>
+        <div className="flex justify-between gap-10">
+          <div className="flex-1" style={{ margin: 0 }}>
+            <ProductImages images={images} />
+          </div>
+          <div className="flex-1 " style={{ margin: 0 }}>
+            <ProductDetailInfo {...productDetailInfo} />
+          </div>
+        </div>
       )}
     </div>
   );

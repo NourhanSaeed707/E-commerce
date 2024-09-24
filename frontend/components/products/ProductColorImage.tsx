@@ -26,6 +26,10 @@ export default function ProductColorImage() {
     setImagesList,
   };
 
+  useEffect(() => {
+    setImagesList([]);
+  }, []);
+
   const onFinish = (values: any) => {
     const productColorImages: ProductColorImageProps = {
       productId: Number(id),

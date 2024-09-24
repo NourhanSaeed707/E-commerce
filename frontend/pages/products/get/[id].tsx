@@ -16,7 +16,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const Id = context.query.id;
   const apiUrl = `/api/product/get`;
   const { props } = await GetOneServerSide({ context, Id: Number(Id), apiUrl });
-  console.log("proooooooooops: ", props);
   return {
     props,
   };

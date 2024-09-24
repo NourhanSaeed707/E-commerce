@@ -15,4 +15,7 @@ public interface ProductColorService {
     ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception;
     void updateProductColorImages(ProductsDTO productFoundDTO, ProductsDTO updateProductDto);
     ProductColorDTO getByProductAndColorId(Long productId, Long colorId);
+    List<ImageDTO> getImages(Long productId, Long colorId);
+
+
 }

@@ -23,6 +23,8 @@ public class ProductColorServiceImpl implements ProductColorService {
     private UploadService uploadService;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Override
     public List<ProductColorDTO> getAll() {
@@ -100,8 +102,20 @@ public class ProductColorServiceImpl implements ProductColorService {
 
     @Override
     public ProductColorDTO getByProductAndColorId(Long productId, Long colorId) {
-        ProductColor productColor = productColorRepository.findByProductIdColorId(productId, colorId);
+        ProductColor productColor = productColorRepository.findByProductIdAndColorId(productId, colorId);
+        System.out.println("prooooooduct color id: " + productColor.getId());
         return modelMapper.map(productColor, ProductColorDTO.class);
+    }
+
+    @Override
+    public List<ImageDTO> getImages(Long productId, Long colorId) {
+        ProductColorDTO productColorDTO = this.getByProductAndColorId(productId, colorId);
+        List<Image> images = List.of();
+        if (productColorDTO != null && productColorDTO.getId() != null) {
+            images = imageRepository.findByProductColorId(productColorDTO.getId());
+            System.out.println("imaaaaages by product color id: " + images);
+        }
+        return  images.stream().map(image -> modelMapper.map(image, ImageDTO.class) ).collect(Collectors.toList());
     }
 
 }

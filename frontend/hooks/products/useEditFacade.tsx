@@ -25,7 +25,6 @@ export default function useEditFacade({
   } = useEditEntity<ProductForm>(apiEditUrl);
 
   useEffect(() => {
-    console.log("seeeeeet fieeeeeeelds: ", entity);
     const sizes: any[] =
       entity &&
       entity.size &&

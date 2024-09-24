@@ -11,7 +11,6 @@ export default function useGetAllEntity(apiUrl: string, paginated: boolean = tru
       token: accessToken.token,
     };
     const data = await GetAllService({ ...props });
-    console.log("daaaataa from list all: ", data);
     return data;
   };
 

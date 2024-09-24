@@ -8,5 +8,4 @@ public interface ProductColorRepository extends JpaRepository<ProductColor, Long
     ProductColor getById(Long id);
     ProductColor findByProductIdAndColorId(Long productId, Long colorId);
     List<ProductColor> findByProductId(Long id);
-    ProductColor findByProductIdColorId(Long productId, Long colorId);
 }

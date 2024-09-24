@@ -19,5 +19,4 @@ public interface UploadService {
     void updateImagesByProductColor(ProductColor productColor, ProductsDTO updateProductDto);
     @Transactional
     void addNewImagesWithProductColor(ProductColor productColor, ProductsDTO updateProductDto);
-    List<ImageDTO> getByProductAndColorId(Long productId, Long colorId);
 }

@@ -23,7 +23,6 @@ export default function AddColor() {
         color: values.color,
         imageUrl: imageUrl[0]?.imageUrl
     };
-    console.log("coooooooolor values: ", color);
     setEntity(color);
   };
 

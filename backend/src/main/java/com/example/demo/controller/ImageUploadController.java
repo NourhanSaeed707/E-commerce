@@ -16,8 +16,6 @@ import java.util.*;
 public class ImageUploadController {
     @Autowired
     private UploadService uploadService;
-    @Autowired
-    private ProductColorService productColorService;
 
     @PostMapping("/upload")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -34,11 +32,6 @@ public class ImageUploadController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public List<ImageDTO> getImagesByProductColorId(@PathVariable Long productColorId) {
         return uploadService.getImagesByProductColorId(productColorId);
-    }
-
-    @GetMapping("/get/images/{productId}/{colorId}")
-    public List<ImageDTO> getByProductAndColorId(@PathVariable Long productId, @PathVariable Long colorId) {
-         return uploadService.getByProductAndColorId(productId, colorId);
     }
 
 }

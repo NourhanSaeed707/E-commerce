@@ -3,40 +3,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 function ProductDetailInfo({ product, SetSelectedColorId, selectedColorId }) {
-  useEffect(() => {
-    console.log("insiiiiiiiiide hooooook: ", product);
-  }, [product]);
-
   return (
     <div>
       <div className="container mx-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Product Images */}
-          <div className="flex flex-col space-y-4">
-            {/* <Image
-              src={product && product.images && product.images[0].imageUrl}
-              alt="Product Image"
-              className="w-full object-cover rounded-lg"
-            /> */}
-            {/* <div className="flex space-x-4">
-              <Image
-                src="/path/to/thumbnail1.jpg"
-                alt="Thumbnail 1"
-                className="w-1/4 object-cover rounded-lg"
-              />
-              <Image
-                src="/path/to/thumbnail2.jpg"
-                alt="Thumbnail 2"
-                className="w-1/4 object-cover rounded-lg"
-              />
-              <Image
-                src="/path/to/thumbnail3.jpg"
-                alt="Thumbnail 3"
-                className="w-1/4 object-cover rounded-lg"
-              />
-            </div> */}
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 ">
           {/* Product Details */}
           <div className="flex flex-col space-y-4">
             <h1 className="text-3xl font-bold">Product Name</h1>
@@ -75,17 +45,18 @@ function ProductDetailInfo({ product, SetSelectedColorId, selectedColorId }) {
                   product.color.map((colorVal) => (
                     <Button
                       key={colorVal.id}
-                      className="w-10 h-10 p-0 rounded-full border focus:ring-2 focus:ring-blue-500 overflow-hidden"
+                      className={`w-10 h-10 p-0 rounded-full border focus:ring-2 ${
+                        selectedColorId === colorVal.id ? "ring-blue-500" : ""
+                      } overflow-hidden`}
                       onClick={() => SetSelectedColorId(colorVal.id)}
-                      defaultValue={SetSelectedColorId(product?.color[0]?.id)}
                     >
                       <div className="w-full h-full">
                         <Image
                           src={colorVal.imageUrl}
                           alt={colorVal.colorName}
-                          width={50}
-                          height={40}
-                          className="object-cover"
+                          width={55}
+                          height={55} 
+                          className="rounded-full object-cover w-full h-full"
                         />
                       </div>
                     </Button>

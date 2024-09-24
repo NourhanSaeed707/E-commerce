@@ -28,7 +28,8 @@ public class SecurityConfiguration {
                                 "/api/v2/auth/**",
                                 "/api/email/**",
                                 "/api/sms/**",
-                                "/api/product/get/{id}"
+                                "/api/product/get/{id}",
+                                "/api/product-color/get/images/{productId}/{colorId}"
                                 ).permitAll()
                         .anyRequest().authenticated()
                 )

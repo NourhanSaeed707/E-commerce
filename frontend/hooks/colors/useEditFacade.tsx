@@ -21,6 +21,7 @@ export default function useEditFacade({ id, formRef }: EditColorFacadeProps) {
     if (entity) {
       formRef.setFieldsValue({
         color: entity.color,
+        imageUrl: entity.imageUrl,
       });
     }
   }, [entity, formRef, id]);

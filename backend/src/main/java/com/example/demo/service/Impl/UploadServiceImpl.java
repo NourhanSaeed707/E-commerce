@@ -8,7 +8,6 @@ import com.example.demo.model.ProductColorDTO;
 import com.example.demo.model.ProductsDTO;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.ProductColorRepository;
-import com.example.demo.service.ProductColorService;
 import com.example.demo.service.UploadService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -29,8 +28,6 @@ public class UploadServiceImpl implements UploadService {
     private ModelMapper modelMapper;
     @Autowired
     private ProductColorRepository productColorRepository;
-    @Autowired
-    private ProductColorService productColorService;
 
     @Override
     public  Map<String, Object> upload(MultipartFile file) throws IOException {
@@ -88,17 +85,5 @@ public class UploadServiceImpl implements UploadService {
         productColorDTO.setId(savedProductColor.getId());
         save(productColorDTO, updateProductDto.getImages());
     }
-
-    @Override
-    public List<ImageDTO> getByProductAndColorId(Long productId, Long colorId) {
-        ProductColorDTO productColorDTO = productColorService.getByProductAndColorId(productId, colorId);
-        List<Image> images = List.of();
-        if (productColorDTO != null && productColorDTO.getId() != null) {
-            images = imageRepository.findByProductColorId(productColorDTO.getId());
-        }
-        return  images.stream().map(image -> modelMapper.map(image, ImageDTO.class) ).collect(Collectors.toList());
-
-    }
-
 
 }
