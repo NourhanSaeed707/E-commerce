@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ProductFields from "./ProductFields";
 import { Form } from "antd";
 import useAddEntity from "@/hooks/general-crud/useAddEntity";

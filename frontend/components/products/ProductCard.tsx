@@ -1,5 +1,6 @@
 import { ProductForm } from "@/types/product";
 import { Card } from "antd";
+import Image from "next/image";
 import React, { useEffect } from "react";
 const { Meta } = Card;
 
@@ -13,7 +14,7 @@ function ProductCard({ product }) {
       <Card
         hoverable
         style={{ width: 240 }}
-        cover={<img alt="example" src={product && product.images && product.images[0]?.imageUrl} />}
+        cover={<Image alt="example" src={product && product.images && product.images[0]?.imageUrl} width={100} height={100} style={{ height: '200px', objectFit: 'contain' }}/>}
       >
         <Meta title={product.name} description={product.price} />
       </Card>

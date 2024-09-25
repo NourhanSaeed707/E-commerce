@@ -1,4 +1,4 @@
-import {  Form, Select } from "antd";
+import { Form, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import ImageUpload from "../upload/ImageUpload";
 import { AddProductRequired } from "@/constants/product";
@@ -42,10 +42,10 @@ export default function ProductColorImageFields({
   const { imageEntities } = useGetColorImgFacade(colorImgFacadeObj);
 
   useEffect(() => {
-    if (imageEntities) {
+    if (imageEntities && edit) {
       setImagesList(imageEntities as Image[]);
     }
-  }, [imageEntities, setImagesList]);
+  }, [imageEntities, setImagesList, edit]);
 
   return (
     <>

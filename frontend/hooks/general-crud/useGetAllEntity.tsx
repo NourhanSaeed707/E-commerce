@@ -15,7 +15,7 @@ export default function useGetAllEntity(apiUrl: string, paginated: boolean = tru
   };
 
   const { data, error } = useSWR<any>(apiUrl, fetcher, {
-    dedupingInterval: 1000,
+    // dedupingInterval: 1000,
   });
 
   const loading = !data && !error;
