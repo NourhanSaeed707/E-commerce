@@ -16,7 +16,7 @@ public class ColorController {
     private ColorService colorService;
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<List<ColorDTO>> getAll () {
         List<ColorDTO> colors = colorService.getAll();
         return ResponseEntity.ok(colors);

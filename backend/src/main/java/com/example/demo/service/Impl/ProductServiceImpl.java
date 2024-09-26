@@ -30,6 +30,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductColorRepository productColorRepository;
     @Autowired
+    private CategoryTypeRepository categoryTypeRepository;
+    @Autowired
     private ColorService colorService;
     @Autowired
     private  ProductColorService productColorService;
@@ -38,10 +40,24 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ModelMapper modelMapper;
 
+//    @Override
+//    public Page<ProductsDTO> getAll(int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<Product> productPage = productRepository.findAll(pageable);
+//        return productPage.map(this::convertToDTO);
+//    }
+
     @Override
-    public Page<ProductsDTO> getAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productPage = productRepository.findAll(pageable);
+    public Page<ProductsDTO> getAll(ProductFiltrationDTO filterRequest) {
+        Pageable pageable = PageRequest.of(filterRequest.getPage(), filterRequest.getSize());
+//        Page<Product> productPage = productRepository.findAll(pageable);
+        Page<Product> productPage;
+        if (filterRequest != null && filterRequest.getCategoryTypeFilter() != null) {
+            productPage = productRepository.findByCategoryTypeId(filterRequest.getCategoryTypeFilter());
+        }
+        if (filterRequest != null && filterRequest.getColorFilter() != null) {
+            productPage = productRepository.findByCategoryTypeId(filterRequest.getCategoryTypeFilter());
+        }
         return productPage.map(this::convertToDTO);
     }
 

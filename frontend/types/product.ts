@@ -80,3 +80,15 @@ export type ProductDetailInfoType = {
   selectedColorId: number;
   SetSelectedColorId: (selectedColorId: number) => void;
 }
+
+export type FiltrationSideMenuProps = {
+  sortOrder?: "lowToHigh" | "highToLow" | null;
+  setSortOrder?: (value: "lowToHigh" | "highToLow" | null) => void;
+  setColorFilter?: (colorFilter: number | null) => void;
+  setSizeFilter?: (colorFilter: number | null) => void;
+  setCategoryTypeFilter?: (colorFilter: number | null) => void;
+  colorFilter?: number | null;
+  sizeFilter?: number | null;
+  categoryTypeFilter?: number | null;
+}
+

@@ -17,7 +17,7 @@ public class SizeController {
     private SizeService sizeService;
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<List<SizeDTO>> getAll () {
         List<SizeDTO> sizes = sizeService.getAll();
         return ResponseEntity.ok(sizes);

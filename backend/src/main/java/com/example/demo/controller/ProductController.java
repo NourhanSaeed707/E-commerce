@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import com.example.demo.entity.Product;
 import com.example.demo.model.ProductColorImageDTO;
+import com.example.demo.model.ProductFiltrationDTO;
 import com.example.demo.model.ProductsDTO;
 import com.example.demo.service.ProductService;
 import org.springframework.data.domain.Page;
@@ -17,12 +18,30 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/get-all")
+//    @GetMapping("/get-all")
+////    @PreAuthorize("hasAuthority('ADMIN')")
+//    public ResponseEntity<Page<ProductsDTO>> getAll (
+//            @RequestParam(value = "page", defaultValue = "0") int page,
+//            @RequestParam(value = "size", defaultValue = "10") int size) {
+//        Page<ProductsDTO> products = productService.getAll(page, size);
+//        return ResponseEntity.ok(products);
+//    }
+
+    @GetMapping("/get-all/")
 //    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Page<ProductsDTO>> getAll (
+    public ResponseEntity<Page<ProductsDTO>> getAllFiltration (
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
-        Page<ProductsDTO> products = productService.getAll(page, size);
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "categoryTypeFilter", defaultValue = "0") int categoryTypeFilter,
+            @RequestParam(value = "colorFilter", defaultValue = "0") int colorFilter,
+            @RequestParam(value = "sizeFilter", defaultValue = "0") int sizeFilter) {
+        ProductFiltrationDTO filterRequest = new ProductFiltrationDTO();
+        filterRequest.setPage(page);
+        filterRequest.setSize(size);
+        filterRequest.setCategoryTypeFilter(categoryTypeFilter);
+        filterRequest.setColorFilter(colorFilter);
+        filterRequest.setSizeFilter(sizeFilter);
+        Page<ProductsDTO> products = productService.getAll(filterRequest);
         return ResponseEntity.ok(products);
     }
 

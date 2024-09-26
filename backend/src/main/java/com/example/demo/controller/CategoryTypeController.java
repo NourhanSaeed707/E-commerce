@@ -17,7 +17,7 @@ public class CategoryTypeController {
     private CategoryTypeService categoryTypeService;
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<List<CategoryTypeDTO>> getAll() {
         List<CategoryTypeDTO> categoryTypes = categoryTypeService.getAll();
         return ResponseEntity.ok(categoryTypes);
