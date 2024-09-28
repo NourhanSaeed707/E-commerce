@@ -8,6 +8,7 @@ import com.example.demo.service.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +50,34 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductsDTO> getAll(ProductFiltrationDTO filterRequest) {
+        System.out.println("get all products service: " + filterRequest);
         Pageable pageable = PageRequest.of(filterRequest.getPage(), filterRequest.getSize());
-//        Page<Product> productPage = productRepository.findAll(pageable);
-        Page<Product> productPage;
-        if (filterRequest != null && filterRequest.getCategoryTypeFilter() != null) {
-            productPage = productRepository.findByCategoryTypeId(filterRequest.getCategoryTypeFilter());
+
+        // Initialize Specification with null, which means no filtering if no criteria is applied.
+        Specification<Product> spec = Specification.where(null);
+
+        // Apply filters only if they are present (non-zero or non-null).
+        boolean isFiltered = false;
+
+        if (filterRequest.getCategoryTypeFilter() != null && filterRequest.getCategoryTypeFilter() != 0) {
+            spec = spec.and(ProductSpecification.byCategoryType(filterRequest.getCategoryTypeFilter()));
+            isFiltered = true;
         }
-        if (filterRequest != null && filterRequest.getColorFilter() != null) {
-            productPage = productRepository.findByCategoryTypeId(filterRequest.getCategoryTypeFilter());
+
+        if (filterRequest.getColorFilter() != null && filterRequest.getColorFilter() != 0) {
+            spec = spec.and(ProductSpecification.byColor(filterRequest.getColorFilter()));
+            isFiltered = true;
         }
+
+        if (filterRequest.getSizeFilter() != null && filterRequest.getSizeFilter() != 0) {
+            spec = spec.and(ProductSpecification.bySize(filterRequest.getSizeFilter()));
+            isFiltered = true;
+        }
+
+        // If no filter is applied (isFiltered == false), return all products.
+        Page<Product> productPage = isFiltered ? productRepository.findAll(spec, pageable)
+                : productRepository.findAll(pageable);
+
         return productPage.map(this::convertToDTO);
     }
 

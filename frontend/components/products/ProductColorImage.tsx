@@ -27,10 +27,6 @@ export default function ProductColorImage() {
   };
 
   useEffect(() => {
-    console.log("imaaaaages list: ", imagesList);
-  }, [imagesList]);
-
-  useEffect(() => {
     setImagesList([]);
   }, [id]);
 
@@ -40,7 +36,6 @@ export default function ProductColorImage() {
       colorId: Number(values.color),
       images: imagesList,
     };
-    console.log("proooooduct color values: ", productColorImages);
     setEntity(productColorImages);
     setImagesList([]);
   };

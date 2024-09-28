@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
     Product getById(Long id);
     Page<Product> findAll(Pageable pageable);
-    Page<Product> findByCategoryTypeId(int categoryTypeId);
+//    Page<Product> findByCategoryTypeId(int categoryTypeId);
 }

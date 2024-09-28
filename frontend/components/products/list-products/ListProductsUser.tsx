@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pagination, Spin } from "antd";
 import Navbar from "../../layout/Navbar";
 import { useRouter } from "next/router";
@@ -20,7 +20,7 @@ function ListProductsUser() {
 
   const apiGetAllUrl = `api/product/get-all?page=${
     currentPage - 1
-  }&size=${PAGINATION_SIZE}&categoryTypeFilter=${categoryTypeFilter}&colorFilter=${colorFilter}&sizeFilter=${sizeFilter}`;
+  }&size=${PAGINATION_SIZE}&categoryTypeFilter=${Number(categoryTypeFilter)}&colorFilter=${Number(colorFilter)}&sizeFilter=${Number(sizeFilter)}`;
 
   const {
     entities: products,

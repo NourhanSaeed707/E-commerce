@@ -33,17 +33,14 @@ export default function FiltrationSideMenu({
   };
 
   const handleCategoryChange = (value: string) => {
-    console.log("Selected category:", value);
     setCategoryTypeFilter(Number(value));
   };
 
   const handleColorChange = (value: string) => {
-    console.log("Selected color:", value);
     setColorFilter(Number(value));
   };
 
    const handleSizeChange = (value: string) => {
-     console.log("Selected size:", value);
     setSizeFilter(Number(value));
   };
 
@@ -78,7 +75,7 @@ export default function FiltrationSideMenu({
           >
             <Option value="">All Categories</Option>
             {categoryTypes?.map((category: any) => (
-              <Option key={category.id} value={category.name}>
+              <Option key={category.id} value={category.id}>
                 {category.name}
               </Option>
             ))}
@@ -98,8 +95,8 @@ export default function FiltrationSideMenu({
           >
             <Option value="">All Colors</Option>
             {colors?.map((color: any) => (
-              <Option key={color.id} value={color.color}>
-                {color.name}
+              <Option key={color.id} value={color.color.id}>
+                {color.color}
               </Option>
             ))}
           </Select>
@@ -118,8 +115,8 @@ export default function FiltrationSideMenu({
           >
             <Option value="">All Sizes</Option>
             {sizes?.map((size: any) => (
-              <Option key={size.id} value={size.size}>
-                {size.name}
+              <Option key={size.id} value={size.size.id}>
+                {size.size}
               </Option>
             ))}
           </Select>

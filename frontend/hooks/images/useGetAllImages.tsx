@@ -12,7 +12,6 @@ export default function useGetAllImages(
   const { data, error, isLoading} = useSWR(`${apiUrl}/${productId}/${colorId}`, fetcher, {
     dedupingInterval: 1000,
   });
-  console.log("daaaaata from api of images: ", data);
   return {
     images: !isLoading && data ? data : [],
     error,

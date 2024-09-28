@@ -18,22 +18,6 @@ function ProductDetail({ product }) {
     selectedColorId
   );
 
-  useEffect(() => {
-    console.log("prooooooductt inside product detail from hook: ", product);
-  }, [product]);
-
-  useEffect(() => {
-    console.log("imaaaaaaaages: ", images);
-  }, [images]);
-
-  useEffect(() => {
-    console.log("idddddd: ", id);
-  }, [id]);
-
-  useEffect(() => {
-    console.log("selectedColorId: ", selectedColorId);
-  }, [selectedColorId]);
-
   const productDetailInfo: ProductDetailInfoType = {
     product,
     selectedColorId,

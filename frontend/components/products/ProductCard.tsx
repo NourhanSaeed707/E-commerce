@@ -1,14 +1,9 @@
-import { ProductForm } from "@/types/product";
 import { Card } from "antd";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 const { Meta } = Card;
 
 function ProductCard({ product }) {
-  useEffect(() => {
-    console.log("prooooooduct card: ", product);
-  }, [product]);
-
   return (
     <div>
       <Card
