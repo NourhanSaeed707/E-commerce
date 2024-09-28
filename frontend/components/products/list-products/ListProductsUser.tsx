@@ -22,6 +22,8 @@ function ListProductsUser() {
     currentPage - 1
   }&size=${PAGINATION_SIZE}&categoryTypeFilter=${Number(categoryTypeFilter)}&colorFilter=${Number(colorFilter)}&sizeFilter=${Number(sizeFilter)}`;
 
+  // i want to get image depend on color filter
+  const apiUrlImageColorCard = `api/images/get/${colorFilter}`;
   const {
     entities: products,
     errors,
@@ -73,7 +75,7 @@ function ListProductsUser() {
                     onClick={() => router.push(`/products/get/${product.id}`)}
                     className="cursor-pointer"
                   >
-                    <ProductCard product={product} />
+                    <ProductCard product={product} productColorImg={} />
                   </div>
                 ))}
               </div>

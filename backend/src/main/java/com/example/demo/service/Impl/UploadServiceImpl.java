@@ -86,4 +86,15 @@ public class UploadServiceImpl implements UploadService {
         save(productColorDTO, updateProductDto.getImages());
     }
 
+    @Override
+    public ImageDTO getByProductAndColorId(Long productId, Long colorId) {
+      ProductColor productColor = productColorRepository.findByProductIdAndColorId(productId, colorId);
+      ImageDTO imageDTO = null;
+      if(productColor != null) {
+          Image img = imageRepository.findByProductColorId(productColor.getId()).get(0);
+          imageDTO = modelMapper.map(img, ImageDTO.class);
+      }
+      return imageDTO;
+    }
+
 }

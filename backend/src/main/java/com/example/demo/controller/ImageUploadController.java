@@ -34,4 +34,9 @@ public class ImageUploadController {
         return uploadService.getImagesByProductColorId(productColorId);
     }
 
+    @GetMapping("/get/{product}/{color}")
+    public ImageDTO getByProductAndColorId(@PathVariable Long productId, @PathVariable Long colorId) {
+        return uploadService.getByProductAndColorId(productId, colorId);
+    }
+
 }
