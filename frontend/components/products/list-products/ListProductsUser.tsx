@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Pagination, Spin } from "antd";
 import Navbar from "../../layout/Navbar";
 import { useRouter } from "next/router";
-import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import { PAGINATION_SIZE } from "@/constants/pagination";
 import ProductCard from "../ProductCard";
 import FiltrationSideMenu from "./FiltrationSideMenu";
 import { FiltrationSideMenuProps } from "@/types/product";
+import useGetAllProducts from "@/hooks/products/useGetAllProducts";
 
 function ListProductsUser() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,14 +22,13 @@ function ListProductsUser() {
     currentPage - 1
   }&size=${PAGINATION_SIZE}&categoryTypeFilter=${Number(categoryTypeFilter)}&colorFilter=${Number(colorFilter)}&sizeFilter=${Number(sizeFilter)}`;
 
-  // i want to get image depend on color filter
-  const apiUrlImageColorCard = `api/images/get/${colorFilter}`;
+
   const {
-    entities: products,
+    entities: products = [],
     errors,
     loading,
     total,
-  } = useGetAllEntity(apiGetAllUrl);
+  } = useGetAllProducts(apiGetAllUrl);
 
   // Handle pagination change
   const handlePageChange = (page: number) => {
@@ -63,23 +62,21 @@ function ListProductsUser() {
       <Navbar />
       <div className="container mx-auto mt-3 flex">
         <FiltrationSideMenu {...filterSideMenuObj} />
-        {/* Product List */}
         <div className="w-3/4 p-4">
           {loading && <Spin />}
           {!loading && sortedProducts() && sortedProducts().length > 0 && (
             <>
               <div className="grid grid-cols-3 gap-4">
-                {sortedProducts().map((product) => (
+                {sortedProducts() && sortedProducts()?.map((product) => (
                   <div
                     key={product.id}
                     onClick={() => router.push(`/products/get/${product.id}`)}
                     className="cursor-pointer"
                   >
-                    <ProductCard product={product} productColorImg={} />
+                    <ProductCard product={product}  />
                   </div>
                 ))}
               </div>
-              {/* Pagination */}
               <div className="flex justify-center mt-4">
                 <Pagination
                   current={currentPage}

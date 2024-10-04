@@ -30,4 +30,6 @@ public class Color {
 
     @OneToMany(mappedBy = "color", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProductColor> productColors;
+
+
 }

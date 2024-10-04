@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProductDetailInfo from "./ProductDetailInfo";
 import ProductImages from "./ProductImages";
 import { ProductDetailInfoType } from "@/types/product";

@@ -31,8 +31,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductColorRepository productColorRepository;
     @Autowired
-    private CategoryTypeRepository categoryTypeRepository;
-    @Autowired
     private ColorService colorService;
     @Autowired
     private  ProductColorService productColorService;
@@ -41,54 +39,48 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ModelMapper modelMapper;
 
-//    @Override
-//    public Page<ProductsDTO> getAll(int page, int size) {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Product> productPage = productRepository.findAll(pageable);
-//        return productPage.map(this::convertToDTO);
-//    }
-
     @Override
     public Page<ProductsDTO> getAll(ProductFiltrationDTO filterRequest) {
-        System.out.println("get all products service: " + filterRequest);
         Pageable pageable = PageRequest.of(filterRequest.getPage(), filterRequest.getSize());
-
-        // Initialize Specification with null, which means no filtering if no criteria is applied.
         Specification<Product> spec = Specification.where(null);
-
-        // Apply filters only if they are present (non-zero or non-null).
         boolean isFiltered = false;
-
         if (filterRequest.getCategoryTypeFilter() != null && filterRequest.getCategoryTypeFilter() != 0) {
             spec = spec.and(ProductSpecification.byCategoryType(filterRequest.getCategoryTypeFilter()));
             isFiltered = true;
         }
-
         if (filterRequest.getColorFilter() != null && filterRequest.getColorFilter() != 0) {
             spec = spec.and(ProductSpecification.byColor(filterRequest.getColorFilter()));
             isFiltered = true;
         }
-
         if (filterRequest.getSizeFilter() != null && filterRequest.getSizeFilter() != 0) {
             spec = spec.and(ProductSpecification.bySize(filterRequest.getSizeFilter()));
             isFiltered = true;
         }
-
-        // If no filter is applied (isFiltered == false), return all products.
         Page<Product> productPage = isFiltered ? productRepository.findAll(spec, pageable)
                 : productRepository.findAll(pageable);
-
-        return productPage.map(this::convertToDTO);
+        return productPage.map(product -> convertToDTO(product, filterRequest.getColorFilter()));
     }
 
-    private ProductsDTO convertToDTO(Product product) {
+    private ProductsDTO convertToDTO(Product product, Integer colorFilter) {
         ProductsDTO productsDTO = modelMapper.map(product, ProductsDTO.class);
-        productsDTO.setImages(
+        if (colorFilter != null && colorFilter != 0) {
+            productsDTO.setImages(
+                    product.getProductColors().stream()
+                            .filter(productColor -> {
+                                return productColor.getColor().getId().equals(colorFilter.longValue());
+                            })
+                            .flatMap(productColor -> productColor.getImages().stream())
+                            .map(image -> modelMapper.map(image, ImageDTO.class))
+                            .collect(Collectors.toList())
+            );
+        } else {
+            productsDTO.setImages(
                 product.getProductColors().stream()
                         .flatMap(productColor -> productColor.getImages().stream())
                         .map(image -> modelMapper.map(image, ImageDTO.class))
                         .collect(Collectors.toList())
         );
+        }
         return productsDTO;
     }
 

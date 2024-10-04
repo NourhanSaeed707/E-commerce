@@ -1,12 +1,12 @@
 package com.example.demo.model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class ProductColorDTO {
     private Long id;
     private ProductsDTO product;
@@ -14,5 +14,4 @@ public class ProductColorDTO {
     private Date createdAt;
     private Date lastModifiedAt;
     private String createdBy;
-
 }

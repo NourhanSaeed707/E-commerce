@@ -1,10 +1,9 @@
 import ProductDetail from "@/components/products/product-details/ProductDetail";
 import { GetOneServerSide } from "@/utils/getOneServerSide";
 import { GetServerSideProps } from "next";
-import React, { useEffect } from "react";
+import React from "react";
 
 function  GetOnePage({product}) {
-
   return (
     <div>
       <ProductDetail product={product} />

@@ -3,10 +3,11 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 const { Meta } = Card;
 
-function ProductCard({ product, productColorImg }) {
-  useEffect(() => {
-    console.log("prooooooducct: ", product);
-  }, [product]);
+type ProductCardProps = {
+  product: any,
+  productColorImg?: string
+}
+function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div>

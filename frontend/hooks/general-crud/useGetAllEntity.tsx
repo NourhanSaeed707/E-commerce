@@ -29,3 +29,4 @@ export default function useGetAllEntity(apiUrl: string, paginated: boolean = tru
     fetcher,
   };
 }
+

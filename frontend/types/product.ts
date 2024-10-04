@@ -3,6 +3,7 @@ import { CategoryType } from "./category";
 import { Size } from "./size";
 import { Color } from "./color";
 import { Image } from "./image";
+import { ProductColor } from "./product-color";
 
 export type ProductForm = {
   id?: number;
@@ -18,6 +19,7 @@ export type ProductForm = {
   size?: Size[];
   color?: Color[];
   images?: Image[];
+  productColors?: ProductColor[];
 };
 
 export type AddProductFieldsProps = {

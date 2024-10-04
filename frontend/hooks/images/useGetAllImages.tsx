@@ -1,5 +1,4 @@
 import client from "@/client/client";
-import axios from "axios";
 import useSWR from "swr";
 
 export default function useGetAllImages(
