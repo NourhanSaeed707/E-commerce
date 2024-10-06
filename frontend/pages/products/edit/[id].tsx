@@ -1,4 +1,4 @@
-import EditProducts from "@/components/products/EditProducts";
+import EditProducts from "@/components/products/edit-products";
 import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
 import { GetServerSideProps } from "next";
 import React from "react";

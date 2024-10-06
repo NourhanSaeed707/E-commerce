@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProductColorImageFields from "./ProductColorImageFields";
+import ProductColorImageFields from "./product-color-imag-fields";
 import {
   ProductColorImageProps,
   ProductColorImgFieldsProps,

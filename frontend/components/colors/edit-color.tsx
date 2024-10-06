@@ -7,7 +7,7 @@ import {
 import { Form } from "antd";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import ColorFields from "./ColorFields";
+import ColorFields from "./color-fields";
 
 export default function EditColor() {
   const [imageUrl, setImageUrl] = useState<any[]>([]);

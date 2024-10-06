@@ -1,12 +1,15 @@
 import { Authorities } from "@/constants/authorities";
 import { NAVBAR } from "@/constants/home";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/auth-context";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { ShoppingCartOutlined } from "@ant-design/icons"; // Import the cart icon
+import { useCart } from "@/context/cart-context";
 
 function Navbar() {
   const { currentUser, logout } = useAuth();
+  const { cartCount } = useCart(); 
 
   return (
     <header>
@@ -32,14 +35,6 @@ function Navbar() {
               >
                 {NAVBAR.ABOUT}
               </Link>
-              {currentUser && currentUser.role === Authorities.USER && (
-                <Link
-                  href="/products/get-all"
-                  className="text-gray-800 hover:text-gray-600  dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  {NAVBAR.PRODUCTS}
-                </Link>
-              )}
               {currentUser && currentUser.role === Authorities.ADMIN && (
                 <>
                   <Link
@@ -68,6 +63,7 @@ function Navbar() {
                   </Link>
                 </>
               )}
+
               {currentUser ? (
                 <Link
                   href="#"
@@ -84,8 +80,33 @@ function Navbar() {
                   {NAVBAR.LOGIN}
                 </Link>
               )}
+
+              {currentUser && currentUser.role === Authorities.USER && (
+                <>
+                  <Link
+                    href="/products/get-all"
+                    className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    {NAVBAR.PRODUCTS}
+                  </Link>
+
+                  {/* Shopping Cart Icon for User */}
+                  <Link
+                    href="/cart"
+                    className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium relative"
+                  >
+                    <ShoppingCartOutlined className="text-xl" />
+                    {cartCount > 0 && (
+                      <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                        {cartCount}
+                      </span>
+                    )}
+                  </Link>
+                </>
+              )}
             </div>
           </div>
+
           {/* Mobile Menu Button */}
           <div className="-mr-2 flex md:hidden">
             <button
@@ -131,6 +152,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
+
       {/* Mobile Menu */}
       <div className="md:hidden" id="mobile-menu">
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">

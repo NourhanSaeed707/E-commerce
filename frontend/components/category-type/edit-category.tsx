@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryFields from "./CategoryFields";
+import CategoryFields from "./category-fields";
 import { Form } from "antd";
 import { useRouter } from "next/router";
 import {

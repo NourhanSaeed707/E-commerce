@@ -1,4 +1,4 @@
-import EditCategory from "@/components/category-type/EditCategory";
+import EditCategory from "@/components/category-type/edit-category";
 import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
 import { GetServerSideProps } from "next";
 import React from "react";

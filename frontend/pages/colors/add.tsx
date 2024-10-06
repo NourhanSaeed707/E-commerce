@@ -1,4 +1,4 @@
-import AddColor from "@/components/colors/AddColor";
+import AddColor from "@/components/colors/add-color";
 import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
 import { GetServerSideProps } from "next";
 import React from "react";

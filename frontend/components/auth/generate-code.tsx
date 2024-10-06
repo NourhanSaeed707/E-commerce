@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Button, Form, Input } from "antd";
 import { Buttons, Generated_Code, Register } from "@/constants/auth";
 import { IVerifyCodeModel } from "@/types/register";
-import CountdownTimer from "../countdown/CountdownTimer";
+import CountdownTimer from "../countdown/count-down-timer";
 import useCodeVerifyFacade from "@/hooks/auth/useCodeVerifyFacade";
 
 const GenerateCode = () => {

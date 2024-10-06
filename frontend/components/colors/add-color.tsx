@@ -3,7 +3,7 @@ import { AddColorFieldsProps, Color } from "@/types/color";
 import { Form } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import ColorFields from "./ColorFields";
+import ColorFields from "./color-fields";
 
 export default function AddColor() {
   const [imageUrl, setImageUrl] = useState<any[]>([]);

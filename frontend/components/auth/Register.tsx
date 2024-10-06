@@ -1,5 +1,5 @@
 import React from "react";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "./register-form";
 import { Form } from "antd";
 import { IRegisterForm } from "@/types/register";
 import { UserType } from "@/types/users";

@@ -6,7 +6,7 @@ import { registerRequired, registerValid } from "@/constants/error";
 import "react-phone-input-2/lib/style.css";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/auth-context";
 import { LoginUser } from "@/types/users";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

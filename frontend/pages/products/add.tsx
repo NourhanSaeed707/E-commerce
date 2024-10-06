@@ -1,4 +1,4 @@
-import AddProduct from "@/components/products/AddProduct";
+import AddProduct from "@/components/products/add-product";
 import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
 import { GetServerSideProps } from "next";
 import React from "react";

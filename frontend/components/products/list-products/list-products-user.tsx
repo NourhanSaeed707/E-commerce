@@ -3,8 +3,8 @@ import { Pagination, Spin } from "antd";
 import Navbar from "../../layout/Navbar";
 import { useRouter } from "next/router";
 import { PAGINATION_SIZE } from "@/constants/pagination";
-import ProductCard from "../ProductCard";
-import FiltrationSideMenu from "./FiltrationSideMenu";
+import ProductCard from "../product-card";
+import FiltrationSideMenu from "./filtration-side-menu";
 import { FiltrationSideMenuProps } from "@/types/product";
 import useGetAllProducts from "@/hooks/products/useGetAllProducts";
 

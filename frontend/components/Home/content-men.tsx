@@ -1,5 +1,5 @@
 import React from 'react'
-import  MainContent  from './MainContent';
+import  MainContent  from './main-content';
 import { HOME } from '../../constants/home';
 
 function ContentMen() {

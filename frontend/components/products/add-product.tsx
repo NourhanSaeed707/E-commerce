@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ProductFields from "./ProductFields";
+import ProductFields from "./product-fields";
 import { Form } from "antd";
 import useAddEntity from "@/hooks/general-crud/useAddEntity";
 import { AddProductFieldsProps, ProductForm } from "@/types/product";

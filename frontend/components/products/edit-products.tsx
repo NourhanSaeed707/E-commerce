@@ -1,6 +1,6 @@
 import { Form } from "antd";
 import React, { useEffect, useState } from "react";
-import ProductFields from "./ProductFields";
+import ProductFields from "./product-fields";
 import { useRouter } from "next/router";
 import {
   AddProductFieldsProps,

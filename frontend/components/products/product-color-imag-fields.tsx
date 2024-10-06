@@ -1,12 +1,12 @@
 import { Form, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import ImageUpload from "../upload/ImageUpload";
+import ImageUpload from "../upload/image-upload";
 import { AddProductRequired } from "@/constants/product";
 import useAddFacade from "@/hooks/products/useAddFacade";
 import { useRouter } from "next/router";
 import { ProductColorImgFieldsProps } from "@/types/product";
 
-import AddCancelButton from "./AddCancelButton";
+import AddCancelButton from "./add-cancel-button";
 import { COLOR_PLACEHOLDER } from "@/constants/color";
 import useGetColorImgFacade from "@/hooks/products/useGetColorImgFacade";
 import { GetColorImgFacade, ProductColor } from "@/types/product-color";

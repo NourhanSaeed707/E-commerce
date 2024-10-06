@@ -1,4 +1,4 @@
-import AddCategory from '@/components/category-type/AddCategory'
+import AddCategory from '@/components/category-type/add-category'
 import { checkUserAuthentication } from '@/utils/checkUserAuthentication';
 import { GetServerSideProps } from 'next';
 import React from 'react'

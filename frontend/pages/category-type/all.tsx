@@ -1,4 +1,4 @@
-import ListCategoryType from "@/components/category-type/ListCategoryType";
+import ListCategoryType from "@/components/category-type/list-category-type";
 import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
 import { GetServerSideProps } from "next";
 import React from "react";

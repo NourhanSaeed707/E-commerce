@@ -81,6 +81,9 @@ export type ProductDetailInfoType = {
   product: ProductForm,
   selectedColorId: number;
   SetSelectedColorId: (selectedColorId: number) => void;
+  selectSizeId: number;
+  setSelectedSizeId: (selectSizeId: number) => void;
+    images: any[];
 }
 
 export type FiltrationSideMenuProps = {

@@ -1,4 +1,4 @@
-import { useUserRegisterStore } from "@/context/RegisterUserContext";
+import { useUserRegisterStore } from "@/context/register-user-context";
 import { useRouter } from "next/router";
 import useSendEmail from "./useSendEmail";
 import { UserType } from "@/types/users";

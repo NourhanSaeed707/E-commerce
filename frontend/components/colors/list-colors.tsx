@@ -5,7 +5,7 @@ import { ColorTableProps } from "@/types/color";
 import { Button } from "antd";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import ColorTable from "./ColorTable";
+import ColorTable from "./color-table";
 import { PAGINATION_SIZE } from "@/constants/pagination";
 
 export default function ListColors() {

@@ -1,6 +1,6 @@
 
 import React from "react";
-import GenerateCode from "@/components/auth/GenerateCode";
+import GenerateCode from "@/components/auth/generate-code";
 
 const GenerateCodePage = () => {
   return (

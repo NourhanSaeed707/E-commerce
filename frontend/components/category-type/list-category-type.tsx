@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CategoryTypeTable from "./CategoryTypeTable";
+import CategoryTypeTable from "./category-type-table";
 import { CategoryTypeTableProps } from "@/types/category";
 import { Button } from "antd";
 import { useRouter } from "next/router";

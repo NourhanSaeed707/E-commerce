@@ -1,8 +1,24 @@
+import { useCart } from "@/context/cart-context";
 import { Button } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-function ProductDetailInfo({ product, SetSelectedColorId, selectedColorId }) {
+function ProductDetailInfo({
+  product,
+  SetSelectedColorId,
+  setSelectedSizeId,
+  selectedColorId,
+  selectSizeId,
+  images,
+}) {
+  const { addToCart, cartItems } = useCart();
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log("caaaaaart iteeems: ", cartItems);
+  }, [cartItems]);
+
   return (
     <div>
       <div className="container mx-auto p-4">
@@ -26,27 +42,36 @@ function ProductDetailInfo({ product, SetSelectedColorId, selectedColorId }) {
                 {product &&
                   product.size &&
                   product.size.map((sizeVal) => (
-                    <button
+                    <Button
                       key={sizeVal.id}
-                      className="px-4 py-2 border rounded-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500"
+                      className={`px-4 py-2 border rounded-lg hover:bg-gray-200 focus:ring-2 focus:ring-blue-500
+                      ${
+                        selectSizeId === sizeVal.id
+                          ? "ring-2 ring-blue-500" // Apply ring when selected
+                          : ""
+                      }`}
+                      onClick={() => setSelectedSizeId(sizeVal.id)}
                     >
                       {sizeVal.size}
-                    </button>
+                    </Button>
                   ))}
               </div>
             </div>
 
+            {/* Colors */}
             <div>
               <h2 className="text-lg font-medium mb-2">Select Color</h2>
               <div className="flex space-x-2">
                 {product &&
                   product.color &&
-                  product.color.length &&
                   product.color.map((colorVal) => (
                     <Button
                       key={colorVal.id}
-                      className={`w-10 h-10 p-0 rounded-full border focus:ring-2 ${
-                        selectedColorId === colorVal.id ? "ring-blue-500" : ""
+                      className={`w-10 h-10 p-0 rounded-full border focus:ring-2
+                      ${
+                        selectedColorId === colorVal.id
+                          ? "ring-2 ring-blue-500"
+                          : ""
                       } overflow-hidden`}
                       onClick={() => SetSelectedColorId(colorVal.id)}
                     >
@@ -55,7 +80,7 @@ function ProductDetailInfo({ product, SetSelectedColorId, selectedColorId }) {
                           src={colorVal.imageUrl}
                           alt={colorVal.colorName}
                           width={55}
-                          height={55} 
+                          height={55}
                           className="rounded-full object-cover w-full h-full"
                         />
                       </div>
@@ -65,9 +90,22 @@ function ProductDetailInfo({ product, SetSelectedColorId, selectedColorId }) {
             </div>
 
             {/* Add to Cart Button */}
-            <button className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
+            <Button
+              onClick={() => {
+                addToCart(
+                  product.id,
+                  product.name,
+                  selectSizeId,
+                  selectedColorId,
+                  images[0],
+                  product.price
+                );
+               
+              }}
+              className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+            >
               Add to Cart
-            </button>
+            </Button>
           </div>
         </div>
       </div>

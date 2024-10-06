@@ -1,6 +1,6 @@
 import { Form } from "antd";
 import React, { useEffect } from "react";
-import CategoryFields from "./CategoryFields";
+import CategoryFields from "./category-fields";
 import { CategoryType, CategoryTypeEditProps } from "@/types/category";
 import { useRouter } from "next/router";
 import useAddEntity from "@/hooks/general-crud/useAddEntity";

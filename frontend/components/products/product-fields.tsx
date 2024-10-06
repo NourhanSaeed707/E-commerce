@@ -5,8 +5,8 @@ import { CategoryType } from "@/types/category";
 import { Gender } from "@/types/gender";
 import {  Form, Input, InputNumber, Select } from "antd";
 import React from "react";
-import AddCancelButton from "./AddCancelButton";
-import ProductColorImageFields from "./ProductColorImageFields";
+import AddCancelButton from "./add-cancel-button";
+import ProductColorImageFields from "./product-color-imag-fields";
 import { Image } from "@/types/image";
 
 interface ProductFieldsProps {

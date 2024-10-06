@@ -1,4 +1,4 @@
-import ProductColorImage from '@/components/products/ProductColorImage'
+import ProductColorImage from '@/components/products/product-color-image'
 import React from 'react'
 
 export default function AddColorImagePage() {

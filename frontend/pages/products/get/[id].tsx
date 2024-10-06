@@ -1,4 +1,4 @@
-import ProductDetail from "@/components/products/product-details/ProductDetail";
+import ProductDetail from "@/components/products/product-details/product-detail";
 import { GetOneServerSide } from "@/utils/getOneServerSide";
 import { GetServerSideProps } from "next";
 import React from "react";

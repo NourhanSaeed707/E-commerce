@@ -1,8 +1,8 @@
-import { useUserRegisterStore } from "@/context/RegisterUserContext";
+import { useUserRegisterStore } from "@/context/register-user-context";
 import useSendEmail from "./useSendEmail";
 import useVerifyCode from "./useVerifyCode";
 import { useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/auth-context";
 import useRegister from "./useRegister";
 import { LoginUser } from "@/types/users";
 

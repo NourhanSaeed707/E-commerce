@@ -1,4 +1,4 @@
-import ListColors from '@/components/colors/ListColors'
+import ListColors from '@/components/colors/list-colors'
 import { checkUserAuthentication } from '@/utils/checkUserAuthentication';
 import { GetServerSideProps } from 'next';
 import React from 'react'
