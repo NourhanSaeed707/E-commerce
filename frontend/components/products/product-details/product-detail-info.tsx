@@ -1,7 +1,7 @@
+import { useAuth } from "@/context/auth-context";
 import { useCart } from "@/context/cart-context";
 import { Button } from "antd";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 function ProductDetailInfo({
@@ -12,12 +12,12 @@ function ProductDetailInfo({
   selectSizeId,
   images,
 }) {
-  const { addToCart, cartItems } = useCart();
-  const router = useRouter();
+  const { addToCart, cartItems, setUserId } = useCart();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    console.log("caaaaaart iteeems: ", cartItems);
-  }, [cartItems]);
+    currentUser && currentUser.id ? setUserId(currentUser.id) : setUserId(null);
+  }, [currentUser, setUserId]);
 
   return (
     <div>
@@ -100,7 +100,6 @@ function ProductDetailInfo({
                   images[0],
                   product.price
                 );
-               
               }}
               className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
             >

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 
 type CartItem = {
   id: number;
@@ -12,42 +18,66 @@ type CartItem = {
 
 type CartContextType = {
   cartItems: CartItem[];
-  addToCart: (id: number, name: string, size: string, color: string, image: any, price: number) => void;
+  addToCart: (
+    id: number,
+    name: string,
+    size: string,
+    color: string,
+    image: string,
+    price: number
+  ) => void;
   removeItem: (id: number) => void;
   updateItemQuantity: (id: number, quantity: number) => void;
   cartCount: number;
   cartTotal: number;
+  setUserId: (userId: number) => void;
+  userId: number;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [userId, setUserId] = useState<number>(null);
 
   useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
-    const timestamp = localStorage.getItem("cart_timestamp");
+    console.log("userIdddddddd: ", userId);
+    const savedCart = userId ? localStorage.getItem(`cart_${userId}`) : "";
+    const timestamp = userId
+      ? localStorage.getItem(`cart_timestamp_${userId}`)
+      : "";
 
     if (savedCart && timestamp) {
       const timeDiff = Date.now() - Number(timestamp);
-      if (timeDiff < 86400000) { // 24 hours in milliseconds
+      if (timeDiff < 86400000) {
         setCartItems(JSON.parse(savedCart));
       } else {
-        // Clear the expired cart
-        localStorage.removeItem("cart");
-        localStorage.removeItem("cart_timestamp");
+        localStorage.removeItem(`cart_${userId}`);
+        localStorage.removeItem(`cart_timestamp_${userId}`);
       }
     }
-  }, []);
+
+    // Reset cart when userId changes
+    return () => setCartItems([]);
+  }, [userId]);
 
   const saveCartToLocalStorage = (items: CartItem[]) => {
-    localStorage.setItem("cart", JSON.stringify(items));
-    localStorage.setItem("cart_timestamp", String(Date.now()));
+    localStorage.setItem(`cart_${userId}`, JSON.stringify(items));
+    localStorage.setItem(`cart_timestamp_${userId}`, String(Date.now()));
   };
 
-  const addToCart = (id: number, name: string, size: string, color: string, image: string, price: number) => {
+  const addToCart = (
+    id: number,
+    name: string,
+    size: string,
+    color: string,
+    image: string,
+    price: number
+  ) => {
     setCartItems((prevItems) => {
-      const itemInCart = prevItems.find((item) => item.id === id && item.size === size && item.color === color);
+      const itemInCart = prevItems.find(
+        (item) => item.id === id && item.size === size && item.color === color
+      );
       let updatedItems;
 
       if (itemInCart) {
@@ -57,7 +87,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             : item
         );
       } else {
-        updatedItems = [...prevItems, { id, name, size, color, image, price, quantity: 1 }];
+        updatedItems = [
+          ...prevItems,
+          { id, name, size, color, image, price, quantity: 1 },
+        ];
       }
 
       // Save to localStorage
@@ -85,10 +118,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
-  const cartTotal = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
+  const cartTotal = cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeItem, updateItemQuantity, cartCount, cartTotal }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeItem,
+        updateItemQuantity,
+        cartCount,
+        cartTotal,
+        setUserId,
+        userId,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

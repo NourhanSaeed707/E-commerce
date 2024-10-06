@@ -86,12 +86,13 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
     try {
       await axios.post("/api/logout");
       setCurrentUser(null);
+      localStorage.removeItem(`cart_${currentUser?.id}`);
       mutate();
       router.push("/");
     } catch (error) {
       console.error(error);
     }
-  }, [mutate, router]);
+  }, [currentUser, mutate, router]);
 
   const stateValues = useMemo(
     () => ({
