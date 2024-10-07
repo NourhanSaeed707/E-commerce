@@ -6,7 +6,6 @@ import ContentMen  from '@/components/Home/content-men';
  function Home() {
    return (
      <main>
-        <Navbar />
         <ContentWomen />
         <ContentMen />
     </main>

@@ -42,22 +42,28 @@ function Navbar() {
             />
           </div>
           {/* Regular navbar for desktop */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              <Link
-                href="/"
-                className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                {NAVBAR.HOME}
-              </Link>
-              <Link
-                href="/about"
-                className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                {NAVBAR.ABOUT}
-              </Link>
-              {currentUser && currentUser.role === Authorities.ADMIN && <AdminLinks />}
-              {currentUser ? (
+          <div className="hidden md:flex items-center space-x-4">
+            <Link
+              href="/"
+              className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              {NAVBAR.HOME}
+            </Link>
+            <Link
+              href="/about"
+              className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              {NAVBAR.ABOUT}
+            </Link>
+            {currentUser && currentUser.role === Authorities.ADMIN && (
+              <AdminLinks />
+            )}
+
+            {currentUser && currentUser.role === Authorities.USER && (
+              <UserLinks />
+            )}
+            {currentUser ? (
+              <>
                 <Link
                   href="#"
                   className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
@@ -65,21 +71,22 @@ function Navbar() {
                 >
                   {NAVBAR.LOGOUT}
                 </Link>
-              ) : (
-                <Link
-                  href="/auth/login"
-                  className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  {NAVBAR.LOGIN}
-                </Link>
-              )}
-              {currentUser && currentUser.role === Authorities.USER && <UserLinks />}
-            </div>
+              </>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="text-gray-800 hover:text-gray-600 dark:hover:text-gray-400 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                {NAVBAR.LOGIN}
+              </Link>
+            )}
           </div>
         </div>
       </nav>
       {/* Drawer for mobile menu */}
-      <MobileNavbar toggleDrawer={toggleDrawer} isDrawerVisible={isDrawerVisible} />
+      <MobileNavbar
+        toggleDrawer={toggleDrawer}
+      />
     </header>
   );
 }

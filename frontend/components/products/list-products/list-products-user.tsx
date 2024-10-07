@@ -59,7 +59,6 @@ function ListProductsUser() {
 
   return (
     <>
-      <Navbar />
       <div className="container mx-auto mt-3 flex">
         <FiltrationSideMenu {...filterSideMenuObj} />
         <div className="w-3/4 p-4">

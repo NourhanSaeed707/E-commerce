@@ -7,7 +7,7 @@ import { useAuth } from "@/context/auth-context";
 import AdminLinks from "./admin-links";
 import UserLinks from "./user-links";
 
-function MobileNavbar({ toggleDrawer, isDrawerVisible }) {
+function MobileNavbar({ toggleDrawer }) {
   const { currentUser, logout } = useAuth();
 
   return (
@@ -16,7 +16,6 @@ function MobileNavbar({ toggleDrawer, isDrawerVisible }) {
       placement="right"
       closable={true}
       onClose={toggleDrawer}
-      visible={isDrawerVisible}
     >
       <Menu mode="vertical">
         <Menu.Item key="home">

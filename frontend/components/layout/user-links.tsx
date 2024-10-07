@@ -5,10 +5,14 @@ import { NAVBAR } from "@/constants/home";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCart } from "@/context/cart-context";
 import { useAuth } from "@/context/auth-context";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
 function UserLinks() {
   const { cartCount, setUserId } = useCart();
   const { currentUser, logout } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     currentUser && currentUser.id ? setUserId(currentUser.id) : setUserId(null);
@@ -26,6 +30,13 @@ function UserLinks() {
             {cartCount}
           </span>
         )}
+      </Link>
+      <Link href="/user/profile" onClick={() => router.push("/user/profile")}>
+        <Avatar
+          size="large"
+          icon={<UserOutlined />}
+          className="cursor-pointer"
+        />
       </Link>
     </>
   );
