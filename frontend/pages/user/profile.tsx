@@ -1,12 +1,10 @@
-import EditProfileForm from "@/components/user/edit-profile-form";
 import React from "react";
-import { checkUserAuthentication } from "@/utils/checkUserAuthentication";
-import { GetServerSideProps } from "next";
+import Profile from "@/components/user/profile";
 
 function ProfilePage() {
   return (
     <>
-      <EditProfileForm />
+      <Profile/>
     </>
   );
 }

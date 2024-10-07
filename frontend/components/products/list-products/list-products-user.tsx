@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Pagination, Spin } from "antd";
-import Navbar from "../../layout/Navbar";
 import { useRouter } from "next/router";
 import { PAGINATION_SIZE } from "@/constants/pagination";
 import ProductCard from "../product-card";
