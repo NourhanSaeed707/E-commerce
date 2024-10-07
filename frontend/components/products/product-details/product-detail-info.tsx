@@ -25,8 +25,8 @@ function ProductDetailInfo({
         <div className="grid grid-cols-1 md:grid-cols-2 ">
           {/* Product Details */}
           <div className="flex flex-col space-y-4">
-            <h1 className="text-3xl font-bold">Product Name</h1>
-            <p className="text-xl font-semibold text-gray-700">$100.00</p>
+            <h1 className="text-3xl font-bold">{product && product.name}</h1>
+            <p className="text-xl font-semibold text-gray-700">{product && product.price}</p>
             <p
               className={`text-sm font-medium ${
                 product && product.stock ? "text-green-600" : "text-red-600"

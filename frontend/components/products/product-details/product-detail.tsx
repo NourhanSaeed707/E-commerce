@@ -4,7 +4,6 @@ import ProductImages from "./product-images";
 import { ProductDetailInfoType } from "@/types/product";
 import useGetAllImages from "@/hooks/images/useGetAllImages";
 import { useParams } from "next/navigation";
-import Navbar from "@/components/layout/Navbar";
 
 function ProductDetail({ product }) {
   const [selectedColorId, SetSelectedColorId] = useState<number>(
@@ -30,9 +29,6 @@ function ProductDetail({ product }) {
 
   return (
     <>
-      <div>
-        <Navbar />
-      </div>
       <div>
         {product && (
           <div className="flex justify-between gap-10">
