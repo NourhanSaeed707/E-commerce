@@ -3,13 +3,16 @@ import { NAVBAR } from "@/constants/home";
 import { useAuth } from "@/context/auth-context";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { ShoppingCartOutlined } from "@ant-design/icons"; // Import the cart icon
+import React, { useEffect } from "react";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useCart } from "@/context/cart-context";
 
 function Navbar() {
   const { currentUser, logout } = useAuth();
-  const { cartCount } = useCart(); 
+  const { cartCount, setUserId  } = useCart();
+  useEffect(() => {
+    currentUser && currentUser.id ? setUserId(currentUser.id) : setUserId(null);
+  }, [currentUser, setUserId]);
 
   return (
     <header>

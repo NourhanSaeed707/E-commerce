@@ -41,25 +41,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useState<number>(null);
 
   useEffect(() => {
-    console.log("userIdddddddd: ", userId);
-    const savedCart = userId ? localStorage.getItem(`cart_${userId}`) : "";
-    const timestamp = userId
-      ? localStorage.getItem(`cart_timestamp_${userId}`)
-      : "";
-
-    if (savedCart && timestamp) {
-      const timeDiff = Date.now() - Number(timestamp);
-      if (timeDiff < 86400000) {
-        setCartItems(JSON.parse(savedCart));
-      } else {
-        localStorage.removeItem(`cart_${userId}`);
-        localStorage.removeItem(`cart_timestamp_${userId}`);
+    if (userId) {
+      const savedCart = localStorage.getItem(`cart_${userId}`);
+      const timestamp = localStorage.getItem(`cart_timestamp_${userId}`);
+  
+      if (savedCart && timestamp) {
+        const timeDiff = Date.now() - Number(timestamp);
+        if (timeDiff < 86400000) {
+          setCartItems(JSON.parse(savedCart));
+        } else {
+          localStorage.removeItem(`cart_${userId}`);
+          localStorage.removeItem(`cart_timestamp_${userId}`);
+        }
       }
     }
-
-    // Reset cart when userId changes
-    return () => setCartItems([]);
-  }, [userId]);
+  }, [userId]); 
 
   const saveCartToLocalStorage = (items: CartItem[]) => {
     localStorage.setItem(`cart_${userId}`, JSON.stringify(items));
