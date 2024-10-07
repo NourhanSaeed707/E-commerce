@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Form } from "antd";
 import { useAuth } from "@/context/auth-context";
 import EditProfileFields from "./edit-profile-fields";
+import useEditEntity from "@/hooks/general-crud/useEditEntity";
 
 function EditProfileForm() {
   const { currentUser } = useAuth();
+  const apiUrl = "/api/auth/edit";
+  const { setEntityId, setUpdatedEntity } = useEditEntity(apiUrl);
+
   const onFinish = (values: any) => {
-    // Handle profile update
-    console.log("Updated profile values: ", values);
+    currentUser && currentUser.id ? setEntityId(currentUser.id): "";
+    setUpdatedEntity(values);
   };
-  useEffect(() => {
-    console.log("current user in profile page: ", currentUser);
-  }, [currentUser]);
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
