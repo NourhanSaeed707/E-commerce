@@ -5,9 +5,8 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -45,5 +44,4 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<ProductSize> productSizes;
-
 }
