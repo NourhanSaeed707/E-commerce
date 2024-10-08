@@ -5,7 +5,7 @@ import { PAGINATION_SIZE } from "@/constants/pagination";
 import ProductCard from "../product-card";
 import FiltrationSideMenu from "./filtration-side-menu";
 import { FiltrationSideMenuProps } from "@/types/product";
-import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
+import useGetAllProducts from "@/hooks/products/useGetAllProducts";
 
 function ListProductsUser() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +33,7 @@ function ListProductsUser() {
     errors,
     loading,
     total,
-  } = useGetAllEntity(apiGetAllUrl);
+  } = useGetAllProducts(apiGetAllUrl);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
