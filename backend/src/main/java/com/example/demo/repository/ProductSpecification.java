@@ -1,11 +1,13 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Gender;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.ProductColor;
 import com.example.demo.entity.ProductSize;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.parameters.P;
 
 public class ProductSpecification {
     public static Specification<Product> byCategoryType(Integer categoryTypeId) {
@@ -36,4 +38,9 @@ public class ProductSpecification {
             return criteriaBuilder.equal(productSizeJoin.get("size").get("id"), sizeId);
         };
    }
+
+    public static Specification<Product> byGender(Gender gender) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("gender"), gender);
+    }
 }

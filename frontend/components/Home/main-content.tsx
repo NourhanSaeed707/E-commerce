@@ -1,8 +1,11 @@
 import { ContentType } from '@/types/content';
+import { Gender } from '@/types/gender';
+import { useRouter } from 'next/router';
 import React from 'react'
 
 function MainContent({image, titleButton, title }: ContentType) {
-    
+  const router = useRouter();
+
   return (
     <div>
         <div
@@ -18,6 +21,11 @@ function MainContent({image, titleButton, title }: ContentType) {
                 <h3 className="mb-8 text-3xl font-bold">Subeading</h3>
                 <button
                 type="button"
+                onClick={() => {
+                  const genderFilter =
+                    title === "Men" ? Gender.Male : title === "Women" ? Gender.Women : '';
+                  router.push(`/products/get-all?genderFilter=${genderFilter}`);
+                }}
                 className="inline-block rounded border-2 border-neutral-50 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-300 hover:text-neutral-200 focus:border-neutral-300 focus:text-neutral-200 focus:outline-none focus:ring-0 active:border-neutral-300 active:text-neutral-200 dark:hover:bg-neutral-600 dark:focus:bg-neutral-600"
                 data-twe-ripple-init
                 data-twe-ripple-color="light">

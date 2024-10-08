@@ -2,7 +2,6 @@ import React from 'react'
 import  MainContent  from './main-content';
 import { HOME } from '../../constants/home';
 
-
 function ContentWomen() {
   return (
     <div>

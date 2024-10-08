@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.entity.Gender;
 import com.example.demo.entity.Product;
 import com.example.demo.model.ProductColorImageDTO;
 import com.example.demo.model.ProductFiltrationDTO;
@@ -24,13 +25,15 @@ public class ProductController {
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "categoryTypeFilter", defaultValue = "0") int categoryTypeFilter,
             @RequestParam(value = "colorFilter", defaultValue = "0") int colorFilter,
-            @RequestParam(value = "sizeFilter", defaultValue = "0") int sizeFilter) {
+            @RequestParam(value = "sizeFilter", defaultValue = "0") int sizeFilter,
+            @RequestParam(value = "genderFilter", defaultValue = "BOTH") Gender genderFilter) {
         ProductFiltrationDTO filterRequest = new ProductFiltrationDTO();
         filterRequest.setPage(page);
         filterRequest.setSize(size);
         filterRequest.setCategoryTypeFilter(categoryTypeFilter);
         filterRequest.setColorFilter(colorFilter);
         filterRequest.setSizeFilter(sizeFilter);
+        filterRequest.setGenderFilter(genderFilter);
         Page<ProductsDTO> products = productService.getAll(filterRequest);
         return ResponseEntity.ok(products);
     }
