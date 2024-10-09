@@ -56,10 +56,11 @@ public class ProductServiceImpl implements ProductService {
             spec = spec.and(ProductSpecification.bySize(filterRequest.getSizeFilter()));
             isFiltered = true;
         }
-        if(filterRequest.getGenderFilter() != null ) {
+        if(filterRequest.getGenderFilter() != null && filterRequest.getGenderFilter() !=  Gender.BOTH) {
             spec = spec.and(ProductSpecification.byGender(filterRequest.getGenderFilter()));
             isFiltered = true;
         }
+        
         Page<Product> productPage = isFiltered ? productRepository.findAll(spec, pageable)
                 : productRepository.findAll(pageable);
         return productPage.map(product -> convertToDTO(product, filterRequest.getColorFilter()));

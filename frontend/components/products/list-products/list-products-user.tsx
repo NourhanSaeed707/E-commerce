@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pagination, Spin } from "antd";
 import { useRouter } from "next/router";
 import { PAGINATION_SIZE } from "@/constants/pagination";
@@ -26,7 +26,7 @@ function ListProductsUser() {
     categoryTypeFilter
   )}&colorFilter=${Number(colorFilter)}&sizeFilter=${Number(
     sizeFilter
-  )}&genderFilter=${genderFilter}`;
+  )}&genderFilter=${genderFilter ? genderFilter : ""}`;
 
   const {
     entities: products = [],
