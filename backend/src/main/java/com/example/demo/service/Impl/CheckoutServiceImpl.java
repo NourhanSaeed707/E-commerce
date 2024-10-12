@@ -32,6 +32,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         ShippingInfo shippingInfo = saveShippingInfo(checkoutDTO.getShippingInfo());
         CreditCardInfo creditCardInfo = new CreditCardInfo();
         if(checkoutDTO.getCreditCardInfo() != null) {
+            System.out.println("insiiiiiide condition");
             creditCardInfo = saveCreditCardInfo(checkoutDTO.getCreditCardInfo());
         }
         saveOrder(checkoutDTO.getOrders(), shippingInfo, creditCardInfo);
@@ -48,13 +49,16 @@ public class CheckoutServiceImpl implements CheckoutService {
         return creditCardRepository.save(creditCardInfo);
     }
 
-    private Orders saveOrder(List<OrdersDTO> ordersDTO, ShippingInfo shippingInfo , CreditCardInfo creditCardInfo) {
-        System.out.println("saaaaaaaave order function:");
-        System.out.println(shippingInfo);
-
-        Orders order = modelMapper.map(ordersDTO, Orders.class);
-        order.setShippingInfo(shippingInfo);
-        order.setCreditCardInfo(creditCardInfo);
-        return ordersRepository.save(order);
+    private List<Orders> saveOrder(List<OrdersDTO> ordersDTOList, ShippingInfo shippingInfo, CreditCardInfo creditCardInfo) {
+        List<Orders> savedOrders = new ArrayList<>();
+        for (OrdersDTO ordersDTO : ordersDTOList) {
+            Orders order = modelMapper.map(ordersDTO, Orders.class);
+            order.setShippingInfo(shippingInfo);
+            if (creditCardInfo != null) {
+                order.setCreditCardInfo(creditCardInfo);
+            }
+            savedOrders.add(ordersRepository.save(order));
+        }
+        return savedOrders;
     }
 }

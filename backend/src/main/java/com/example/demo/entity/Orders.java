@@ -20,14 +20,6 @@ public class Orders {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_products",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> products;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
 
@@ -47,4 +39,7 @@ public class Orders {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "credit_card_info_id")
     private CreditCardInfo creditCardInfo;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private Set<OrderProduct> orderProducts;
 }
