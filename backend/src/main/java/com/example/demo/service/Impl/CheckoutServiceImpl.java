@@ -29,9 +29,12 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public CheckoutDTO processCheckout(CheckoutDTO checkoutDTO) {
         // save shipping info
-        ShippingInfo shippingInfo = saveShippingInfo(checkoutDTO.getShippingInfoDTO());
-        CreditCardInfo creditCardInfo = saveCreditCardInfo(checkoutDTO.getCreditCardInfoDTO());
-        saveOrder(checkoutDTO.getOrdersDTO(), shippingInfo, creditCardInfo);
+        ShippingInfo shippingInfo = saveShippingInfo(checkoutDTO.getShippingInfo());
+        CreditCardInfo creditCardInfo = new CreditCardInfo();
+        if(checkoutDTO.getCreditCardInfo() != null) {
+            creditCardInfo = saveCreditCardInfo(checkoutDTO.getCreditCardInfo());
+        }
+        saveOrder(checkoutDTO.getOrders(), shippingInfo, creditCardInfo);
         return checkoutDTO;
     }
 
@@ -48,7 +51,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     private Orders saveOrder(List<OrdersDTO> ordersDTO, ShippingInfo shippingInfo , CreditCardInfo creditCardInfo) {
         System.out.println("saaaaaaaave order function:");
         System.out.println(shippingInfo);
-        System.out.println(creditCardInfo);
+
         Orders order = modelMapper.map(ordersDTO, Orders.class);
         order.setShippingInfo(shippingInfo);
         order.setCreditCardInfo(creditCardInfo);

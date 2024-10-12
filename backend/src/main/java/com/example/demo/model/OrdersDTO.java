@@ -6,15 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
-import java.util.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrdersDTO {
     private Long id;
-    private UserEntity user;
-    private Set<Product> products;
+    private UserDTO user;
+    private ProductsDTO product;
     private Date orderDate;
     private Integer quantity;
     private double totalPrice;

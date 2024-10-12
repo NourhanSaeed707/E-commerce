@@ -14,16 +14,16 @@ public class CreditCardInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "card_number", nullable = false)
+    @Column(name = "card_number")
     private String cardNumber;
 
-    @Column(name = "expiration_date", nullable = false)
+    @Column(name = "expiration_date")
     private String expirationDate;
 
-    @Column(name = "cvc", nullable = false)
+    @Column(name = "cvc")
     private String cvc;
 
-    @Column(name = "cardholder_name", nullable = false)
+    @Column(name = "cardholder_name")
     private String cardholderName;
 
     @OneToOne(mappedBy = "creditCardInfo", cascade = CascadeType.ALL)

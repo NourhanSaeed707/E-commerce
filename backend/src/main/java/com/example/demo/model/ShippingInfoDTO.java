@@ -12,5 +12,5 @@ public class ShippingInfoDTO {
     private String city;
     private String country;
     private String postalCode;
-    private Orders order;
+    private OrdersDTO order;
 }

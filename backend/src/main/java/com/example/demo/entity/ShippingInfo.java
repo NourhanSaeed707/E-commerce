@@ -14,19 +14,19 @@ public class ShippingInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column()
     private String fullName;
 
-    @Column(nullable = false)
+    @Column()
     private String address;
 
-    @Column(nullable = false)
+    @Column()
     private String city;
 
-    @Column(nullable = false)
+    @Column()
     private String country;
 
-    @Column(name = "postal_code", nullable = false)
+    @Column(name = "postal_code")
     private String postalCode;
 
     @OneToOne(mappedBy = "shippingInfo", cascade = CascadeType.ALL)

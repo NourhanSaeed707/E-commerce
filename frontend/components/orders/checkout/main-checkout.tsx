@@ -10,7 +10,7 @@ import { ICreckoutType, IOrder, OrderStatus } from "@/types/orders";
 import { ProductForm } from "@/types/product";
 
 export const Checkout = () => {
-  const apiUrl = "/api/orders/save";
+  const apiUrl = "/api/checkout/process";
   const { cartItems, cartTotal } = useCart();
   const [form] = Form.useForm();
   const [paymentMethod, setPaymentMethod] = useState("Cash");
@@ -23,6 +23,7 @@ export const Checkout = () => {
 
   const handleSubmit = async () => {
     try {
+      console.log("cureeeeent user: ", currentUser);
       const values = await form.validateFields();
       const { shippingInfo, creditCardInfo } = values;
       const orders: IOrder[] = [];
@@ -38,16 +39,24 @@ export const Checkout = () => {
           status: OrderStatus.PENDING,
         });
       });
-
+      console.log("ordeeeeeeeeeeers: ", orders);
       console.log("Shipping Info:", shippingInfo);
+      console.log("creeedit Info:", creditCardInfo);
       console.log("Payment Method:", paymentMethod);
       console.log("Cart Items:", cartItems);
       console.log("caaaaaaart total: ", cartTotal);
+
+      const modifiedShippingInfo = {
+        ...shippingInfo,
+        country: shippingInfo.country.label, // Assuming shippingInfo.country is the object you mentioned
+      };
+
       const checkout: ICreckoutType = {
         orders: orders,
-        shippingInfo: shippingInfo,
+        shippingInfo: modifiedShippingInfo,
         creditCardInfo: creditCardInfo,
       };
+      console.log("checcccccckout: ", checkout);
       setEntity(checkout);
     } catch (error) {
       console.error("Validation Failed:", error);

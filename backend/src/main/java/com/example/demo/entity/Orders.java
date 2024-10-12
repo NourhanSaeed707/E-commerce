@@ -17,7 +17,7 @@ public class Orders {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @ManyToMany
@@ -31,10 +31,10 @@ public class Orders {
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
 
-    @Column(nullable = false)
+    @Column()
     private Integer quantity;
 
-    @Column(nullable = false)
+    @Column()
     private double totalPrice;
 
     @Enumerated(EnumType.STRING)

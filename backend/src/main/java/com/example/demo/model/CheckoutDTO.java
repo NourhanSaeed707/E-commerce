@@ -6,7 +6,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CheckoutDTO {
-    List<OrdersDTO> ordersDTO;
-    ShippingInfoDTO shippingInfoDTO;
-    CreditCardInfoDTO creditCardInfoDTO;
+    List<OrdersDTO> orders;
+    ShippingInfoDTO shippingInfo;
+    CreditCardInfoDTO creditCardInfo;
 }
