@@ -5,6 +5,9 @@ import CartSummaryCheckout from "./cart-summary-checkout";
 import ShippingFormFields from "./shipping-form-fields";
 import CreditCardFormFields from "./credit-card-form-fields";
 import useAddEntity from "@/hooks/general-crud/useAddEntity";
+import { useAuth } from "@/context/auth-context";
+import { ICreckoutType, IOrder, OrderStatus } from "@/types/orders";
+import { ProductForm } from "@/types/product";
 
 export const Checkout = () => {
   const apiUrl = "/api/orders/save";
@@ -12,6 +15,7 @@ export const Checkout = () => {
   const [form] = Form.useForm();
   const [paymentMethod, setPaymentMethod] = useState("Cash");
   const { setEntity, loading, error, response } = useAddEntity(apiUrl);
+  const { currentUser } = useAuth();
 
   const handlePaymentChange = (e) => {
     setPaymentMethod(e.target.value);
@@ -19,16 +23,32 @@ export const Checkout = () => {
 
   const handleSubmit = async () => {
     try {
-      // Validate fields
       const values = await form.validateFields();
       const { shippingInfo, creditCardInfo } = values;
+      const orders: IOrder[] = [];
+      cartItems.map((item) => {
+        orders.push({
+          user: currentUser,
+          product: {
+            id: item.id,
+          } as ProductForm,
+          orderDate: new Date(),
+          quantity: item.quantity,
+          totalPrice: cartTotal,
+          status: OrderStatus.PENDING,
+        });
+      });
 
       console.log("Shipping Info:", shippingInfo);
       console.log("Payment Method:", paymentMethod);
       console.log("Cart Items:", cartItems);
-      if (paymentMethod === "creditCard") {
-        console.log("Credit Card Info:", creditCardInfo);
-      }
+      console.log("caaaaaaart total: ", cartTotal);
+      const checkout: ICreckoutType = {
+        orders: orders,
+        shippingInfo: shippingInfo,
+        creditCardInfo: creditCardInfo,
+      };
+      setEntity(checkout);
     } catch (error) {
       console.error("Validation Failed:", error);
     }

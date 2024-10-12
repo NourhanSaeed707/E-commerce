@@ -4,7 +4,7 @@ import { UserType } from "./users";
 export type IOrder = {
   id?: number;
   user: UserType;
-  products: ProductForm[];
+  product: ProductForm;
   orderDate: Date;
   quantity: number;
   totalPrice: number;
@@ -42,8 +42,8 @@ export type ICreditCardInfo = {
   cardholderName: string;
   order?: IOrder;
 };
-export type CreckoutType = {
-  order: IOrder;
+export type ICreckoutType = {
+  orders: IOrder[];
   shippingInfo: IShippingInfo;
-  creditCardInfo: ICreditCardInfo;
+  creditCardInfo?: ICreditCardInfo;
 };

@@ -13,6 +13,7 @@ import com.example.demo.service.CheckoutService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
@@ -44,7 +45,10 @@ public class CheckoutServiceImpl implements CheckoutService {
         return creditCardRepository.save(creditCardInfo);
     }
 
-    private Orders saveOrder(OrdersDTO ordersDTO, ShippingInfo shippingInfo , CreditCardInfo creditCardInfo) {
+    private Orders saveOrder(List<OrdersDTO> ordersDTO, ShippingInfo shippingInfo , CreditCardInfo creditCardInfo) {
+        System.out.println("saaaaaaaave order function:");
+        System.out.println(shippingInfo);
+        System.out.println(creditCardInfo);
         Orders order = modelMapper.map(ordersDTO, Orders.class);
         order.setShippingInfo(shippingInfo);
         order.setCreditCardInfo(creditCardInfo);
