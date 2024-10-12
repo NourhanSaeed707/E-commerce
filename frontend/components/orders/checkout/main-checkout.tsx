@@ -4,11 +4,14 @@ import { Form, Button, Radio } from "antd";
 import CartSummaryCheckout from "./cart-summary-checkout";
 import ShippingFormFields from "./shipping-form-fields";
 import CreditCardFormFields from "./credit-card-form-fields";
+import useAddEntity from "@/hooks/general-crud/useAddEntity";
 
 export const Checkout = () => {
+  const apiUrl = "/api/orders/save";
   const { cartItems, cartTotal } = useCart();
-  const [form] = Form.useForm(); 
+  const [form] = Form.useForm();
   const [paymentMethod, setPaymentMethod] = useState("Cash");
+  const { setEntity, loading, error, response } = useAddEntity(apiUrl);
 
   const handlePaymentChange = (e) => {
     setPaymentMethod(e.target.value);
