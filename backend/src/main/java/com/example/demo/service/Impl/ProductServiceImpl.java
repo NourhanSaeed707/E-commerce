@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
             spec = spec.and(ProductSpecification.byGender(filterRequest.getGenderFilter()));
             isFiltered = true;
         }
-        
+
         Page<Product> productPage = isFiltered ? productRepository.findAll(spec, pageable)
                 : productRepository.findAll(pageable);
         return productPage.map(product -> convertToDTO(product, filterRequest.getColorFilter()));
