@@ -1,3 +1,4 @@
+import { CartItem } from "@/types/orders";
 import React, {
   createContext,
   useContext,
@@ -5,16 +6,6 @@ import React, {
   useState,
   ReactNode,
 } from "react";
-
-type CartItem = {
-  id: number;
-  name: string;
-  size: string;
-  color: string;
-  image: any;
-  price: number;
-  quantity: number;
-};
 
 type CartContextType = {
   cartItems: CartItem[];
