@@ -48,6 +48,7 @@ export const Checkout = () => {
         shippingInfo: modifiedShippingInfo,
         creditCardInfo: creditCardInfo,
       };
+      console.log("cheeeeck out: ", checkout);
       setEntity(checkout);
     } catch (error) {
       console.error("Validation Failed:", error);

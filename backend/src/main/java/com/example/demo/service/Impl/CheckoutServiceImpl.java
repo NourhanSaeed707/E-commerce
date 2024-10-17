@@ -1,13 +1,11 @@
 package com.example.demo.service.Impl;
+import com.example.demo.Exception.Products.ProductNotFoundException;
 import com.example.demo.entity.*;
 import com.example.demo.model.CheckoutDTO;
 import com.example.demo.model.CreditCardInfoDTO;
 import com.example.demo.model.OrdersDTO;
 import com.example.demo.model.ShippingInfoDTO;
-import com.example.demo.repository.CreditCardInfoRepository;
-import com.example.demo.repository.OrderProductRepository;
-import com.example.demo.repository.OrdersRepository;
-import com.example.demo.repository.ShippingInfoRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.CheckoutService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +24,15 @@ public class CheckoutServiceImpl implements CheckoutService {
     private ModelMapper modelMapper;
     @Autowired
     private OrderProductRepository orderProductRepository;
+    @Autowired
+    protected ProductRepository productRepository;
 
     @Override
     public CheckoutDTO processCheckout(CheckoutDTO checkoutDTO) {
         // save shipping info
         ShippingInfo shippingInfo = saveShippingInfo(checkoutDTO.getShippingInfo());
         System.out.println("sa");
-        CreditCardInfo creditCardInfo = new CreditCardInfo();
+        CreditCardInfo creditCardInfo = null;
         if(checkoutDTO.getCreditCardInfo() != null) {
             System.out.println("insiiiiiide condition");
             creditCardInfo = saveCreditCardInfo(checkoutDTO.getCreditCardInfo());
@@ -53,23 +53,36 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     private List<Orders> saveOrder(List<OrdersDTO> ordersDTOList, ShippingInfo shippingInfo, CreditCardInfo creditCardInfo) {
-        System.out.println("insiiiiiiiide save order service");
         List<Orders> savedOrders = new ArrayList<>();
         for (OrdersDTO ordersDTO : ordersDTOList) {
             Orders order = modelMapper.map(ordersDTO, Orders.class);
-            order.setShippingInfo(shippingInfo);
-            if (creditCardInfo != null) {
-                order.setCreditCardInfo(creditCardInfo);
-            }
-            Orders savedOrder = ordersRepository.save(order);
-            System.out.println("saaaaaved order: " + savedOrder.getId());
+            Orders savedOrder = saveSingleOrder(order, shippingInfo, creditCardInfo);
             savedOrders.add(savedOrder);
-            OrderProduct orderProduct = new OrderProduct();
-            orderProduct.setOrder(savedOrder);
-            orderProduct.setProduct(modelMapper.map(ordersDTO.getProduct(), Product.class));
-            orderProductRepository.save(orderProduct);
+            updateProduct(ordersDTO);
+            saveOrderProduct(savedOrder, ordersDTO);
         }
-        System.out.println("saved order array: " + savedOrders);
         return savedOrders;
+    }
+
+    private Orders saveSingleOrder(Orders order,ShippingInfo shippingInfo, CreditCardInfo creditCardInfo) {
+        order.setShippingInfo(shippingInfo);
+        if (creditCardInfo != null) {
+            order.setCreditCardInfo(creditCardInfo);
+        }
+        order.setStatus( OrderStatus.SHIPPED);
+        return ordersRepository.save(order);
+    }
+
+    private void saveOrderProduct(Orders savedOrder, OrdersDTO ordersDTO) {
+        OrderProduct orderProduct = new OrderProduct();
+        orderProduct.setOrder(savedOrder);
+        orderProduct.setProduct(modelMapper.map(ordersDTO.getProduct(), Product.class));
+        orderProductRepository.save(orderProduct);
+    }
+
+    private void updateProduct(OrdersDTO ordersDTO) {
+        Product product = productRepository.findById(ordersDTO.getProduct().getId()).get();
+        product.setStock(product.getStock() - 1);
+        productRepository.save(product);
     }
 }

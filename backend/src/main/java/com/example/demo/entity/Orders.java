@@ -36,7 +36,7 @@ public class Orders {
     @JoinColumn(name = "shipping_info_id")
     private ShippingInfo shippingInfo;
 
-    @OneToOne()
+    @OneToOne(optional = true)
     @JoinColumn(name = "credit_card_info_id")
     private CreditCardInfo creditCardInfo;
 
