@@ -10,6 +10,6 @@ public class CreditCardInfoDTO {
     private String cardNumber;
     private String expirationDate;
     private String cvc;
-    private String cardholderName;
+    private String cardHolderName;
     private OrdersDTO order;
 }

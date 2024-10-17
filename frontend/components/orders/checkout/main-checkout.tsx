@@ -23,7 +23,6 @@ export const Checkout = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log("cureeeeent user: ", currentUser);
       const values = await form.validateFields();
       const { shippingInfo, creditCardInfo } = values;
       const orders: IOrder[] = [];
@@ -39,16 +38,9 @@ export const Checkout = () => {
           status: OrderStatus.PENDING,
         });
       });
-      console.log("ordeeeeeeeeeeers: ", orders);
-      console.log("Shipping Info:", shippingInfo);
-      console.log("creeedit Info:", creditCardInfo);
-      console.log("Payment Method:", paymentMethod);
-      console.log("Cart Items:", cartItems);
-      console.log("caaaaaaart total: ", cartTotal);
-
       const modifiedShippingInfo = {
         ...shippingInfo,
-        country: shippingInfo.country.label, // Assuming shippingInfo.country is the object you mentioned
+        country: shippingInfo.country.label,
       };
 
       const checkout: ICreckoutType = {
@@ -56,16 +48,11 @@ export const Checkout = () => {
         shippingInfo: modifiedShippingInfo,
         creditCardInfo: creditCardInfo,
       };
-      console.log("checcccccckout: ", checkout);
       setEntity(checkout);
     } catch (error) {
       console.error("Validation Failed:", error);
     }
   };
-
-  useEffect(() => {
-    console.log("caaaaart items: ", cartItems);
-  }, [cartItems]);
 
   return (
     <div className="checkout-container mx-auto max-w-4xl p-4">

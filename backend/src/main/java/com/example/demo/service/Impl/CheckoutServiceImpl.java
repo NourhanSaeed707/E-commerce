@@ -1,12 +1,11 @@
 package com.example.demo.service.Impl;
-import com.example.demo.entity.CreditCardInfo;
-import com.example.demo.entity.Orders;
-import com.example.demo.entity.ShippingInfo;
+import com.example.demo.entity.*;
 import com.example.demo.model.CheckoutDTO;
 import com.example.demo.model.CreditCardInfoDTO;
 import com.example.demo.model.OrdersDTO;
 import com.example.demo.model.ShippingInfoDTO;
 import com.example.demo.repository.CreditCardInfoRepository;
+import com.example.demo.repository.OrderProductRepository;
 import com.example.demo.repository.OrdersRepository;
 import com.example.demo.repository.ShippingInfoRepository;
 import com.example.demo.service.CheckoutService;
@@ -25,16 +24,20 @@ public class CheckoutServiceImpl implements CheckoutService {
     private OrdersRepository ordersRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private OrderProductRepository orderProductRepository;
 
     @Override
     public CheckoutDTO processCheckout(CheckoutDTO checkoutDTO) {
         // save shipping info
         ShippingInfo shippingInfo = saveShippingInfo(checkoutDTO.getShippingInfo());
+        System.out.println("sa");
         CreditCardInfo creditCardInfo = new CreditCardInfo();
         if(checkoutDTO.getCreditCardInfo() != null) {
             System.out.println("insiiiiiide condition");
             creditCardInfo = saveCreditCardInfo(checkoutDTO.getCreditCardInfo());
         }
+        System.out.println("afteeeeeer condition");
         saveOrder(checkoutDTO.getOrders(), shippingInfo, creditCardInfo);
         return checkoutDTO;
     }
@@ -50,6 +53,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     private List<Orders> saveOrder(List<OrdersDTO> ordersDTOList, ShippingInfo shippingInfo, CreditCardInfo creditCardInfo) {
+        System.out.println("insiiiiiiiide save order service");
         List<Orders> savedOrders = new ArrayList<>();
         for (OrdersDTO ordersDTO : ordersDTOList) {
             Orders order = modelMapper.map(ordersDTO, Orders.class);
@@ -57,8 +61,15 @@ public class CheckoutServiceImpl implements CheckoutService {
             if (creditCardInfo != null) {
                 order.setCreditCardInfo(creditCardInfo);
             }
-            savedOrders.add(ordersRepository.save(order));
+            Orders savedOrder = ordersRepository.save(order);
+            System.out.println("saaaaaved order: " + savedOrder.getId());
+            savedOrders.add(savedOrder);
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setOrder(savedOrder);
+            orderProduct.setProduct(modelMapper.map(ordersDTO.getProduct(), Product.class));
+            orderProductRepository.save(orderProduct);
         }
+        System.out.println("saved order array: " + savedOrders);
         return savedOrders;
     }
 }

@@ -13,7 +13,6 @@ export default function useAddEntity<T>(apiUrl: string) {
 
   const callAPI = useCallback(
     async (body: T) => {
-      console.log("tooooooooooke state: ", tokenState);
       setError(null);
       setLoading(true);
       const props: AddServices = {

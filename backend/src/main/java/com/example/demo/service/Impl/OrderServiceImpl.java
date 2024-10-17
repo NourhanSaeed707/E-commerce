@@ -34,6 +34,7 @@ public class OrderServiceImpl implements OrdersService {
     @Override
     public OrdersDTO save(OrdersDTO ordersDTO) {
         Orders  order = modelMapper.map(ordersDTO, Orders.class);
+        System.out.println("befooooore save");
         ordersRepository.save(order);
         return ordersDTO;
     }

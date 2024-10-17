@@ -26,6 +26,7 @@ public class OrdersController {
 
     @PostMapping("/add")
     public ResponseEntity<OrdersDTO> save(@RequestBody OrdersDTO ordersDTO) {
+        System.out.println("Ordeeeeeeers in controller: " + ordersDTO);
         return ResponseEntity.ok(ordersService.save(ordersDTO));
     }
 }

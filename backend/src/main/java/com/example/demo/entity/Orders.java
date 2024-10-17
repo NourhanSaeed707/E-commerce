@@ -32,11 +32,11 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "shipping_info_id")
     private ShippingInfo shippingInfo;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "credit_card_info_id")
     private CreditCardInfo creditCardInfo;
 
