@@ -1,5 +1,7 @@
 import { useAuth } from "@/context/auth-context";
 import { useCart } from "@/context/cart-context";
+import useAddEntity from "@/hooks/general-crud/useAddEntity";
+import { NotifyType } from "@/types/notification";
 import { Button } from "antd";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -12,12 +14,25 @@ function ProductDetailInfo({
   selectSizeId,
   images,
 }) {
+  const apiUrl = "/api/observers/save";
   const { addToCart, cartItems, setUserId } = useCart();
   const { currentUser } = useAuth();
+  const { setEntity, loading, response, error } = useAddEntity(apiUrl);
 
   useEffect(() => {
     currentUser && currentUser.id ? setUserId(currentUser.id) : setUserId(null);
   }, [currentUser, setUserId]);
+
+  const handleNotifyMe = () => {
+    console.log("noooo product stock notify me ");
+    console.log("prooooooooduct: ", product);
+    console.log("cuuuuurent user: ", currentUser);
+    const noftifyObj: NotifyType = {
+      user: currentUser,
+      product: product,
+    };
+    setEntity(noftifyObj);
+  };
 
   return (
     <div>
@@ -26,7 +41,9 @@ function ProductDetailInfo({
           {/* Product Details */}
           <div className="flex flex-col space-y-4">
             <h1 className="text-3xl font-bold">{product && product.name}</h1>
-            <p className="text-xl font-semibold text-gray-700">{product && product.price}</p>
+            <p className="text-xl font-semibold text-gray-700">
+              {product && product.price}
+            </p>
             <p
               className={`text-sm font-medium ${
                 product && product.stock ? "text-green-600" : "text-red-600"
@@ -90,21 +107,30 @@ function ProductDetailInfo({
             </div>
 
             {/* Add to Cart Button */}
-            <Button
-              onClick={() => {
-                addToCart(
-                  product.id,
-                  product.name,
-                  selectSizeId,
-                  selectedColorId,
-                  images[0],
-                  product.price
-                );
-              }}
-              className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
-            >
-              Add to Cart
-            </Button>
+            {product && product.stock ? (
+              <Button
+                onClick={() => {
+                  addToCart(
+                    product.id,
+                    product.name,
+                    selectSizeId,
+                    selectedColorId,
+                    images[0],
+                    product.price
+                  );
+                }}
+                className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+              >
+                Add to Cart
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNotifyMe}
+                className="mt-4 px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600"
+              >
+                Notify Me When Available
+              </Button>
+            )}
           </div>
         </div>
       </div>

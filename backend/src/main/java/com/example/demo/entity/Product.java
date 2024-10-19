@@ -34,14 +34,20 @@ public class Product {
     @NotNull(message = "Gender is required")
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     @ManyToOne
     @JoinColumn(name = "category_type_id")
     @NotNull(message = "Category type is required")
     private CategoryType categoryType;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<ProductColor> productColors;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<ProductSize> productSizes;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<Observer> observers = new HashSet<>();
 }
