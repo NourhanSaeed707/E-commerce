@@ -5,6 +5,7 @@ import com.example.demo.helper.Helper;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.*;
+import jakarta.mail.MessagingException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +40,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductSizeService productSizeService;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public Page<ProductsDTO> getAll(ProductFiltrationDTO filterRequest) {
@@ -120,12 +124,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto) {
+    public ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto) throws MessagingException, UnsupportedEncodingException {
         oldProductDTO.setName(newProductDto.getName());
         oldProductDTO.setCodeNumber(newProductDto.getCodeNumber());
         oldProductDTO.setPrice(newProductDto.getPrice());
         oldProductDTO.setStock(newProductDto.getStock());
         oldProductDTO.setGender(newProductDto.getGender());
+        if(newProductDto.getStock() > 0) {
+            notificationService.notifyObservers(newProductDto);
+        }
         return oldProductDTO;
     }
 

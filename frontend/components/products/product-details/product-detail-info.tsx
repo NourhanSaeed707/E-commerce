@@ -24,9 +24,6 @@ function ProductDetailInfo({
   }, [currentUser, setUserId]);
 
   const handleNotifyMe = () => {
-    console.log("noooo product stock notify me ");
-    console.log("prooooooooduct: ", product);
-    console.log("cuuuuurent user: ", currentUser);
     const noftifyObj: NotifyType = {
       user: currentUser,
       product: product,

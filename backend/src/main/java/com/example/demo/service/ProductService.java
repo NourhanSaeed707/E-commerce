@@ -3,8 +3,11 @@ import com.example.demo.entity.Product;
 import com.example.demo.model.ProductColorImageDTO;
 import com.example.demo.model.ProductFiltrationDTO;
 import com.example.demo.model.ProductsDTO;
+import jakarta.mail.MessagingException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public interface ProductService {
@@ -13,7 +16,7 @@ public interface ProductService {
     ProductsDTO getById(Long id) throws Exception ;
     ResponseEntity<ProductsDTO> save(ProductsDTO productDTO) throws Exception;
     ResponseEntity<Map<String, Object>>saveProductColorImage(ProductColorImageDTO productColorImageDTO) throws Exception;
-    ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto);
+    ProductsDTO setNonRelationFieldsDto(ProductsDTO oldProductDTO, ProductsDTO newProductDto) throws MessagingException, UnsupportedEncodingException;
     ResponseEntity<Product> update (Long id, ProductsDTO productsDTO) throws Exception ;
     ResponseEntity<Map<String, Boolean>> checkByIdExists(Long id, String message);
     ResponseEntity<Map<String, Boolean>> delete(Long id) throws Exception;

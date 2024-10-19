@@ -32,7 +32,6 @@ public class NotificationServiceImpl implements NotificationService {
         for (Observer observer: observers) {
             emailService.sendEmail(observer.getUser().getEmail(), subject, content);
             observerRepository.delete(observer);
-
         }
     }
 
@@ -41,8 +40,8 @@ public class NotificationServiceImpl implements NotificationService {
         content.append("<h2>Good news!</h2>");
         content.append("<p>The product <strong>").append(product.getName()).append("</strong> is now available for purchase.</p>");
         content.append("<p>Price: $").append(product.getPrice()).append("</p>");
-        content.append("<p>Stock: ").append(product.getStock()).append("</p>");
-        content.append("<p>Click <a href='your-product-url-here/").append(product.getId()).append("'>here</a> to view the product.</p>");
+        String productUrl = "http://localhost:3000/products/get/" + product.getId();
+        content.append("<p>Click <a href='").append(productUrl).append("'>here</a> to view the product.</p>");
         content.append("<p>Thank you for your interest!</p>");
         return content.toString();
     }
