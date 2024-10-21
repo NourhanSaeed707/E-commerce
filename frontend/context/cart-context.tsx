@@ -19,6 +19,7 @@ type CartContextType = {
   ) => void;
   removeItem: (id: number) => void;
   updateItemQuantity: (id: number, quantity: number) => void;
+  clearCart: () => void;
   cartCount: number;
   cartTotal: number;
   setUserId: (userId: number) => void;
@@ -35,7 +36,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (userId) {
       const savedCart = localStorage.getItem(`cart_${userId}`);
       const timestamp = localStorage.getItem(`cart_timestamp_${userId}`);
-  
+
       if (savedCart && timestamp) {
         const timeDiff = Date.now() - Number(timestamp);
         if (timeDiff < 86400000) {
@@ -46,7 +47,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     }
-  }, [userId]); 
+  }, [userId]);
 
   const saveCartToLocalStorage = (items: CartItem[]) => {
     localStorage.setItem(`cart_${userId}`, JSON.stringify(items));
@@ -110,6 +111,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     0
   );
 
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem(`cart_${userId}`);
+    localStorage.removeItem(`cart_timestamp_${userId}`);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -117,6 +124,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         addToCart,
         removeItem,
         updateItemQuantity,
+        clearCart,
         cartCount,
         cartTotal,
         setUserId,

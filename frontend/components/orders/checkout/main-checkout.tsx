@@ -8,6 +8,7 @@ import useAddEntity from "@/hooks/general-crud/useAddEntity";
 import { useAuth } from "@/context/auth-context";
 import { ICreckoutType, IOrder, OrderStatus } from "@/types/orders";
 import { ProductForm } from "@/types/product";
+import { useRouter } from "next/router";
 
 export const Checkout = () => {
   const apiUrl = "/api/checkout/process";
@@ -16,6 +17,7 @@ export const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("Cash");
   const { setEntity, loading, error, response } = useAddEntity(apiUrl);
   const { currentUser } = useAuth();
+  const router = useRouter();
 
   const handlePaymentChange = (e) => {
     setPaymentMethod(e.target.value);
@@ -50,6 +52,7 @@ export const Checkout = () => {
       };
       console.log("cheeeeck out: ", checkout);
       setEntity(checkout);
+      router.push("/order/success")
     } catch (error) {
       console.error("Validation Failed:", error);
     }
