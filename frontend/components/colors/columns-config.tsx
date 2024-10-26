@@ -1,10 +1,7 @@
 import { BUTTONS } from "@/constants/category";
 import { Button, Space } from "antd";
-import { TableProps } from "antd";
-import { DataColorTypeTable } from "@/types/color";
 import { useRouter } from "next/router";
 import React from "react";
-import moment from "moment";
 
 function ColumnsConfig({setEntityIdDelete}) {
   const router = useRouter();

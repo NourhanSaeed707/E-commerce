@@ -29,4 +29,5 @@ export type ColorTableProps = {
 export type EditColorFacadeProps = {
   id: number;
   formRef: any;
+  setImageUrl: (imageUrl) => void;
 };

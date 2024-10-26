@@ -14,7 +14,7 @@ export default function ColorTable({
   handlePageChange,
   setEntityIdDelete,
 }) {
-  const columns: TableProps<DataColorTypeTable>["columns"] = ColumnsConfig(setEntityIdDelete);
+  const columns: TableProps<DataColorTypeTable>["columns"] = ColumnsConfig({setEntityIdDelete});
 
   const data: DataColorTypeTable[] =
     entities &&

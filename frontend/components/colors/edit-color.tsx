@@ -23,6 +23,7 @@ export default function EditColor() {
   const editFacadeProps: EditColorFacadeProps = {
     id: Number(id),
     formRef,
+    setImageUrl
   };
   const { editColor } = useEditFacade(editFacadeProps);
 

@@ -24,9 +24,12 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
         uid: index.toString(),
         name: `image-${index}`,
         status: "done",
-        url: image.imageUrl, // Changed from imageUrl to url for compatibility
+        url: image.imageUrl, 
       }));
       setFileList(fileList);
+    }
+    else {
+      setFileList([]);
     }
   }, [imagesList]);
 
@@ -53,9 +56,13 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
   };
 
   const onRemove = (file: any) => {
-    const newImagesList = imagesList.filter((image) => image.imageUrl !== file.url);
+    const newImagesList = imagesList.filter(
+      (image) => image.imageUrl !== file.url
+    );
     setImagesList(newImagesList);
-    setFileList((prevFileList) => prevFileList.filter((f) => f.uid !== file.uid));
+    setFileList((prevFileList) =>
+      prevFileList.filter((f) => f.uid !== file.uid)
+    );
   };
 
   const props = {
@@ -66,9 +73,31 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
     onChange,
     onRemove,
     fileList, // Pass fileList state to Dragger component
+    showUploadList: true,
   };
 
   return (
+    // <div>
+    //   <Dragger {...props}>
+    //     <p className="ant-upload-drag-icon">
+    //       <UploadOutlined />
+    //     </p>
+    //     <p className="ant-upload-text">
+    //       Click or drag file to this area to upload
+    //     </p>
+    //     <p className="ant-upload-hint">Support for multiple files.</p>
+    //   </Dragger>
+    //   <div style={{ marginTop: 16 }}>
+    //     {imagesList &&
+    //       imagesList.map((image, index) => (
+    //         <img
+    //           key={index}
+    //           src={image && image.imageUrl}
+    //           style={{ width: "200px", margin: "10px" }}
+    //         />
+    //       ))}
+    //   </div>
+    // </div>
     <div>
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
@@ -79,16 +108,6 @@ const ImageUpload = ({ setImagesList, imagesList }) => {
         </p>
         <p className="ant-upload-hint">Support for multiple files.</p>
       </Dragger>
-      <div style={{ marginTop: 16 }}>
-        {imagesList &&
-          imagesList.map((image, index) => (
-            <img
-              key={index}
-              src={image && image.imageUrl}
-              style={{ width: "200px", margin: "10px" }}
-            />
-          ))}
-      </div>
     </div>
   );
 };

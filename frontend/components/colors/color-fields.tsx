@@ -4,7 +4,6 @@ import { Validation } from "@/constants/error";
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
-import ProductColorImageFields from "../products/product-color-imag-fields";
 import ImageUpload from "../upload/image-upload";
 
 export default function ColorFields({ edit, imageUrl, setImageUrl }) {

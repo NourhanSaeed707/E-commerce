@@ -4,7 +4,7 @@ import useGetOneEntity from "../general-crud/useGetOneEntity";
 import useEditEntity from "../general-crud/useEditEntity";
 import { useEffect } from "react";
 
-export default function useEditFacade({ id, formRef }: EditColorFacadeProps) {
+export default function useEditFacade({ id, formRef , setImageUrl}: EditColorFacadeProps) {
   const router = useRouter();
   const apiGetOneUrl = "/api/colors/get";
   const apiEditUrl = "/api/colors/edit";
@@ -23,6 +23,7 @@ export default function useEditFacade({ id, formRef }: EditColorFacadeProps) {
         color: entity.color,
         imageUrl: entity.imageUrl,
       });
+      setImageUrl(entity.imageUrl ? [entity.imageUrl] : []);
     }
   }, [entity, formRef, id]);
 
