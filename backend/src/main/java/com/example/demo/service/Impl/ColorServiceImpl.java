@@ -40,16 +40,17 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     public ResponseEntity<ColorDTO> save(ColorDTO colorDTO) {
-        System.out.println("colooooooooor save: " + colorDTO);
-        Color color = modelMapper.map(colorDTO, Color.class);
-        color.setCreatedAt(Date.valueOf(LocalDate.now()));
+        Color color = Color.builder()
+                        .color(colorDTO.getColor())
+                        .imageUrl(colorDTO.getImageUrl())
+                        .createdAt(Date.valueOf(LocalDate.now()))
+                        .build();
         Color saved = colorRepository.save(color);
         return ResponseEntity.ok(modelMapper.map(saved, ColorDTO.class));
     }
 
     @Override
     public ResponseEntity<Color> update(Long id, ColorDTO colorDTO) throws Exception {
-        System.out.println("colooooooooor edit: " + colorDTO);
         Color color = colorRepository.getById(id);
         color.setImageUrl(colorDTO.getImageUrl());
         color.setLastModifiedAt(Date.valueOf(LocalDate.now()));
