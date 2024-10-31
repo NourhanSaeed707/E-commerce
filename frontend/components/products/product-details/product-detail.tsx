@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductDetailInfo from "./product-detail-info";
 import ProductImages from "./product-images";
 import { ProductDetailInfoType } from "@/types/product";
 import useGetAllImages from "@/hooks/images/useGetAllImages";
 import { useParams } from "next/navigation";
+import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
+import { useAuth } from "@/context/auth-context";
 
 function ProductDetail({ product }) {
+  const { currentUser } = useAuth();
   const [selectedColorId, SetSelectedColorId] = useState<number>(
     product?.color[0]?.id
   );
@@ -27,6 +30,13 @@ function ProductDetail({ product }) {
     images,
   };
 
+  const apiGetAllUrl = `api/recommendations/${currentUser?.id}`;
+  const { entities, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
+
+  useEffect(() => {
+     console.log("entities of recommendations: ", entities);
+  },[entities])
+
   return (
     <>
       <div>
@@ -41,6 +51,7 @@ function ProductDetail({ product }) {
           </div>
         )}
       </div>
+      <div></div>
     </>
   );
 }

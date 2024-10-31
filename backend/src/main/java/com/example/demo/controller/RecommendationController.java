@@ -7,6 +7,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/recommendations")
+@CrossOrigin("*")
 public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;
