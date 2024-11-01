@@ -3,7 +3,7 @@ import com.example.demo.entity.InteractionType;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.UserProductInteraction;
 import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.UserProductInteractionRepository;
+import com.example.demo.repository.UserInteractionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.*;
 @Service
 public class RecommendationService {
     @Autowired
-    private UserProductInteractionRepository interactionRepository;
+    private UserInteractionRepository interactionRepository;
 
     @Autowired
     private ProductRepository productRepository;
