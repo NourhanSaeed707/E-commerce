@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.*;
 import java.util.*;
 
 
-public interface UserInteractionRepository extends JpaRepository<UserProductInteraction, Long> {
+public interface UserInteractionRepository extends JpaRepository<UserProductInteraction, Long>, JpaSpecificationExecutor<UserProductInteraction> {
     List<UserProductInteraction> findByUserId(Long userId);
     List<UserProductInteraction> findByUserIdAndProductIdAndInteractionType(Long userId, Long productId, InteractionType interactionType);
 //    @Query("SELECT ui FROM UserProductInteraction ui " +

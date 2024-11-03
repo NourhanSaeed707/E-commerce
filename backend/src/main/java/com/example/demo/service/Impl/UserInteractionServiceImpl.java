@@ -20,7 +20,6 @@ public class UserInteractionServiceImpl implements UserInteractionService {
     @Override
     public UserInteractionDTO save(UserInteractionDTO userInteractionDTO) {
         List<UserProductInteraction> userProductInteractionFound = userInteractionRepository.findByUserIdAndProductIdAndInteractionType(userInteractionDTO.getUser().getId(), userInteractionDTO.getProduct().getId(), userInteractionDTO.getInteractionType());
-       System.out.println("user product found: " + userProductInteractionFound);
         if(userProductInteractionFound.isEmpty()) {
             UserProductInteraction userProductInteraction = UserProductInteraction.builder()
                     .user(modelMapper.map(userInteractionDTO.getUser(), UserEntity.class))

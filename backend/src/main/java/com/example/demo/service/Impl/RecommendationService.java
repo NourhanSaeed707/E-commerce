@@ -28,7 +28,7 @@ public class RecommendationService {
 
         // Use Specification to find similar interactions by other users in the same categories
         List<UserProductInteraction> similarInteractions = interactionRepository.findAll(
-                (Sort) UserProductInteractionSpecification.similarUserInteractions(userId, userLikedCategoryIds)
+                UserProductInteractionSpecification.similarUserInteractions(userId, userLikedCategoryIds)
         );
 
         // Collect recommended products

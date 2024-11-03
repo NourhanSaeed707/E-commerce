@@ -14,6 +14,7 @@ public class RecommendationController {
 
     @GetMapping("/{userId}")
     public List<Product> getRecommendations(@PathVariable Long userId) {
+        System.out.println("insiiide get recommendation controller:");
         return recommendationService.recommendedProducts(userId);
     }
 
