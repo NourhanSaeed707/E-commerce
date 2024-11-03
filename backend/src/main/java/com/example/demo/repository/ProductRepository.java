@@ -13,9 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     Product getById(Long id);
     Page<Product> findAll(Pageable pageable);
 
-    Product findByCategoryType(InteractionType interactionType);
+//    Product findByCategoryType(InteractionType interactionType);
+//    Collection<? extends Product> findByCategoryTypeIds(Set<Long> userLikedCategoryIds);
 
-    Collection<? extends Product> findByCategoryTypeIds(Set<Long> userLikedCategoryIds);
-
-//    Page<Product> findByCategoryTypeId(int categoryTypeId);
 }

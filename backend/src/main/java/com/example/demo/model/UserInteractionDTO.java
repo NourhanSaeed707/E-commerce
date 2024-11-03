@@ -10,8 +10,8 @@ import java.util.*;
 @NoArgsConstructor
 public class UserInteractionDTO {
     private Long id;
-    private UserEntity user;
-    private Product product;
+    private UserDTO user;
+    private ProductsDTO product;
     private InteractionType interactionType;
     private Date interactionDate;
 }
