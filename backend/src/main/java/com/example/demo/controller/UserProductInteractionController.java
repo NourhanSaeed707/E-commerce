@@ -14,6 +14,7 @@ public class UserProductInteractionController {
 
     @PostMapping("/")
     public ResponseEntity<UserInteractionDTO> save(@RequestBody() UserInteractionDTO userInteractionDTO) {
+        System.out.println("insiiiide user interaction api");
          UserInteractionDTO created = userInteractionService.save(userInteractionDTO);
          return ResponseEntity.ok(created);
     }

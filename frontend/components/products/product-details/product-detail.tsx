@@ -6,6 +6,8 @@ import useGetAllImages from "@/hooks/images/useGetAllImages";
 import { useParams } from "next/navigation";
 import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import { useAuth } from "@/context/auth-context";
+import useAddEntity from "@/hooks/general-crud/useAddEntity";
+import { InteractionType } from "@/types/users";
 
 function ProductDetail({ product }) {
   const { currentUser } = useAuth();
@@ -30,12 +32,25 @@ function ProductDetail({ product }) {
     images,
   };
 
-  const apiGetAllUrl = `api/recommendations/${currentUser?.id}`;
+  const apiGetAllUrl = `/api/recommendations/${currentUser?.id}`;
   const { entities, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
 
+  const apiUserInteraction = "/api/interactions/";
+  const { setEntity } = useAddEntity(apiUserInteraction);
+
   useEffect(() => {
-     console.log("entities of recommendations: ", entities);
-  },[entities])
+    console.log("enter page: ");
+    setEntity({
+      user: currentUser,
+      product: product,
+      interactionType: InteractionType.LIKED,
+      interactionDate: new Date(),
+    });
+  }, [currentUser, product, setEntity]);
+
+  useEffect(() => {
+    console.log("entities of recommendations: ", entities);
+  }, [entities]);
 
   return (
     <>

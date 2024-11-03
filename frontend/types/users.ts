@@ -1,3 +1,5 @@
+import { ProductForm } from "./product";
+
 export type UserType = {
     id?: number;
     firstName: string;
@@ -26,4 +28,16 @@ export type UserRegisterStoreContext = {
     setUserRegisterVal: (storeUser: UserType) => void,
     userRegisterVal: UserType | null,
     
+}
+
+export enum InteractionType {
+    LIKED ,
+    PURCHASED
+}
+export type UserInteraction = {
+    id: number;
+    user: UserType,
+    product: ProductForm,
+    interactionType: InteractionType,
+    interactionDate: Date,
 }
