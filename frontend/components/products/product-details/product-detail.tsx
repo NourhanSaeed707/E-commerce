@@ -32,15 +32,13 @@ function ProductDetail({ product }) {
     images,
   };
 
-  // const apiGetAllUrl = `/api/recommendations/${currentUser?.id}`;
-  // const { entities, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
+  const apiGetAllUrl = `/api/recommendations/${currentUser?.id}`;
+  const { entities, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
 
   const apiUserInteraction = "/api/interactions/";
   const { setEntity } = useAddEntity(apiUserInteraction);
 
   useEffect(() => {
-    console.log("enter page: ", currentUser);
-    console.log();
     setEntity({
       user: currentUser,
       product: product,
@@ -49,9 +47,9 @@ function ProductDetail({ product }) {
     });
   }, [currentUser, product, setEntity]);
 
-  // useEffect(() => {
-  //   console.log("entities of recommendations: ", entities);
-  // }, [entities]);
+  useEffect(() => {
+    console.log("entities of recommendations: ", entities);
+  }, [entities]);
 
   return (
     <>

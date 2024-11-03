@@ -8,6 +8,7 @@ import com.example.demo.service.UserInteractionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 @Service
 public class UserInteractionServiceImpl implements UserInteractionService {
@@ -18,13 +19,18 @@ public class UserInteractionServiceImpl implements UserInteractionService {
 
     @Override
     public UserInteractionDTO save(UserInteractionDTO userInteractionDTO) {
-        UserProductInteraction userProductInteraction = UserProductInteraction.builder()
-                .user(modelMapper.map(userInteractionDTO.getUser(), UserEntity.class))
-                .product(modelMapper.map(userInteractionDTO.getProduct(), Product.class))
-                .interactionType(userInteractionDTO.getInteractionType())
-                .interactionDate(userInteractionDTO.getInteractionDate())
-                .build();
-        userInteractionRepository.save(userProductInteraction);
-        return userInteractionDTO;
+        List<UserProductInteraction> userProductInteractionFound = userInteractionRepository.findByUserIdAndProductIdAndInteractionType(userInteractionDTO.getUser().getId(), userInteractionDTO.getProduct().getId(), userInteractionDTO.getInteractionType());
+       System.out.println("user product found: " + userProductInteractionFound);
+        if(userProductInteractionFound.isEmpty()) {
+            UserProductInteraction userProductInteraction = UserProductInteraction.builder()
+                    .user(modelMapper.map(userInteractionDTO.getUser(), UserEntity.class))
+                    .product(modelMapper.map(userInteractionDTO.getProduct(), Product.class))
+                    .interactionType(userInteractionDTO.getInteractionType())
+                    .interactionDate(userInteractionDTO.getInteractionDate())
+                    .build();
+            userInteractionRepository.save(userProductInteraction);
+            return userInteractionDTO;
+        }
+        return null;
     }
 }
