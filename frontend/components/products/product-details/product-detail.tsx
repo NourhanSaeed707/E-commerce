@@ -8,6 +8,7 @@ import useGetAllEntity from "@/hooks/general-crud/useGetAllEntity";
 import { useAuth } from "@/context/auth-context";
 import useAddEntity from "@/hooks/general-crud/useAddEntity";
 import { InteractionType } from "@/types/users";
+import RecommendationsCarousel from "@/components/recommendations/recommendations-products";
 
 function ProductDetail({ product }) {
   const { currentUser } = useAuth();
@@ -33,7 +34,7 @@ function ProductDetail({ product }) {
   };
 
   const apiGetAllUrl = `/api/recommendations/${currentUser?.id}`;
-  const { entities, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
+  const { entities: recommendations, errors, loading, total } = useGetAllEntity(apiGetAllUrl);
 
   const apiUserInteraction = "/api/interactions/";
   const { setEntity } = useAddEntity(apiUserInteraction);
@@ -48,8 +49,8 @@ function ProductDetail({ product }) {
   }, [currentUser, product, setEntity]);
 
   useEffect(() => {
-    console.log("entities of recommendations: ", entities);
-  }, [entities]);
+    console.log("entities of recommendations: ", recommendations);
+  }, [recommendations]);
 
   return (
     <>
@@ -65,7 +66,15 @@ function ProductDetail({ product }) {
           </div>
         )}
       </div>
-      <div></div>
+      <div>
+        {/* Recommendations Carousel */}
+        {Array.isArray(recommendations) && recommendations.length > 0 && ( // Check if recommendations is array
+          <div className="mt-10">
+            <h2 className="text-xl font-semibold mb-4">Recommended for You</h2>
+            <RecommendationsCarousel products={recommendations} />
+          </div>
+        )}
+      </div>
     </>
   );
 }

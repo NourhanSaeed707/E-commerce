@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 import com.example.demo.entity.Product;
+import com.example.demo.model.ProductsDTO;
 import com.example.demo.service.Impl.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ public class RecommendationController {
     private RecommendationService recommendationService;
 
     @GetMapping("/{userId}")
-    public List<Product> getRecommendations(@PathVariable Long userId) {
+    public List<ProductsDTO> getRecommendations(@PathVariable Long userId) {
         System.out.println("insiiide get recommendation controller:");
         return recommendationService.recommendedProducts(userId);
     }
