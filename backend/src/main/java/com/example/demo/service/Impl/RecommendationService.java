@@ -3,7 +3,6 @@ import com.example.demo.entity.Product;
 import com.example.demo.entity.UserProductInteraction;
 import com.example.demo.model.ImageDTO;
 import com.example.demo.model.ProductsDTO;
-import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.UserInteractionRepository;
 import com.example.demo.repository.UserProductInteractionSpecification;
 import org.modelmapper.ModelMapper;
@@ -17,8 +16,6 @@ public class RecommendationService {
     @Autowired
     private UserInteractionRepository interactionRepository;
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
     private ModelMapper modelMapper;
 
     public List<ProductsDTO> recommendedProducts(Long userId) {
@@ -28,15 +25,10 @@ public class RecommendationService {
                 .map(interaction -> interaction.getProduct().getCategoryType().getId())
                 .collect(Collectors.toSet());
 
-        System.out.println("category ids: " + userLikedCategoryIds);
-        System.out.println("user id: " + userId);
-
         // Use Specification to find similar interactions by other users in the same categories
         List<UserProductInteraction> similarInteractions = interactionRepository.findAll(
                 UserProductInteractionSpecification.similarUserInteractions(userId, userLikedCategoryIds)
         );
-
-        System.out.println("lissssssst: " + similarInteractions);
         // Collect recommended products
         Set<Product> recommendedProducts = new HashSet<>();
         similarInteractions.forEach(interaction -> recommendedProducts.add(interaction.getProduct()));

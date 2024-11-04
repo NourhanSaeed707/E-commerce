@@ -4,7 +4,6 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import java.util.*;
 
-
 public class UserProductInteractionSpecification {
     public static Specification<UserProductInteraction> similarUserInteractions(Long userId, Set<Long> categoryIds) {
         return (root, query, criteriaBuilder) -> {

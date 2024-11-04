@@ -16,7 +16,6 @@ public class UserProductInteractionController {
     @PostMapping("/")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') ")
     public ResponseEntity<UserInteractionDTO> save(@RequestBody() UserInteractionDTO userInteractionDTO) {
-        System.out.println("insiiiide user interaction api");
          UserInteractionDTO created = userInteractionService.save(userInteractionDTO);
          return ResponseEntity.ok(created);
     }

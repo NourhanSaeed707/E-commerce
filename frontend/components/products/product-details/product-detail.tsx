@@ -48,9 +48,6 @@ function ProductDetail({ product }) {
     });
   }, [currentUser, product, setEntity]);
 
-  useEffect(() => {
-    console.log("entities of recommendations: ", recommendations);
-  }, [recommendations]);
 
   return (
     <>

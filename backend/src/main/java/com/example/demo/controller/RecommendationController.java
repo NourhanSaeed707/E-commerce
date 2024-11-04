@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-import com.example.demo.entity.Product;
 import com.example.demo.model.ProductsDTO;
 import com.example.demo.service.Impl.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ public class RecommendationController {
 
     @GetMapping("/{userId}")
     public List<ProductsDTO> getRecommendations(@PathVariable Long userId) {
-        System.out.println("insiiide get recommendation controller:");
         return recommendationService.recommendedProducts(userId);
     }
 
