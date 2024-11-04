@@ -18,10 +18,11 @@ function RecommendationsCarousel({ products = [] }) {
   };
 
   useEffect(() => {
-    console.log("proooooduct of recommednations: ", products);
+    console.log("Product recommendations: ", products);
   }, [products]);
+
   return (
-    <div className="relative">
+    <div className="relative flex items-center overflow-hidden"> {/* Add overflow-hidden here */}
       {/* Left Arrow */}
       <button
         onClick={scrollLeft}
@@ -33,16 +34,16 @@ function RecommendationsCarousel({ products = [] }) {
       {/* Recommendations List */}
       <div
         ref={carouselRef}
-        className="flex overflow-x-scroll space-x-4 scrollbar-hide"
+        className="flex space-x-4 mx-12 overflow-x-auto scrollbar-hide" // Add overflow-x-auto and scrollbar-hide
         style={{ scrollBehavior: "smooth" }}
       >
-        {products && products.map((product) => (
+        {products.map((product) => (
           <div
             key={product.id}
             className="flex-none w-48 bg-white rounded-lg shadow-md p-4"
           >
             <Image
-              src={product && product.images &&product.images[0].imageUrl}
+              src={product?.images?.[0]?.imageUrl}
               alt={product.name}
               className="h-32 w-full object-cover rounded"
             />
@@ -52,6 +53,7 @@ function RecommendationsCarousel({ products = [] }) {
         ))}
       </div>
 
+      {/* Right Arrow */}
       <button
         onClick={scrollRight}
         className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-100 p-2 rounded-full shadow-md"
