@@ -74,6 +74,8 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
           });
         }
       } catch (error) {
+        console.log("errooooooor: " , error);
+       console.log("error data: " , error.response.data);
         toast.error(`${error.response.data.message}`);
       } finally {
         setIsSubmitting(false);

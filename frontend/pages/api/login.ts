@@ -1,3 +1,4 @@
+import { error } from "console";
 import withSession from "../../sessionConfig";
 import client from "@/client/client";
 
@@ -12,6 +13,8 @@ export default withSession(async (req: any, res: any) => {
     await req.session.save();
     res.status(200).json({ message: "Logged in" });
   } else {
+    console.log("errooooooooooor seesion");
+    console.log("response statuuuuuuuuuus: ", response.status);
     res.status(401).json({ message: "Invalid email or password" });
   }
 });
