@@ -51,7 +51,6 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletResponse response) {
         if (rateLimiterService.isRateLimited()) {
-            System.out.println("liiiiiiiiiiimiiiiiite");
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return AuthenticationResponse.builder().message("Too many login requests").status(429).build();
         }
