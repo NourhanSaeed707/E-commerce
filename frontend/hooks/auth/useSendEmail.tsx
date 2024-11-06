@@ -1,5 +1,5 @@
 import client from "@/client/client";
-import { UserType } from "@/types/users";
+import { UserType, UserTypeOption } from "@/types/users";
 import { AxiosResponse } from "axios";
 import { useCallback, useEffect, useState } from "react";
 
@@ -10,11 +10,11 @@ export default function useSendEmail() {
   const [storeResponse, setStoreResponse] = useState<AxiosResponse | null>(
     null
   );
-  const [userDataForEmail, setUserDataForEmail] = useState<UserType | null>(
+  const [userDataForEmail, setUserDataForEmail] = useState<UserTypeOption | null>(
     null
   );
 
-  const callApi = useCallback(async (user: UserType) => {
+  const callApi = useCallback(async (user: UserTypeOption) => {
     setLoading(true);
     await client
       .post(apiUrl, user, {

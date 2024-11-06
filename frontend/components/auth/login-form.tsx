@@ -13,9 +13,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login , setEmail} = useAuth();
 
   const onFinish = (values: LoginUser) => {
+    setEmail(values.email);
     login(values);
   };
 

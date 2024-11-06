@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 import java.util.Optional;
 
 @CrossOrigin
@@ -27,6 +29,7 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate (@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+        AuthenticationResponse authenticationResponse = authenticationService.authenticate(request,response);
         return ResponseEntity.ok(authenticationService.authenticate(request,response));
     }
     @GetMapping("/user")

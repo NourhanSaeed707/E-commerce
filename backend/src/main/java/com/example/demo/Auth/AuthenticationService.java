@@ -50,7 +50,11 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletResponse response) {
-       
+        if (rateLimiterService.isRateLimited()) {
+            System.out.println("liiiiiiiiiiimiiiiiite");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return AuthenticationResponse.builder().message("Too many login requests").status(429).build();
+        }
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -70,11 +74,10 @@ public class AuthenticationService {
                     .maxAge(86400) // 1 day
                     .build();
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-            return AuthenticationResponse.builder().token(jwtToken).build();
+            return AuthenticationResponse.builder().token(jwtToken).status(200).build();
         } catch (BadCredentialsException e) {
-            System.out.println("annnnnnnnnnauthooot");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return AuthenticationResponse.builder().message("Invalid email or password").build();
+            return AuthenticationResponse.builder().message("Invalid email or password").status(401).build();
         } catch (UsernameNotFoundException e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return AuthenticationResponse.builder().message("User not found").build();

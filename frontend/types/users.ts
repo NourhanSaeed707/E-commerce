@@ -10,6 +10,14 @@ export type UserType = {
     password: string;
     role?: string;
 }
+export type UserTypeOption = {
+    id?: number;
+    firstName?: string;
+    lastName?: string;
+    nationality?: string;
+    mobile?: string;
+    email?: string;
+}
 export type LoginUser = {
     email: string;
     password: string;
@@ -21,6 +29,8 @@ export type UserContext = {
     setCurrentUser: (user: UserType) => void;
     login: (values: LoginUser) => void;
     logout: () => void;
+    setEmail?: (email: string) => void,
+    email?: string;
 }
 
 export type UserRegisterStoreContext = {
