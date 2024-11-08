@@ -1,10 +1,7 @@
 package com.example.demo.service.Impl;
 import com.example.demo.Exception.Products.ProductNotFoundException;
 import com.example.demo.entity.*;
-import com.example.demo.model.CheckoutDTO;
-import com.example.demo.model.CreditCardInfoDTO;
-import com.example.demo.model.OrdersDTO;
-import com.example.demo.model.ShippingInfoDTO;
+import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.CheckoutService;
 import org.modelmapper.ModelMapper;
@@ -26,6 +23,8 @@ public class CheckoutServiceImpl implements CheckoutService {
     private OrderProductRepository orderProductRepository;
     @Autowired
     protected ProductRepository productRepository;
+    @Autowired
+    private KafkaProducerService kafkaProducerService;
 
     @Override
     public CheckoutDTO processCheckout(CheckoutDTO checkoutDTO) {
@@ -38,7 +37,15 @@ public class CheckoutServiceImpl implements CheckoutService {
             creditCardInfo = saveCreditCardInfo(checkoutDTO.getCreditCardInfo());
         }
         System.out.println("afteeeeeer condition");
-        saveOrder(checkoutDTO.getOrders(), shippingInfo, creditCardInfo);
+        List<Orders> savedOrders = saveOrder(checkoutDTO.getOrders(), shippingInfo, creditCardInfo);
+
+        System.out.println("afteeeeer save order before send email");
+        // Send Kafka message for each order
+        for (Orders order : savedOrders) {
+            OrderMessageDTO messageDTO = new OrderMessageDTO(order.getId(), order.getUser().getEmail());
+            kafkaProducerService.sendMessage(messageDTO);
+        }
+
         return checkoutDTO;
     }
 

@@ -16,6 +16,8 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender mailSender;
     @Autowired
     private CodeService codeService;
+    @Autowired
+    private KafkaProducerService kafkaProducerService;
 
     @Cacheable("myCache")
     @Override
