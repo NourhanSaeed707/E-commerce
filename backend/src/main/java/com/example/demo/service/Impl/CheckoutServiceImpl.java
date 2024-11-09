@@ -1,12 +1,14 @@
 package com.example.demo.service.Impl;
-import com.example.demo.Exception.Products.ProductNotFoundException;
+import com.example.demo.Config.MessageConsumer;
 import com.example.demo.entity.*;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.CheckoutService;
+import jakarta.mail.MessagingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Service
@@ -23,11 +25,12 @@ public class CheckoutServiceImpl implements CheckoutService {
     private OrderProductRepository orderProductRepository;
     @Autowired
     protected ProductRepository productRepository;
+
     @Autowired
-    private KafkaProducerService kafkaProducerService;
+    private MessageConsumer messageConsumer;
 
     @Override
-    public CheckoutDTO processCheckout(CheckoutDTO checkoutDTO) {
+    public CheckoutDTO processCheckout(CheckoutDTO checkoutDTO) throws MessagingException, UnsupportedEncodingException {
         // save shipping info
         ShippingInfo shippingInfo = saveShippingInfo(checkoutDTO.getShippingInfo());
         System.out.println("sa");
@@ -43,7 +46,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         // Send Kafka message for each order
         for (Orders order : savedOrders) {
             OrderMessageDTO messageDTO = new OrderMessageDTO(order.getId(), order.getUser().getEmail());
-            kafkaProducerService.sendMessage(messageDTO);
+//            kafkaProducerService.sendMessage(messageDTO);
+            messageConsumer.listen(messageDTO);
         }
 
         return checkoutDTO;
