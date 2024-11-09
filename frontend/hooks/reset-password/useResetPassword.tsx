@@ -10,7 +10,9 @@ export default function useResetPassword() {
   const [storeResponse, setStoreResponse] = useState<AxiosResponse | null>(
     null
   );
-  const [resetPassword, setResetPassword] = useState<ResetPasswordBody | null >(null);
+  const [resetPassword, setResetPassword] = useState<ResetPasswordBody | null>(
+    null
+  );
 
   const callApi = useCallback(async (resetPassword: ResetPasswordBody) => {
     setLoading(true);
@@ -36,7 +38,7 @@ export default function useResetPassword() {
     if (resetPassword) {
       callApi(resetPassword);
     }
-  }, [resetPassword]);
+  }, [callApi, resetPassword]);
 
   return {
     error,

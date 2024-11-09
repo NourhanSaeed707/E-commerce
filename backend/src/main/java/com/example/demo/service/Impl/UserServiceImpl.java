@@ -6,6 +6,7 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -71,7 +75,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Reset token has expired");
         }
         // Reset the password and clear the reset token
-        user.setPassword(resetPasswordDTO.getNewPassword()); // You should hash the password here
+        user.setPassword(passwordEncoder.encode(resetPasswordDTO.getNewPassword())); // You should hash the password here
         user.setResetToken(null);
         user.setResetTokenExpiration(null);
         return userRepository.save(user);

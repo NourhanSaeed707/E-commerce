@@ -31,7 +31,8 @@ public class SecurityConfiguration {
                                 "/api/product/get/{id}",
                                 "/api/product/get-all",
                                 "/api/product-color/get/images/{productId}/{colorId}",
-                                "/api/auth/send-forget-password"
+                                "/api/auth/send-forget-password",
+                                "/api/auth/reset-password"
                                 ).permitAll()
                         .anyRequest().authenticated()
                 )
