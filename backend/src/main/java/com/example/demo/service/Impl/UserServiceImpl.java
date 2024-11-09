@@ -1,12 +1,12 @@
 package  com.example.demo.service.Impl;
 import com.example.demo.Exception.User.UserNotFound;
 import com.example.demo.entity.UserEntity;
+import com.example.demo.model.ResetPasswordDTO;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -47,18 +47,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void sendPasswordResetEmail(String email) throws MessagingException, UnsupportedEncodingException {
-
         UserEntity user = userRepository.findByEmail(email).orElseThrow( () -> new RuntimeException("User not found"));
-
         // Generate reset token
         String resetToken = UUID.randomUUID().toString();
         LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(EXPIRATION_TIME);
-
         // Store token in user entity or a separate table (you should store it and its expiration time)
         user.setResetToken(resetToken);
         user.setResetTokenExpiration(expirationTime);
         userRepository.save(user);
-
         // Send email with reset link
         String resetLink = "http://localhost:3000/reset-password?token=" + resetToken;
         String content = "<h1>Password Reset Request</h1>" +
@@ -68,16 +64,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity resetPassword(String token, String newPassword) {
-        UserEntity user = userRepository.findByResetToken(token); // Handle invalid token case
-
+    public UserEntity resetPassword(ResetPasswordDTO resetPasswordDTO) {
+        UserEntity user = userRepository.findByResetToken(resetPasswordDTO.getToken()); // Handle invalid token case
         // Check if token is expired
         if (user.getResetTokenExpiration().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Reset token has expired");
         }
-
         // Reset the password and clear the reset token
-        user.setPassword(newPassword); // You should hash the password here
+        user.setPassword(resetPasswordDTO.getNewPassword()); // You should hash the password here
         user.setResetToken(null);
         user.setResetTokenExpiration(null);
         return userRepository.save(user);

@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 import com.example.demo.entity.UserEntity;
+import com.example.demo.model.ResetPasswordDTO;
 import com.example.demo.service.UserService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
@@ -32,5 +34,16 @@ public class UserController {
     public void sendResetPassword(@RequestBody UserEntity user) throws MessagingException, UnsupportedEncodingException {
         System.out.println("insiiide send forget password email: " + user.getEmail());
          userService.sendPasswordResetEmail(user.getEmail());
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) throws MessagingException, UnsupportedEncodingException {
+        try {
+            UserEntity use = userService.resetPassword(resetPasswordDTO);
+            return ResponseEntity.ok(" password reset successfully for user: " + use.getEmail());
+        }
+        catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
