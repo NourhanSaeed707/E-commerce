@@ -38,6 +38,7 @@ public class UserController {
 
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) throws MessagingException, UnsupportedEncodingException {
+        System.out.println("reset password api in controller");
         try {
             UserEntity use = userService.resetPassword(resetPasswordDTO);
             return ResponseEntity.ok(" password reset successfully for user: " + use.getEmail());

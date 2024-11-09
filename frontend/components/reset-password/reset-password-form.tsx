@@ -1,11 +1,20 @@
 import React from "react";
-import { Form, Button, message } from "antd";
+import { Form, Button } from "antd";
 import ResetPasswordFields from "./reset-password-fields";
+import useResetPassword from "@/hooks/reset-password/useResetPassword";
+import { useRouter } from "next/router";
 
 function ResetPasswordForm() {
+  const router = useRouter();
+  const { setResetPassword } = useResetPassword();
   const [form] = Form.useForm();
+  const { token } = router.query;
   const onFinish = (values) => {
     console.log("values: ", values);
+    setResetPassword({
+      token: token,
+      newPassword: values.newPassword,
+    });
   };
 
   return (
