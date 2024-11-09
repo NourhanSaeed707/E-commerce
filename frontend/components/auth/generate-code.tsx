@@ -6,7 +6,7 @@ import { IVerifyCodeModel } from "@/types/register";
 import CountdownTimer from "../countdown/count-down-timer";
 import useCodeVerifyFacade from "@/hooks/auth/useCodeVerifyFacade";
 
-const GenerateCode = () => {
+const GenerateCode = ({ forgetPassword }) => {
   const [timeLeft, setTimeLeft] = useState<number>(120); // 120 seconds for 2 minutes
   const [disableResend, setDisableResend] = useState<boolean>(true);
   const router = useRouter();
@@ -15,11 +15,16 @@ const GenerateCode = () => {
     useCodeVerifyFacade();
 
   const onFinish = (values: any) => {
-    const verifyCodeModelVal: IVerifyCodeModel = {
-      email: userRegisterVal?.email ? userRegisterVal?.email : "",
-      code: values.code,
-    };
-    setVerifyModel(verifyCodeModelVal);
+    if (forgetPassword) {
+      console.log("forgeeeeeeeeeet")
+      router.push("/products");
+    } else {
+      const verifyCodeModelVal: IVerifyCodeModel = {
+        email: userRegisterVal?.email ? userRegisterVal?.email : "",
+        code: values.code,
+      };
+      setVerifyModel(verifyCodeModelVal);
+    }
   };
 
   useEffect(() => {

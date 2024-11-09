@@ -20,7 +20,7 @@ const AuthContext = createContext<UserContext>({
   isSubmitting: false,
   setCurrentUser: () => {},
   setEmail: () => {},
-  email: null
+  email: null,
 });
 
 type ProviderProps = {
@@ -31,7 +31,7 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<UserType | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [email, setEmail]= useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const { data: user, mutate } = useSWR<UserType>(
     "/api/v2/auth/user",
@@ -77,12 +77,7 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
           });
         }
       } catch (error) {
-        console.log("errooooooor: ", error);
-        console.log("eroooor reponse status: ", error.response.status);
-        console.log("error data: ", error.response.data);
         if (error.response.status == 429) {
-          console.log("sdsds");
-          console.log("emaaaaaaail: ", email);
           router.push("/forget-password");
         }
         toast.error(`${error.response.data.message}`);
@@ -90,7 +85,7 @@ export default function CurrentUserProvider({ children }: ProviderProps) {
         setIsSubmitting(false);
       }
     },
-    [mutate, router,  email]
+    [mutate, router]
   );
 
   const logout = useCallback(async () => {

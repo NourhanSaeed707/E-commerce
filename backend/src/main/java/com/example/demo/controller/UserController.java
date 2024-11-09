@@ -1,12 +1,14 @@
 package com.example.demo.controller;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.service.UserService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.io.UnsupportedEncodingException;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/api/auth")
 public class UserController {
     @Autowired
@@ -24,5 +26,11 @@ public class UserController {
     public ResponseEntity<UserEntity> update(@PathVariable Long id, @RequestBody UserEntity userEntity) throws Exception {
         UserEntity updated = userService.update(id, userEntity);
         return ResponseEntity.ok(updated);
+    }
+
+    @PostMapping("/send-forget-password")
+    public void sendResetPassword(@RequestBody UserEntity user) throws MessagingException, UnsupportedEncodingException {
+        System.out.println("insiiide send forget password email: " + user.getEmail());
+         userService.sendPasswordResetEmail(user.getEmail());
     }
 }

@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class UserEntity implements UserDetails {
     private String nationality;
     @Enumerated(EnumType.STRING)
     private Role role;
+    // New fields for password reset
+    private String resetToken;
+    private LocalDateTime resetTokenExpiration;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

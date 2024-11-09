@@ -25,7 +25,9 @@ public class RegisterFacadeServiceImpl implements RegisterFacadeService {
 
     @Override
     public  boolean verifyRegisterUserCode(VerifyDTO verifyDTO) {
+        System.out.println("veriiiiiiiiiify code");
         boolean isCodeValid = codeService.verifyGeneratedCode(verifyDTO);
+        System.out.println("veriiiiiiiiiify code" + isCodeValid);
         if(isCodeValid) {
             return true;
         }

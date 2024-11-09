@@ -30,7 +30,8 @@ public class SecurityConfiguration {
                                 "/api/sms/**",
                                 "/api/product/get/{id}",
                                 "/api/product/get-all",
-                                "/api/product-color/get/images/{productId}/{colorId}"
+                                "/api/product-color/get/images/{productId}/{colorId}",
+                                "/api/auth/send-forget-password"
                                 ).permitAll()
                         .anyRequest().authenticated()
                 )
