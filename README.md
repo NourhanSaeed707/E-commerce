@@ -54,10 +54,11 @@ Prerequisites
 git clone [https://github.com/your-username/your-repo-name.git](https://github.com/NourhanSaeed707/E-commerce.git)
 
 2- Frontend Setup:
-Navigate to the frontend directory: 
+- Navigate to the frontend directory: 
 - **cd frontend**
 - **install npm**
 - start server: **npm run dev**
+  
 3- Backend Setup:
 - Open the backend project in your preferred IDE.
 - Configure the application.properties file with your MySQL, Redis, and Kafka configurations.
