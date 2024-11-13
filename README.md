@@ -40,3 +40,11 @@ This project emphasizes clean architecture and efficient design by incorporating
 - Database: MySQL as the primary relational database, with data caching in Redis to minimize read latency.
 - Messaging: Kafka as the backbone for asynchronous communication, enhancing the platform's scalability and fault tolerance.
 - Rate Limiting: Rate limiter implemented to control access to critical endpoints, improving security and resilience.
+
+## Getting Started
+Prerequisites
+- Node.js and npm (for the frontend)
+- Java (Java Spring Boot)
+- MySQL (Database)
+- Redis (Caching)
+- Kafka (Messaging queue)
