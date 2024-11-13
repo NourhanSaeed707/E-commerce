@@ -12,3 +12,11 @@
 - High-Performance Caching: Integrated Redis for caching frequently accessed data.
 - Messaging Queue: Using Kafka for reliable and scalable message queuing between microservices.
 - Rate Limiting: Implemented rate limiting to protect APIs from abuse and ensure system stability.
+
+## Technologies & Dependencies:
+## Frontend
+- Next.js: React-based framework for server-rendered and static websites.
+- TypeScript: Static typing for enhanced code quality and maintainability.
+- Tailwind CSS: Utility-first CSS framework for custom, responsive designs.
+- Ant Design: UI library for a consistent and professional design.
+- SWR: Data fetching and caching for a better user experience.
