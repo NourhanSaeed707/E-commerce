@@ -33,3 +33,10 @@ This project emphasizes clean architecture and efficient design by incorporating
 
 - Facade Pattern: Provides a unified interface for handling complex operations like user registration and order processing.
 - Observer Pattern: Decouples components, allowing the system to react to various events (e.g., new order, stock update) through subscriptions and notifications.
+
+## System Architecture
+- Frontend: Built with Next.js to leverage server-side rendering (SSR) and client-side rendering (CSR) for a responsive, fast-loading user experience.
+- Backend: Java Spring-based RESTful services, handling business logic and database interactions efficiently.
+- Database: MySQL as the primary relational database, with data caching in Redis to minimize read latency.
+- Messaging: Kafka as the backbone for asynchronous communication, enhancing the platform's scalability and fault tolerance.
+- Rate Limiting: Rate limiter implemented to control access to critical endpoints, improving security and resilience.
