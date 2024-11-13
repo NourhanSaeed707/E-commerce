@@ -62,6 +62,12 @@ git clone [https://github.com/your-username/your-repo-name.git](https://github.c
 3- Backend Setup:
 - Open the backend project in your preferred IDE.
 - Configure the application.properties file with your MySQL, Redis, and Kafka configurations.
-- Run the Spring Boot application:
+- Run the Spring Boot application
 
+4- Database Setup: 
+- Ensure MySQL is running and create the necessary databases and tables.
+- Use schema.sql and data.sql files for initial setup, if available.
 
+## Usage
+Visit http://localhost:3000 to access the frontend.
+The backend API can be accessed at http://localhost:8080/api.
