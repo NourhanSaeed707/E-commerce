@@ -50,7 +50,6 @@ export const Checkout = () => {
         shippingInfo: modifiedShippingInfo,
         creditCardInfo: creditCardInfo,
       };
-      console.log("cheeeeck out: ", checkout);
       setEntity(checkout);
       router.push("/order/success")
     } catch (error) {

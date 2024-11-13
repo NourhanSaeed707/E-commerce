@@ -59,7 +59,6 @@
 //   }
 // });
 
-import { useRouter } from "next/router";
 import withSession from "../../sessionConfig";
 import client from "@/client/client";
 
@@ -71,10 +70,7 @@ export default withSession(async (req: any, res: any) => {
     password,
   });
 
-  console.log("respooooooooooonse: ", response);
-  console.log("reponnnse data: ", response?.data);
   if (response.status === 200 && response.data && response.data.token) {
-    console.log("loooooooooogin right");
     req.session.set("user", { token: response.data.token });
     await req.session.save();
     return res.status(200).json({ message: "Logged in" });
@@ -82,13 +78,11 @@ export default withSession(async (req: any, res: any) => {
     response?.data?.status === 401 &&
     response?.data?.message == "Invalid email or password"
   ) {
-    console.log("secoooooond condition");
     return res.status(401).json({ message: "Invalid email or password" });
   } else if (
     response?.data?.status === 429 &&
     response?.data?.message == "Too many login requests"
   ) {
-    console.log("thiiiiiiiiird condition");
     return res.status(429).json({ message: "Too many login requests" });
   }
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Buttons, Login, Register } from "@/constants/auth";
@@ -13,7 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const router = useRouter();
-  const { login , setEmail} = useAuth();
+  const { login, setEmail } = useAuth();
+  const [emailVal, setEmailValue] = useState<string>('');
 
   const onFinish = (values: LoginUser) => {
     setEmail(values.email);
@@ -38,6 +39,7 @@ function LoginForm() {
           <Input
             prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder={Register.PLACEHOLDER_EMAIL}
+            onChange={(e) => setEmailValue(e.target.value)}
           />
         </Form.Item>
         <Form.Item
@@ -60,7 +62,7 @@ function LoginForm() {
             <Link href="/auth/register" className="createNewAccStyle">
               {Login.CREATE_NEW_ACCOUNT}
             </Link>
-            <Link href="/forgot-password" className="forgotPasswordStyle">
+            <Link href={`/forget-password?emailVal=${encodeURIComponent(emailVal)}`} className="forgotPasswordStyle">
               {Login.FORGOT_PASSWORD}
             </Link>
           </div>

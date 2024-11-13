@@ -10,7 +10,6 @@ function ResetPasswordForm() {
   const [form] = Form.useForm();
   const { token } = router.query;
   const onFinish = (values) => {
-    console.log("values: ", values);
     setResetPassword({
       token: token,
       newPassword: values.newPassword,

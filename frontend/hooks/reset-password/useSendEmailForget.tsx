@@ -36,7 +36,6 @@ export default function useSendEmailForget() {
 
   useEffect(() => {
     if (userDataForEmail) {
-      console.log("user daataa: ", userDataForEmail);
       callApi(userDataForEmail);
     }
   }, [callApi, userDataForEmail]);

@@ -17,10 +17,6 @@ function RecommendationsCarousel({ products = [] }) {
     }
   };
 
-  useEffect(() => {
-    console.log("Product recommendations: ", products);
-  }, [products]);
-
   return (
     <div className="relative flex items-center overflow-hidden"> {/* Add overflow-hidden here */}
       {/* Left Arrow */}

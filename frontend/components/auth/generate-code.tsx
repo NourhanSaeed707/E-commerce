@@ -16,7 +16,6 @@ const GenerateCode = ({ forgetPassword }) => {
 
   const onFinish = (values: any) => {
     if (forgetPassword) {
-      console.log("forgeeeeeeeeeet")
       router.push("/products");
     } else {
       const verifyCodeModelVal: IVerifyCodeModel = {
