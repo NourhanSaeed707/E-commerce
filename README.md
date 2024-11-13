@@ -20,3 +20,10 @@
 - Tailwind CSS: Utility-first CSS framework for custom, responsive designs.
 - Ant Design: UI library for a consistent and professional design.
 - SWR: Data fetching and caching for a better user experience.
+
+## Backend
+- Java Spring: Main backend framework for REST API and service management.
+- MySQL: Relational database for data storage.
+- Redis: In-memory data store for caching and reducing database load.
+- Kafka: Distributed event streaming for reliable communication between services.
+- Rate Limiter: Control traffic and protect endpoints from overuse
