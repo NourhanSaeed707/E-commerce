@@ -13,7 +13,7 @@
 - Messaging Queue: Using Kafka for reliable and scalable message queuing between microservices.
 - Rate Limiting: Implemented rate limiting to protect APIs from abuse and ensure system stability.
 
-## Technologies & Dependencies:
+# Technologies & Dependencies:
 ## Frontend
 - Next.js: React-based framework for server-rendered and static websites.
 - TypeScript: Static typing for enhanced code quality and maintainability.
