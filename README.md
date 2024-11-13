@@ -26,4 +26,10 @@
 - MySQL: Relational database for data storage.
 - Redis: In-memory data store for caching and reducing database load.
 - Kafka: Distributed event streaming for reliable communication between services.
-- Rate Limiter: Control traffic and protect endpoints from overuse
+- Rate Limiter: Control traffic and protect endpoints from overuse.
+
+## Design Patterns:
+This project emphasizes clean architecture and efficient design by incorporating the following patterns:
+
+- Facade Pattern: Provides a unified interface for handling complex operations like user registration and order processing.
+- Observer Pattern: Decouples components, allowing the system to react to various events (e.g., new order, stock update) through subscriptions and notifications.
