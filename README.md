@@ -12,6 +12,7 @@
 - High-Performance Caching: Integrated Redis for caching frequently accessed data.
 - Messaging Queue: Using Kafka for reliable and scalable message queuing between microservices.
 - Rate Limiting: Implemented rate limiting to protect APIs from abuse and ensure system stability.
+- Recommendation System: Built a collaborative filtering-based recommendation engine to suggest products to users based on other users' purchase behavior.
 
 ## Technologies & Dependencies:
 ## Frontend
